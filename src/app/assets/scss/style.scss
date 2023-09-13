@@ -1,0 +1,1069 @@
+@import "_variables.scss";
+@import "bootstrap/bootstrap.scss";
+@import "mixins.scss";
+@import "common.scss";
+@import "elysium-web-icons";
+
+@font-face {
+  @include fontface($ArchivoExtraLight, "Archivo-ExtraLight");
+}
+
+@font-face {
+  @include fontface($ArchivoLight, "Archivo-Light");
+}
+
+@font-face {
+  @include fontface($ArchivoMedium, "Archivo-Medium");
+}
+
+@font-face {
+  @include fontface($ArchivoSemiBold, "Archivo-SemiBold");
+}
+
+@font-face {
+  @include fontface($ArchivoBold, "Archivo-Bold");
+}
+
+@font-face {
+  @include fontface($ArchivoBlack, "Archivo-Black");
+}
+
+@font-face {
+  @include fontface($RobotoLight, "Roboto-Light");
+}
+
+@font-face {
+  @include fontface($RobotoRegular, "Roboto-Regular");
+}
+
+@font-face {
+  @include fontface($RobotoBold, "Roboto-Bold");
+}
+
+body {
+  background-color: #140533;
+  font-family: $RobotoRegular;
+  font-size: $BodyTextSize;
+  font-weight: normal;
+  color: $BodyTextColor;
+}
+
+p {
+  font-size: 14px;
+  color: #fff;
+}
+
+h1 {
+  font-family: $ArchivoBold;
+  font-size: 84px;
+}
+
+h2 {
+  font-family: $ArchivoBold;
+  font-size: 72px;
+}
+
+h3 {
+  font-family: $ArchivoBold;
+  font-size: 56px;
+  color: #fff;
+}
+
+h4 {
+  font-family: $ArchivoSemiBold;
+  font-size: 32px;
+}
+
+h5 {
+  font-family: $ArchivoBold;
+  font-size: 28px;
+}
+
+h6 {
+  font-family: $RobotoBold;
+  font-size: 14px;
+}
+
+h6 {
+  font-family: $RobotoBold;
+  font-size: 14px;
+}
+
+.F_12 {
+  font-size: 12px;
+}
+
+.F_13 {
+  font-size: 13px;
+}
+
+.F_14 {
+  font-size: 14px;
+}
+
+.F_16 {
+  font-size: 16px;
+}
+
+.F_18 {
+  font-size: 18px;
+}
+
+.F_20 {
+  font-size: 20px;
+}
+
+.F_22 {
+  font-size: 22px;
+}
+
+.F_24 {
+  font-size: 24px;
+}
+
+.F_26 {
+  font-size: 26px;
+}
+
+.F_28 {
+  font-size: 28px;
+}
+
+.F_32 {
+  font-size: 32px;
+}
+
+.F_36 {
+  font-size: 36px;
+}
+
+.F_48 {
+  font-size: 48px;
+}
+
+.active {
+  color: #9fc131;
+}
+
+.Roboto-Light {
+  font-family: $RobotoLight;
+}
+.specificsmall-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  background-size: cover;
+}
+.gray-color {
+  color: #9ea5b4;
+}
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 0.5;
+  color: #93908b;
+}
+.card-img-top {
+  height: 230px;
+}
+.parrot-color {
+  color: #9fc131;
+}
+
+header {
+  .navbar {
+    .navbar-brand {
+      max-width: 195px;
+    }
+
+    .navbar-collapse {
+      > .navbar-nav {
+        font-size: 14px;
+
+        > .nav-link {
+          padding: 0;
+          letter-spacing: 0.28px;
+          color: #fff;
+          &:hover {
+            color: #9ea5b4;
+          }
+        }
+      }
+    }
+  }
+}
+
+.btn-danger {
+  font-size: 12px;
+}
+.W-80 {
+  width: 80px;
+}
+.tokenimg {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background: cover;
+}
+
+#EthereumAccessible,
+#CompletedProjects,
+.ElysiumGrow {
+  &.RadialGradient {
+    &:before {
+      top: -128px;
+    }
+  }
+}
+
+.radius-10 {
+  border-radius: 10px;
+}
+
+.wrapper {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  height: calc(100vh - 103px);
+  min-height: 400px;
+
+  &.Tiersystem {
+    height: 100%;
+  }
+
+  h1 {
+    font-size: 132px;
+  }
+}
+.tabMaticpyrimg .Farms {
+  height: 100px;
+  width: 100px;
+}
+
+.Farmspyricon {
+  height: 42px;
+  width: 42px;
+  position: absolute;
+  left: 64px;
+  top: 38px;
+}
+.Farms {
+  height: 80px;
+  width: 80px;
+}
+#EthereumAccessible,
+.ElysiumGrow {
+  &.RadialGradient {
+    &:before {
+      max-width: 474px;
+      height: 430px;
+      top: -181px;
+      right: 37%;
+    }
+  }
+}
+
+.TierBox {
+  background: transparent
+    linear-gradient(359deg, rgba(252, 84, 72, 0) 82%, #bf3d96 105%);
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(48, 28, 80, 0.55);
+    z-index: 0;
+    border-radius: 0.75rem;
+  }
+}
+
+.BG-Tier {
+  background-color: #574380;
+}
+
+.About-Project {
+  &::after {
+    content: "";
+    @include absolute;
+    border-right: 1px solid #c9b3ed;
+    opacity: 0.27;
+    top: 106px;
+    bottom: 0;
+    left: 0;
+    right: 21px;
+  }
+}
+
+.profile-bnr {
+  .ProfileDummy {
+    border-radius: 50%;
+    height: 160px;
+    width: 160px;
+    text-align: center;
+  }
+}
+
+.CrowdSale {
+  background: rgba(30, 14, 62, 32%) 0% 0% no-repeat padding-box;
+  border-radius: 24px;
+
+  .pyricon {
+    position: absolute;
+    left: 37px;
+    top: 19px;
+
+    &.tabpyr {
+      height: 24px;
+      width: 24px;
+    }
+  }
+
+  .tabsimg {
+    height: 48px;
+    width: 48px;
+  }
+
+  &.TotalRaised {
+    border: 1px solid #35245a;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: $RobotoRegular;
+    cursor: pointer;
+
+    &.active {
+      background-color: #513d7b;
+    }
+
+    &:hover {
+      background-color: #513d7b;
+    }
+    &.socialicon {
+      background-color: #c1bbcb;
+      top: 42px;
+      right: 0;
+    }
+  }
+}
+
+#BestTechnology {
+  background-color: rgba(87, 67, 128, 0.25);
+  margin-top: -150px;
+  padding-top: 350px;
+  padding-bottom: 100px;
+}
+
+#ProcessingTransactions {
+  background-color: rgba(87, 67, 128, 0.25);
+  padding-bottom: 60px;
+
+  &.RadialGradient {
+    &::before {
+      top: -188px;
+    }
+  }
+}
+
+#GroundbreakingTechnology {
+  .min-height-68 {
+    min-height: 68px;
+  }
+}
+
+#BuildingElysium {
+  &.RadialGradient {
+    &:before {
+      top: -207px;
+      left: 0;
+      margin: auto;
+      right: 0;
+    }
+  }
+
+  .ImgTeamBox {
+    .ImgTeam {
+      max-width: 424px;
+      max-height: 424px;
+      border-radius: 20px;
+    }
+
+    &:before {
+      content: "";
+      @include absolute(0, 0, 0, 0);
+      background-color: rgba($BgPurple, 0.8);
+      mix-blend-mode: screen;
+      border-radius: 20px;
+      z-index: 1;
+    }
+  }
+}
+
+#TalkTown {
+  background-color: rgba(87, 67, 128, 0.25);
+
+  .NewsImg {
+    max-width: 200px;
+    height: 140px;
+  }
+}
+
+#ElysiumTogether,
+#ParachainSubstrate {
+  &.RadialGradient {
+    &:before {
+      max-width: 430px;
+      height: 430px;
+      top: -100px;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+#ElysiumSubstrate {
+  background-color: rgba(#574380, 0.25);
+
+  .SubstrateGradientBox {
+    background: linear-gradient(
+      to right,
+      rgba(173, 45, 181, 0.6),
+      rgba(55, 42, 81, 1)
+    );
+    padding: 1px;
+
+    > div {
+      background-color: #140533;
+
+      &:before {
+        background: transparent
+          radial-gradient(closest-side at 30% 50%, #ff16cb 0%, #24144600 100%)
+          0% 0% no-repeat padding-box;
+        mix-blend-mode: color-dodge;
+        opacity: 0.7;
+        content: "";
+        @include absolute(0, 0, 0, -70%);
+      }
+    }
+  }
+}
+
+#InnovateInspire {
+  .join-btn {
+    border: solid 2px transparent;
+    background-color: #ada7b7;
+    color: #140533;
+
+    &:hover {
+      border: solid 2px rgba(173, 167, 183, 0.2);
+      background-color: rgba(173, 167, 183, 0.1);
+      color: #ada7b7;
+    }
+  }
+}
+
+#CompletedProjects {
+  .GradientBox {
+    min-height: 397px;
+
+    &:before {
+      border-radius: 0.75rem;
+    }
+
+    &:after {
+      background-repeat: no-repeat;
+      background-position: top center;
+      background-size: 100% auto;
+      content: "";
+      @include absolute(0, 0, 0, 0);
+      @include transition(all 0.2s);
+    }
+
+    p {
+      height: 0;
+      opacity: 0;
+      @include transition(all 0.3s);
+    }
+
+    &:hover {
+      p {
+        height: 60px;
+        opacity: 1;
+        margin-top: 1rem;
+      }
+
+      &:after {
+        transform: scale(1.1);
+      }
+    }
+
+    &.Discord {
+      &:after {
+        background-image: url("../images/bg-discord.png");
+      }
+    }
+
+    &.Github {
+      &:after {
+        background-image: url("../images/bg-github.png");
+      }
+    }
+
+    &.Reddit {
+      &:after {
+        background-image: url("../images/bg-reddit.png");
+      }
+    }
+
+    &.Twitter {
+      &:after {
+        background-image: url("../images/bg-twitter.png");
+      }
+    }
+  }
+}
+
+.ElysiumGrow {
+  .GradientBox {
+    min-height: 397px;
+
+    &:before {
+      border-radius: 0.75rem;
+    }
+
+    &:after {
+      background-repeat: no-repeat;
+      background-position: top center;
+      background-size: 100% auto;
+      content: "";
+      @include absolute(0, 0, 0, 0);
+      @include transition(all 0.2s);
+    }
+
+    p {
+      height: 0;
+      opacity: 0;
+      @include transition(all 0.3s);
+    }
+
+    &:hover {
+      p {
+        height: 60px;
+        opacity: 1;
+        margin-top: 1rem;
+      }
+
+      &:after {
+        transform: scale(1.1);
+      }
+    }
+
+    &.Discord {
+      &:after {
+        background-image: url("../images/bg-discord.png");
+      }
+    }
+
+    &.Github {
+      &:after {
+        background-image: url("../images/bg-github.png");
+      }
+    }
+
+    &.Reddit {
+      &:after {
+        background-image: url("../images/bg-reddit.png");
+      }
+    }
+
+    &.Twitter {
+      &:after {
+        background-image: url("../images/bg-twitter.png");
+      }
+    }
+  }
+}
+
+#BecomeValidator {
+  background-color: rgba(#574380, 0.25);
+  margin-bottom: -180px;
+  padding-bottom: 250px;
+
+  &.RadialGradient {
+    &:before {
+      max-width: 430px;
+      height: 430px;
+      left: 120px;
+      top: -15px;
+    }
+  }
+}
+
+#UpcomingEvent {
+  background: url("../images/bnr-event.png") no-repeat center top / cover;
+
+  &:before {
+    content: "";
+    @include absolute(0, 0, 0, 0);
+    background-color: rgba($BgPurple, 0.5);
+  }
+}
+
+#ContactForm {
+  padding: 100px 0px;
+  background-color: rgba(87, 67, 128, 0.25);
+}
+
+#Subscribe {
+  .form-control {
+    padding-left: 70px;
+    min-height: 66px;
+    font-size: 18px;
+    color: #7f7b84;
+
+    @include placeholder {
+      color: #7f7b84;
+      font-size: 18px;
+    }
+  }
+
+  .icon-email {
+    color: #7f7b84;
+  }
+}
+
+.Stake {
+  .modal-content {
+    backdrop-filter: blur(50px);
+    background: #140533;
+  }
+}
+
+.MAXbtn {
+  background-color: #513d7b;
+  color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  top: 5px;
+  right: 7px;
+}
+
+.PYr-icon {
+  position: absolute;
+  top: 11px;
+  left: 8px;
+  margin-right: 5px;
+}
+
+#UserClaim {
+  #NetworkList {
+    li {
+      button {
+        background: url("../images/bg-token.png") no-repeat left top;
+        height: 60px;
+        width: 60px;
+
+        &:hover,
+        &.active {
+          background-image: url("../images/bg-token-hover.png");
+        }
+
+        img {
+          width: 27px;
+        }
+      }
+    }
+  }
+
+  #ClaimTabs {
+    a {
+      font-size: 16px;
+      color: #fff;
+
+      &:hover,
+      &.active {
+        background-color: #9fc131;
+      }
+    }
+  }
+
+  .SubstrateGradientBox {
+    background: linear-gradient(
+      to right,
+      rgba(173, 45, 181, 0.6),
+      rgba(55, 42, 81, 1)
+    );
+    padding: 1px;
+
+    > div {
+      background-color: #140533;
+
+      &:before {
+        background: transparent
+          radial-gradient(closest-side at 30% 50%, #ff16cb 0%, #24144600 100%)
+          0% 0% no-repeat padding-box;
+        mix-blend-mode: color-dodge;
+        opacity: 0.7;
+        content: "";
+        @include absolute(0, 0, 0, -70%);
+      }
+    }
+
+    .mh-50 {
+      min-height: 50px;
+    }
+
+    .Thumbnail {
+      max-width: 90px;
+    }
+
+    .AddToken {
+      background-color: rgba(57, 65, 164, 0.4);
+    }
+  }
+}
+
+footer {
+  a {
+    color: #fff;
+  }
+}
+
+/*======================================
+		Responsive START
+======================================*/
+
+@include media-breakpoint-down(xxl) {
+  #UserClaim {
+    #NetworkList {
+      li {
+        button {
+          background-size: 100% 100%;
+          height: 50px;
+          width: 50px;
+
+          img {
+            width: 24px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(xl) {
+  .F_48 {
+    font-size: 32px;
+  }
+  .F_32 {
+    font-size: 28px;
+  }
+  h2 {
+    font-size: 50px;
+  }
+
+  h3 {
+    font-size: 38px;
+  }
+
+  .ElysiumGrow {
+    .GradientBox {
+      min-height: 300px;
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .card-img-top {
+    height: auto;
+  }
+  .widthbtn {
+    width: 198px;
+  }
+
+  .F_48 {
+    font-size: 28px;
+  }
+
+  .About-Project {
+    &::after {
+      content: "";
+      display: none;
+    }
+  }
+
+  #BuildingElysium {
+    &.RadialGradient {
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+  #EthereumAccessible,
+  .ElysiumGrow {
+    &.RadialGradient {
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+  .RadialGradient {
+    &.top-minus {
+      &:before {
+        display: none;
+      }
+    }
+
+    &.left-minus {
+      &:before {
+      }
+    }
+  }
+
+  header {
+    .navbar {
+      .navbar-collapse {
+        @include transition(all 0.3s ease-in-out);
+        @include fixed(0, 0, 0, 0);
+        height: 100vh;
+        width: 100%;
+        background-color: #202022;
+        opacity: 1;
+        z-index: 2;
+
+        &.show,
+        &.collapsing {
+          left: 0%;
+          opacity: 1;
+        }
+
+        &.collapse:not(.show) {
+          display: inherit;
+          left: -100%;
+          right: auto;
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  #Banner {
+    h1 {
+      font-size: 90px;
+    }
+  }
+
+  .ElysiumGrow {
+    .GradientBox {
+      min-height: 250px;
+
+      .Fsize_24 {
+        font-size: 18px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .tokenimg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }
+  .specificsmall-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-size: cover;
+  }
+
+  #Banner {
+    h1 {
+      font-size: 70px;
+    }
+
+    .Fsize_56 {
+      font-size: 42px;
+    }
+  }
+
+  #GroundbreakingTechnology {
+    .min-height-68 {
+      min-height: auto;
+    }
+  }
+
+  #Blog {
+    h4 {
+      font-size: 26px;
+    }
+
+    h5 {
+      &.Fsize_24 {
+        font-size: 20px;
+      }
+    }
+  }
+
+  #BlogDetail {
+    h3 {
+      &.Fsize_48 {
+        font-size: 36px;
+      }
+    }
+  }
+
+  #InnovateInspire {
+    h3.Fsize_48 {
+      font-size: 36px;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  #UserClaim .SubstrateGradientBox .mh-50 {
+    min-height: 35px;
+  }
+  .tabcard-bg {
+    .F_24 {
+      font-size: 12px;
+    }
+  }
+  .BlogPosts {
+    h2 {
+      font-size: 24px;
+    }
+  }
+  .widthbtn {
+    width: 163px;
+  }
+  .F_14 {
+    font-size: 12px;
+  }
+  body {
+    font-size: 16px;
+  }
+  .F_32 {
+    font-size: 24px;
+  }
+  .F_24 {
+    font-size: 18px;
+  }
+
+  .F_48 {
+    font-size: 18px;
+  }
+
+  h2,
+  .Fsize_42 {
+    font-size: 36px;
+  }
+
+  h3 {
+    font-size: 28px;
+  }
+
+  h5 {
+    font-size: 22px;
+  }
+
+  #Banner {
+    min-height: 0px;
+
+    h1 {
+      font-size: 40px;
+    }
+
+    .Fsize_56,
+    .Fsize_32 {
+      font-size: 24px;
+    }
+  }
+
+  #BestTechnology {
+    padding-top: 200px;
+    padding-bottom: 50px;
+  }
+
+  #Blog {
+    h4 {
+      font-size: 22px;
+    }
+
+    h5 {
+      &.Fsize_24 {
+        font-size: 18px;
+      }
+    }
+  }
+
+  #BlogDetail,
+  #ElysiumAmbassador {
+    h3 {
+      &.Fsize_48 {
+        font-size: 28px;
+      }
+    }
+  }
+
+  #InnovateInspire {
+    .join-btn {
+      .Fsize_24 {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .ElysiumGrow {
+    .GradientBox {
+      &::after {
+        background-size: cover;
+      }
+    }
+  }
+
+  #Subscribe {
+    h3 {
+      &.Fsize_42 {
+        font-size: 26px;
+      }
+    }
+  }
+
+  #UserClaim {
+    #NetworkList {
+      li {
+        button {
+          background-size: 100% 100%;
+          height: 36px;
+          width: 36px;
+
+          img {
+            width: 18px;
+          }
+        }
+      }
+    }
+  }
+
+  .pagination {
+    .page-item {
+      .page-link {
+        padding: 5px 10px;
+      }
+    }
+  }
+}

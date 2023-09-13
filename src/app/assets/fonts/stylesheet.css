@@ -1,0 +1,117 @@
+@font-face {
+    font-family: 'Archivo';
+    src: url('Archivo-ExtraLight.eot');
+    src: url('Archivo-ExtraLight.eot?#iefix') format('embedded-opentype'),
+        url('Archivo-ExtraLight.woff2') format('woff2'),
+        url('Archivo-ExtraLight.woff') format('woff'),
+        url('Archivo-ExtraLight.ttf') format('truetype'),
+        url('Archivo-ExtraLight.svg#Archivo-ExtraLight') format('svg');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Archivo';
+    src: url('Archivo-Bold.eot');
+    src: url('Archivo-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Archivo-Bold.woff2') format('woff2'),
+        url('Archivo-Bold.woff') format('woff'),
+        url('Archivo-Bold.ttf') format('truetype'),
+        url('Archivo-Bold.svg#Archivo-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Light.eot');
+    src: url('Roboto-Light.eot?#iefix') format('embedded-opentype'),
+        url('Roboto-Light.woff2') format('woff2'),
+        url('Roboto-Light.woff') format('woff'),
+        url('Roboto-Light.ttf') format('truetype'),
+        url('Roboto-Light.svg#Roboto-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Archivo';
+    src: url('Archivo-Black.eot');
+    src: url('Archivo-Black.eot?#iefix') format('embedded-opentype'),
+        url('Archivo-Black.woff2') format('woff2'),
+        url('Archivo-Black.woff') format('woff'),
+        url('Archivo-Black.ttf') format('truetype'),
+        url('Archivo-Black.svg#Archivo-Black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Archivo';
+    src: url('Archivo-SemiBold.eot');
+    src: url('Archivo-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('Archivo-SemiBold.woff2') format('woff2'),
+        url('Archivo-SemiBold.woff') format('woff'),
+        url('Archivo-SemiBold.ttf') format('truetype'),
+        url('Archivo-SemiBold.svg#Archivo-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Archivo';
+    src: url('Archivo-Medium.eot');
+    src: url('Archivo-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Archivo-Medium.woff2') format('woff2'),
+        url('Archivo-Medium.woff') format('woff'),
+        url('Archivo-Medium.ttf') format('truetype'),
+        url('Archivo-Medium.svg#Archivo-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Archivo';
+    src: url('Archivo-Light.eot');
+    src: url('Archivo-Light.eot?#iefix') format('embedded-opentype'),
+        url('Archivo-Light.woff2') format('woff2'),
+        url('Archivo-Light.woff') format('woff'),
+        url('Archivo-Light.ttf') format('truetype'),
+        url('Archivo-Light.svg#Archivo-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.eot');
+    src: url('Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Roboto-Regular.woff2') format('woff2'),
+        url('Roboto-Regular.woff') format('woff'),
+        url('Roboto-Regular.ttf') format('truetype'),
+        url('Roboto-Regular.svg#Roboto-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Bold.eot');
+    src: url('Roboto-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Roboto-Bold.woff2') format('woff2'),
+        url('Roboto-Bold.woff') format('woff'),
+        url('Roboto-Bold.ttf') format('truetype'),
+        url('Roboto-Bold.svg#Roboto-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

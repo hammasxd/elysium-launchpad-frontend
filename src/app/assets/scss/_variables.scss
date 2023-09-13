@@ -1,0 +1,85 @@
+/*==========================
+     Project Base
+==========================*/
+
+// General Variable
+$GreenColor : #9FC131;
+
+// Body Variable
+$BodyTextColor : #fff;
+$BodyTextSize : 20px;
+
+// BgPurple
+$BgPurple : #140533;
+
+// Font Family
+$ArchivoExtraLight : 'Archivo Extra Light'; 
+$ArchivoLight : 'Archivo Light';
+$ArchivoMedium : 'Archivo Medium';
+$ArchivoSemiBold : 'Archivo SemiBold';
+$ArchivoBold : 'Archivo Bold';
+$ArchivoBlack : 'Archivo Black';
+
+$RobotoLight : 'Roboto Light';
+$RobotoRegular : 'Roboto Regular';
+$RobotoBold : 'Roboto Bold';
+$TruenoSemiBold:'TruenoSemiBold';
+
+
+$GradientBox: transparent linear-gradient(258deg, rgba(252, 84, 72, 0%) 72%, rgba(191, 61, 150, 67%) 96%); 
+
+
+// Text Gradient
+$TextGradient: transparent linear-gradient(180deg, #78DBA3 0%, #25A7DE 35%, #F20587 100%) 0% 0% no-repeat padding-box;
+
+//Container
+$container-max-widths: (
+		sm: 540px,
+		md: 720px,
+		lg: 960px,
+		xl: 1140px,
+		xxl: 1320px
+);
+
+// Spacing
+$spacer: 0.5rem;
+$spacers: (
+		0: 0,
+		1: $spacer * 1,
+		2: $spacer * 2,
+		3: $spacer * 3,
+		4: $spacer * 4,
+		5: $spacer * 5,
+);
+
+// Rounded
+$border-radius:               .25rem;
+$border-radius-sm:            .5rem;
+$border-radius-md:            .75rem;
+$border-radius-lg:            1rem;
+
+//Border
+$border-color:               rgba(201,179,237,0.27);
+
+// Cards
+$card-bg:                           transparent;
+
+// Cards
+$pagination-color:                  #ADA7B7;
+$pagination-hover-color:            #fff;
+$pagination-bg:                     transparent;
+$pagination-border-color:           transparent;
+$pagination-hover-bg:            transparent;
+$pagination-hover-border-color:     #676174;
+$pagination-padding-y:              .75rem;
+$pagination-padding-x:              1.25rem;
+$pagination-disabled-color:         ADA7B7;
+$pagination-disabled-bg:            transparent;
+$pagination-disabled-border-color:  transparent;
+$pagination-active-color:           ADA7B7;
+$pagination-active-bg:              transparent;
+$pagination-active-border-color:    #676174;
+
+/*==========================
+	  Universal CSS
+==========================*/
