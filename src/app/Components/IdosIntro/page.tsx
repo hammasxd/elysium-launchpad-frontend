@@ -14,7 +14,7 @@ let IDO_ABI: any = Ido_ABI();
 
 const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc, key }: any) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [modalList, setModalList] = useState();
+    const [modalList, setModalList] = useState([]);
     const settingList = (list: any) => {
         setModalList(list)
         onOpen()
@@ -183,13 +183,13 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc, key }: any)
     console.log("here is all the data", ShowCompleted)
     return (
         <section
-            className=""
+            className=" flex flex-col  mt-10 mb-10"
         >
-            <div className="">
-                <div className="w-full m-auto text-center">
+            
+                <div className=" w-full m-auto text-center">
                     <h3 className=" text-7xl font-bold">{IntroTitle}</h3>
                 </div>
-                <div className="flex gap-10 z-40 w-1/2 mt-20 mx-auto h-auto items-center justify-center top-0 inset-x-0 mb-20 bg-transparent capitalize">
+                <div className="flex  gap-10 z-40 w-1/2 mt-20 mx-auto h-auto items-center justify-center top-0 inset-x-0 mb-20 bg-transparent capitalize">
                     {ShowCompleted.length > 0 ? (
                         ShowCompleted.map((list: any, index) => {
                             return (
@@ -212,7 +212,7 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc, key }: any)
                                             </Skeleton>
                                         </CardBody>
 
-                                        <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+                                        <CardHeader className="pb-4 pt-2 px-8 flex-col items-start">
                                             <h4 className="font-bold gap-6 text-2xl text-center w-full my-6 "> <Skeleton
                                                 className='rounded-2xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
                                                 isLoaded={isLoaded}
@@ -308,200 +308,7 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc, key }: any)
 
 
 
-
-
-
-
-
-
-
-                                    <Modal
-                                        size="full"
-                                        isOpen={isOpen}
-                                        onClose={onClose}
-                                        scrollBehavior="normal"
-                                        className="p-10 backdrop-blur bg-transparent"
-                                    >
-                                        <ModalContent>
-                                            {(onClose) => (
-                                                <>
-                                                    <ModalHeader className=" flex m-0 p-0 justify-center  gap-8">
-                                                        <Image
-                                                            src={modalList.TokenImageURL}
-                                                            width={50}
-                                                            height={50}
-                                                            className=" flex-col rounded-full"
-                                                        />
-                                                        <h1 className="flex-col text-4xl">
-                                                            {modalList.ProjectTitle}
-                                                        </h1>
-                                                        
-                                                        <p className=" flex-col text-2xl uppercase">
-                                                            {modalList.ProjectShortDesc}
-                                                        </p>
-                                                    </ModalHeader>
-
-                                                    <ModalBody className="grid grid-cols-2 grid-rows-2 gap-8 mt-10 px-20">
-                                                        
-                                                            <div className="">
-                                                                <Image
-                                                                    alt="Card background"
-                                                                    width={700}
-                                                                    src={`data:image/png;base64,${modalList.base64}`}
-                                                                />
-                                                            </div>
-                                                            <Card key={index} className=" text-white bg-primary-50  py-5 px-10 rounded-3xl ">
-                                                                <CardHeader className="  text-white flex-col items-start ">
-                                                                    <p className="  text-white w-full inline-flex mb-2 text-l">Total Raised</p>
-                                                                    <div className="flex w-full justify-between">
-                                                                        <p className="text-white text-xl font-bold flex-initial ">
-                                                                            <Skeleton
-                                                                                className='rounded-3xl bg-primary-400  before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                isLoaded={isLoaded}
-                                                                            >{modalList.raised ? modalList.raised : "-"} {saleToken}
-                                                                            </Skeleton>
-                                                                        </p>
-                                                                        <p className="text-white text-xl font-bold flex-initial">
-                                                                            <Skeleton
-                                                                                className='rounded-3xl  bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                isLoaded={isLoaded}
-                                                                            >{modalList.filledPercentage}%
-                                                                            </Skeleton></p>
-
-                                                                    </div>
-                                                                    <Progress className=" mb-8 mt-10 h-3 rounded-lg " isStriped color="secondary" value={modalList.filledPercentage} aria-label="Loading..." />
-                                                                    <div className="grid grid-cols-2 grid-rows-2 gap-x-20 mb-8" >
-                                                                        <div className="col-span-1 flex-initial">
-                                                                            <small className="w-full inline-flex text-lg text-white">Tokens Offered</small>
-
-                                                                            <small className="font-bold text-lg "><Skeleton
-                                                                                className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                isLoaded={isLoaded}
-                                                                            >{modalList.totalSupply}
-                                                                            </Skeleton></small>
-
-                                                                        </div>
-                                                                        <div className="col-span-1 flex-initial">
-                                                                            <small className="w-full inline-flex text-lg text-white">Sale Price</small>
-
-                                                                            <small className="font-bold text-lg">
-                                                                                <Skeleton
-                                                                                    className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                    isLoaded={isLoaded}
-                                                                                >1 {saleToken} = {modalList.tokenPrice} {modalList.TokenSymbol}
-                                                                                </Skeleton></small >
-
-                                                                        </div>
-                                                                        <div className="col-span-1 flex-initial">
-                                                                            <small className="w-full inline-flex text-lg text-white">Tokens Remaining</small>
-
-                                                                            <small className="font-bold text-lg "> <Skeleton
-                                                                                className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                isLoaded={isLoaded}
-                                                                            > {modalList.totalSupply - modalList.SetTotalTokenSold}
-                                                                            </Skeleton></small>
-
-                                                                        </div>
-                                                                        <div className="col-span-1 flex-initial">
-                                                                            <small className="w-full inline-flex text-lg text-white">Sesion End Date</small>
-
-                                                                            <small className="font-bold text-lg">
-                                                                                <Skeleton
-                                                                                    className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                    isLoaded={isLoaded}
-                                                                                >{timeConverter(modalList.EndTime)}
-                                                                                </Skeleton></small>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </CardHeader>
-                                                        
-
-                                                            </Card>
-                                                       
-                                                            <div className="">
-                                                                <h1 className=" text-2xl font-bold" >ABOUT THE PROJECT</h1>
-                                                                <p>{modalList.AboutProject}</p>
-                                                            </div>
-                                                            <div className="">
-                                                            <Card key={index} className=" bg-transparent flex-col py-5 px-10 rounded-3xl ">
-                                                                <CardHeader className="flex-col items-start ">
-                                                                    <h1 className="  text-white w-full text-center mb-2 text-5xl font-bold">Token Metrics</h1>
-                                                                    <div className="flex w-full justify-between">
-                                                                        <p className="text-white text-xl font-bold flex-initial ">
-                                                                            <Skeleton
-                                                                                className='rounded-3xl bg-primary-400  before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                isLoaded={isLoaded}
-                                                                            >{modalList.raised ? modalList.raised : "-"} {saleToken}
-                                                                            </Skeleton>
-                                                                        </p>
-                                                                        <p className="text-white text-xl font-bold flex-initial">
-                                                                            <Skeleton
-                                                                                className='rounded-3xl  bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                isLoaded={isLoaded}
-                                                                            >{modalList.filledPercentage}%
-                                                                            </Skeleton></p>
-
-                                                                    </div>
-                                                                   
-                                                                    <div className="grid grid-cols-2 grid-rows-2 gap-x-20 mb-8" >
-                                                                        <div className="col-span-1 flex-initial">
-                                                                            <small className="w-full inline-flex text-lg text-white">Tokens Offered</small>
-
-                                                                            <small className="font-bold text-lg "><Skeleton
-                                                                                className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                isLoaded={isLoaded}
-                                                                            >{modalList.totalSupply}
-                                                                            </Skeleton></small>
-
-                                                                        </div>
-                                                                        <div className="col-span-1 flex-initial">
-                                                                            <small className="w-full inline-flex text-lg text-white">Sale Price</small>
-
-                                                                            <small className="font-bold text-lg">
-                                                                                <Skeleton
-                                                                                    className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                    isLoaded={isLoaded}
-                                                                                >1 {saleToken} = {modalList.tokenPrice} {modalList.TokenSymbol}
-                                                                                </Skeleton></small >
-
-                                                                        </div>
-                                                                        <div className="col-span-1 flex-initial">
-                                                                            <small className="w-full inline-flex text-lg text-white">Tokens Remaining</small>
-
-                                                                            <small className="font-bold text-lg "> <Skeleton
-                                                                                className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                isLoaded={isLoaded}
-                                                                            > {modalList.totalSupply - modalList.SetTotalTokenSold}
-                                                                            </Skeleton></small>
-
-                                                                        </div>
-                                                                        <div className="col-span-1 flex-initial">
-                                                                            <small className="w-full inline-flex text-lg text-white">Sesion End Date</small>
-
-                                                                            <small className="font-bold text-lg">
-                                                                                <Skeleton
-                                                                                    className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                                                    isLoaded={isLoaded}
-                                                                                >{timeConverter(modalList.EndTime)}
-                                                                                </Skeleton></small>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                </CardHeader>
-                                                        
-
-                                                            </Card>
-                                                            </div>
-
-                                                    </ModalBody>
-
-                                                </>
-                                            )}
-                                        </ModalContent>
-                                    </Modal>
+                                  
 
 
 
@@ -530,7 +337,7 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc, key }: any)
                     )}
                 </div>
 
-                <div className="row">
+                <div className="">
                     {CompletedIDOs.length > 0 ? (
                         <div className="col-md-12 text-center">
                             <Link
@@ -546,9 +353,218 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc, key }: any)
                         </div>
                     )}
                 </div>
-            </div>
+            
         </section>
     );
 };
 
 export default IdoIntro;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////{ modalList!=null ?<Modal
+// size="full"
+// isOpen={isOpen}
+// onClose={onClose}
+// scrollBehavior="normal"
+// className="p-10 backdrop-blur bg-transparent"
+// >
+// <ModalContent>
+//     {(onClose) => (
+//         <>
+//             <ModalHeader className=" flex m-0 p-0 justify-center  gap-8">
+//                 <Image
+//                     src={modalList.TokenImageURL}
+//                     width={50}
+//                     height={50}
+//                     className=" flex-col rounded-full"
+//                 />
+//                 <h1 className="flex-col text-4xl">
+//                     {modalList.ProjectTitle}
+//                 </h1>
+                
+//                 <p className=" flex-col text-2xl uppercase">
+//                     {modalList.ProjectShortDesc}
+//                 </p>
+//             </ModalHeader>
+
+//             <ModalBody className="grid grid-cols-2 grid-rows-2 gap-8 mt-10 px-20">
+                
+//                     <div className="">
+//                         <Image
+//                             alt="Card background"
+//                             width={700}
+//                             src={`data:image/png;base64,${modalList.base64}`}
+//                         />
+//                     </div>
+//                     <Card key={index} className=" text-white bg-primary-50  py-5 px-10 rounded-3xl ">
+//                         <CardHeader className="  text-white flex-col items-start ">
+//                             <p className="  text-white w-full inline-flex mb-2 text-l">Total Raised</p>
+//                             <div className="flex w-full justify-between">
+//                                 <p className="text-white text-xl font-bold flex-initial ">
+//                                     <Skeleton
+//                                         className='rounded-3xl bg-primary-400  before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                         isLoaded={isLoaded}
+//                                     >{modalList.raised ? modalList.raised : "-"} {saleToken}
+//                                     </Skeleton>
+//                                 </p>
+//                                 <p className="text-white text-xl font-bold flex-initial">
+//                                     <Skeleton
+//                                         className='rounded-3xl  bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                         isLoaded={isLoaded}
+//                                     >{modalList.filledPercentage}%
+//                                     </Skeleton></p>
+
+//                             </div>
+//                             <Progress className=" mb-8 mt-10 h-3 rounded-lg " isStriped color="secondary" value={modalList.filledPercentage} aria-label="Loading..." />
+//                             <div className="grid grid-cols-2 grid-rows-2 gap-x-20 mb-8" >
+//                                 <div className="col-span-1 flex-initial">
+//                                     <small className="w-full inline-flex text-lg text-white">Tokens Offered</small>
+
+//                                     <small className="font-bold text-lg "><Skeleton
+//                                         className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                         isLoaded={isLoaded}
+//                                     >{modalList.totalSupply}
+//                                     </Skeleton></small>
+
+//                                 </div>
+//                                 <div className="col-span-1 flex-initial">
+//                                     <small className="w-full inline-flex text-lg text-white">Sale Price</small>
+
+//                                     <small className="font-bold text-lg">
+//                                         <Skeleton
+//                                             className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                             isLoaded={isLoaded}
+//                                         >1 {saleToken} = {modalList.tokenPrice} {modalList.TokenSymbol}
+//                                         </Skeleton></small >
+
+//                                 </div>
+//                                 <div className="col-span-1 flex-initial">
+//                                     <small className="w-full inline-flex text-lg text-white">Tokens Remaining</small>
+
+//                                     <small className="font-bold text-lg "> <Skeleton
+//                                         className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                         isLoaded={isLoaded}
+//                                     > {modalList.totalSupply - modalList.SetTotalTokenSold}
+//                                     </Skeleton></small>
+
+//                                 </div>
+//                                 <div className="col-span-1 flex-initial">
+//                                     <small className="w-full inline-flex text-lg text-white">Sesion End Date</small>
+
+//                                     <small className="font-bold text-lg">
+//                                         <Skeleton
+//                                             className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                             isLoaded={isLoaded}
+//                                         >{timeConverter(modalList.EndTime)}
+//                                         </Skeleton></small>
+
+//                                 </div>
+//                             </div>
+
+//                         </CardHeader>
+                
+
+//                     </Card>
+               
+//                     <div className="">
+//                         <h1 className=" text-2xl font-bold" >ABOUT THE PROJECT</h1>
+//                         <p>{modalList.AboutProject}</p>
+//                     </div>
+//                     <div className="">
+//                     <Card key={index} className=" bg-transparent flex-col py-5 px-10 rounded-3xl ">
+//                         <CardHeader className="flex-col items-start ">
+//                             <h1 className="  text-white w-full text-center mb-2 text-5xl font-bold">Token Metrics</h1>
+//                             <div className="flex w-full justify-between">
+//                                 <p className="text-white text-xl font-bold flex-initial ">
+//                                     <Skeleton
+//                                         className='rounded-3xl bg-primary-400  before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                         isLoaded={isLoaded}
+//                                     >{modalList.raised ? modalList.raised : "-"} {saleToken}
+//                                     </Skeleton>
+//                                 </p>
+//                                 <p className="text-white text-xl font-bold flex-initial">
+//                                     <Skeleton
+//                                         className='rounded-3xl  bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                         isLoaded={isLoaded}
+//                                     >{modalList.filledPercentage}%
+//                                     </Skeleton></p>
+
+//                             </div>
+                           
+//                             <div className="grid grid-cols-2 grid-rows-2 gap-x-20 mb-8" >
+//                                 <div className="col-span-1 flex-initial">
+//                                     <small className="w-full inline-flex text-lg text-white">Tokens Offered</small>
+
+//                                     <small className="font-bold text-lg "><Skeleton
+//                                         className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                         isLoaded={isLoaded}
+//                                     >{modalList.totalSupply}
+//                                     </Skeleton></small>
+
+//                                 </div>
+//                                 <div className="col-span-1 flex-initial">
+//                                     <small className="w-full inline-flex text-lg text-white">Sale Price</small>
+
+//                                     <small className="font-bold text-lg">
+//                                         <Skeleton
+//                                             className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                             isLoaded={isLoaded}
+//                                         >1 {saleToken} = {modalList.tokenPrice} {modalList.TokenSymbol}
+//                                         </Skeleton></small >
+
+//                                 </div>
+//                                 <div className="col-span-1 flex-initial">
+//                                     <small className="w-full inline-flex text-lg text-white">Tokens Remaining</small>
+
+//                                     <small className="font-bold text-lg "> <Skeleton
+//                                         className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                         isLoaded={isLoaded}
+//                                     > {modalList.totalSupply - modalList.SetTotalTokenSold}
+//                                     </Skeleton></small>
+
+//                                 </div>
+//                                 <div className="col-span-1 flex-initial">
+//                                     <small className="w-full inline-flex text-lg text-white">Sesion End Date</small>
+
+//                                     <small className="font-bold text-lg">
+//                                         <Skeleton
+//                                             className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+//                                             isLoaded={isLoaded}
+//                                         >{timeConverter(modalList.EndTime)}
+//                                         </Skeleton></small>
+
+//                                 </div>
+//                             </div>
+
+//                         </CardHeader>
+                
+
+//                     </Card>
+//                     </div>
+
+//             </ModalBody>
+
+//         </>
+//     )}
+// </ModalContent>
+// </Modal> :'' }  

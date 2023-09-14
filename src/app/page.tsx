@@ -2,11 +2,13 @@
 import IdoIntro from './Components/IdosIntro/page'
 import Intro from './Components/Intro/page'
 import Stats from './Components/Stats/page'
-import Header from './header'
 import completed from './assets/images/no-completed-IDO.png'
 import upcomming from './assets/images/No-Upcoming-NFT.png'
 import activee from './assets/images/no-active-IDO.png'
 import baseUrl from './constants/baseUrl'
+import LaunchProject from './Components/LaunchProject/page'
+import ChooseUs from './Components/ChooseUs/page'
+import WelcomeTo from './Components/WelcomeTo/page'
 export default function Home() {
 console.log(baseUrl);
 const IdosData:{apiUrl:any,apiUrlPaginated:any, IntroTitle:any, bgImageSrc:any}[]=[
@@ -16,14 +18,14 @@ const IdosData:{apiUrl:any,apiUrlPaginated:any, IntroTitle:any, bgImageSrc:any}[
   ]
   return (
     <>
-    
-    <Header/>
     <Intro/>
     <Stats/>
     {IdosData.map((item, index) => (
 <IdoIntro key={index} apiUrl={item.apiUrl} apiUrlPaginated={item.apiUrlPaginated} IntroTitle={item.IntroTitle} bgImageSrc={item.bgImageSrc}/>
     ))}
-    
+    <LaunchProject/>
+    <ChooseUs/>
+    <WelcomeTo/>
     </>
   )
 }
