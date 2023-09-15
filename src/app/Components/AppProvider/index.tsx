@@ -4,6 +4,7 @@ import { ThirdwebProvider, metamaskWallet, walletConnect } from "@thirdweb-dev/r
 import {Elysium,ElysiumTestnet} from '@thirdweb-dev/chains'
 import React from "react";
 import logo from '../../assets/images/elysium-logo-launch.png'
+import LenisProvider from "./LanisProvider";
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
     const activeChain=ElysiumTestnet;
  const walletConfig= {
@@ -34,6 +35,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
        isDarkMode:false,
   }
     
+
     return (
         <ThirdwebProvider
         activeChain={activeChain}
@@ -43,10 +45,16 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         autoSwitch={true}
         autoConnect={true}
         dAppMeta={dAppMeta}
-    >
+    > 
+        <LenisProvider options={{
+              lerp: 0.1,
+              wheelMultiplier: 0.8,
+              smoothWheel: true,
+            }}>
         <NextUIProvider>
             {children}
         </NextUIProvider>
+        </LenisProvider>
         </ThirdwebProvider>
     );
   };

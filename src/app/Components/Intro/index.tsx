@@ -2,7 +2,7 @@ import React from 'react'
 
 function Intro() {
   return (
-    <div className=' w-full mb-28'>
+    <div className='  w-full mb-28'>
     <div className="container h-full m-auto">
     <div className="flex justify-center">
       <div className="w-full">

@@ -3,7 +3,7 @@ import React from 'react'
 function WelcomeTo() {
   return (
 
-<div className="flex justify-center items-center h-screen px-40">
+<div id='welcome' className="flex justify-center items-center h-screen px-40">
       <div className="grid grid-cols-2 grid-rows-2 gap-16 justify-center items-center">
         <div className='flex flex-col justify-center items-center gap-10'>
         

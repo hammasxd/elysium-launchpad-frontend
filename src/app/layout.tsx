@@ -3,10 +3,11 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import {NextUIProvider} from "@nextui-org/react";
-import AppProvider from './Components/AppProvider/page';
+import AppProvider from './Components/AppProvider';
 const inter = Inter({ subsets: ['latin'] })
 import ElysiumBanner from "./assets/images/ElysiumBanner.png";
 import Header from './header';
+import Cursors from './Components/Cursor/Cursors';
 
 // export const metadata: Metadata = {
 //   title: 'Elysium Launchpad',
@@ -20,11 +21,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className='purple-dark'>
-      <body className={inter.className} style={{ backgroundImage: `url(${ElysiumBanner.src})`,backgroundPosition:'top',backgroundRepeat:'no-repeat', backgroundSize:'contain' }}  >
+      <body  className={`${inter.className} mb-11 scroll-smooth scrollbar-hide`} style={{ backgroundImage: `url(${ElysiumBanner.src})`,backgroundPosition:'top',backgroundRepeat:'no-repeat', backgroundSize:'contain' }}  >
+      <div className="box">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
         <AppProvider>
         
         <div className='wrapper' >
         <Header/>
+        
+    
+    
         {children}
         </div>
         </AppProvider>

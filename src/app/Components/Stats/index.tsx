@@ -1,3 +1,4 @@
+'use client'
 import { Card, CardHeader,  CardBody,  Image, Skeleton} from '@nextui-org/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
@@ -52,7 +53,7 @@ useEffect(() => {
 
 <Card key={index} className="w-[300px] p-4 bg-transparent rounded-3xl backdrop-blur ">
     <Skeleton
-    className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+    className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0  before:animate-[shimmer_0.75s_infinite]'
     isLoaded={isLoaded}
     >
 <CardHeader className="flex gap-3">
@@ -72,11 +73,11 @@ useEffect(() => {
 
 <CardBody className='my-0'>
 <Skeleton
-    className='rounded-3xl bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+    className=' rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
     isLoaded={isLoaded}
     
     >
-  <h1 className='item-titlee text-xl'>{item.title}</h1>
+  <h1 className='item-titlee text-lg'>{item.title}</h1>
   </Skeleton>
 </CardBody>
 

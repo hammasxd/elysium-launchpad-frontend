@@ -21,4 +21,48 @@ body {
         background-image: url("../app/assets/images/bg-reddit.png"); }
       #CompletedProjects .GradientBox.Twitter:after {
         background-image: url("../app/assets/images/bg-twitter.png"); }
-  
+       
+      
+        .box ul li {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            list-style: none;
+            opacity: 0;
+            background: radial-gradient(rgb(157, 0, 255), transparent, transparent);
+            bottom: 0;
+            left: 10vw;
+            animation: animate 15s linear infinite;
+        }
+        .box ul li:nth-child(2) {
+            left: 36vw;
+            animation-delay: 5s;
+        }
+        .box ul li:nth-child(3) {
+            left: 22vw;
+            animation-delay: 8s;
+        }
+        .box ul li:nth-child(4) {
+            left: 56vw;
+            animation-delay: 10s;
+        }
+        .box ul li:nth-child(5) {
+            left: 76vw;
+            animation-delay: 5s;
+        }
+        .box ul li:nth-child(6) {
+            left: 80vw;
+            animation-delay: 8s;
+        }
+        @keyframes animate {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+                bottom: 0;
+            }
+            100% {
+                transform: scale(10);
+                opacity: 0;
+                bottom: 100vh;
+            }
+        }
