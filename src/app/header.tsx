@@ -56,21 +56,21 @@ function Header() {
   ];
   const bigMenuItems= [
 
-    "IDO LAUNCHPAD"
+    {name:"IDO LAUNCHPAD",hrf:'/'}
     ,
-    "NFT LAUNCHPAD"
+    {name : "NFT LAUNCHPAD",hrf:'/nftLaunchpad'}
     ,
-    "GETTING STARTED"
+    {name:"GETTING STARTED",hrf:'#'}
     ,
-    "TIERS"
+    {name:"TIERS",hrf:'#'}
     ,
-    "STAKING"
+    {name:"STAKING" ,hrf:'#'}
 
 
   ]
 
   return (
-    <Navbar isBlurred={false} height={'8em'} maxWidth='xl' className={` z-50 mb-20 bg-transparent capitalize shadow-large shadow-black border-primary ${
+    <Navbar isBlurred={false} height={'8em'} maxWidth='xl' className={` z-50 mb-20 bg-transparent capitalize  ${
       isScrolled ? 'backdrop-blur-md' : ''
     }`}>
       <NavbarContent className="sm:hidden" justify="start">
@@ -107,8 +107,8 @@ function Header() {
       <NavbarContent className="hidden sm:flex gap-7 capitalize" justify="start">
       {bigMenuItems.map((item, index) => (
           <NavbarItem key={`${item}-${index}`}>
-            <Link color={"foreground"} href="#welcome" size="sm">
-              {item}
+            <Link color={"foreground"} href={item.hrf} size="sm">
+              {item.name}
             </Link>
           </NavbarItem>
         ))}

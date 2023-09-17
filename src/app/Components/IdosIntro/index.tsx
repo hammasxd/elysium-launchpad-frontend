@@ -304,9 +304,9 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc }: { apiUrl:
                                             isLoaded={isLoaded}
                                         >
                                             <Button className="w-full bg-primary-PAROT font-semibold text text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
-                                                onPress={() => settingList(list)}
+                                                // onPress={() => settingList(list)}
 
-                                                href="#"> LEARN MORE</Button>
+                                                href="#"><Link href={`/ido/${list.LaunchPoolAddress}`}> LEARN MORE</Link></Button>
                                         </Skeleton>
                                     </CardHeader>
 

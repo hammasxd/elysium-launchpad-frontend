@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 import ElysiumBanner from "./assets/images/ElysiumBanner.png";
 import Header from './header';
 import Cursors from './Components/Cursor/Cursors';
+import Footer from './footer';
 
 // export const metadata: Metadata = {
 //   title: 'Elysium Launchpad',
@@ -40,6 +41,7 @@ export default function RootLayout({
     
     
         {children}
+        <Footer/>
         </div>
         </AppProvider>
         
