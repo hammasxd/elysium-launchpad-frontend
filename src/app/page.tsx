@@ -1,4 +1,4 @@
-
+'use client'
 import IdoIntro from './Components/IdosIntro'
 import Intro from './Components/Intro'
 import Stats from './Components/Stats'
