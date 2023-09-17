@@ -1,42 +1,39 @@
 'use client'
 import  {baseUrl, saleToken } from '@/app/constants/baseUrl'
 import { timeConverter } from '@/app/constants/helper'
-import { Modal, ModalContent, ModalHeader, ModalBody, Card, CardBody, Progress, Snippet, Image, Spinner, Skeleton } from '@nextui-org/react'
+import { Card, CardBody, Progress, Snippet, Image, Skeleton } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import youtube from '../../assets/images/icon-youtube.svg'
 import axios from 'axios'
 import { utils } from 'ethers'
 import { useSDK } from '@thirdweb-dev/react'
 import { Ido_ABI } from '@/app/constants/info'
-import { spec } from 'node:test/reporters'
-import { useParams } from 'next/navigation'
-import { delay } from 'framer-motion'
 
 
 
 const IDO_ABI=Ido_ABI()
 
-function IdoDetails({params}:{params:{}}) {
+function IdoDetails({params}:{params:{idoId:string}}) {
     const [ShowCompleted, setShowCompleted] = useState([]);
     const [CompletedIDOs, SetCompletedIDO]:any = useState({});
     const [Status, setStatus] = useState("");
 const sdk=useSDK()
 let IDO3;
 const [isLoading,setIsLoading]=useState(true);
-const [specificPart, setSpecificPart] = useState('');
 
-  const {idoId}=useParams();
+ 
   
 
   
 
   useEffect(() => {
  
+    
     var resData: any ;
     try {
         axios
             .post(`${baseUrl}/singleIDO`, {
-                LaunchPoolAddress:idoId
+                LaunchPoolAddress:params.idoId
             })
             .then(async function (response) {
                 console.log("api response : ",response.data.data)

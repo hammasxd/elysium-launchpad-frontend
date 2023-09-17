@@ -1,3 +1,4 @@
+'use client'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, Link, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from '@nextui-org/react'
 // import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
