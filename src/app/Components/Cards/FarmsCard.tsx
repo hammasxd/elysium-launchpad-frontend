@@ -1,3 +1,4 @@
+ 'use client'
  import {baseUrl} from '@/app/constants/baseUrl'
 import { Card, CardHeader, Divider, CardBody, CardFooter,Image,Link } from '@nextui-org/react'
 import React from 'react'
