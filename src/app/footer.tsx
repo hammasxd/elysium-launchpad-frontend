@@ -1,3 +1,4 @@
+'use client'
 import React, { ReactNode } from 'react'
 import { Divider, Image } from '@nextui-org/react'
 import logoWhite from './assets/images/logo-white.png'
