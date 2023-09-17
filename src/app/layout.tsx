@@ -1,4 +1,4 @@
-
+'use client'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -10,10 +10,10 @@ import Header from './header';
 import Cursors from './Components/Cursor/Cursors';
 import Footer from './footer';
 
-export const metadata: Metadata = {
-  title: 'Elysium Launchpad',
-  description: 'Elysium NFT launchpad by Vulcanforged',
-}
+// export const metadata: Metadata = {
+//   title: 'Elysium Launchpad',
+//   description: 'Elysium NFT launchpad by Vulcanforged',
+// }
 
 export default function RootLayout({
   children,
