@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import GirlLaptop from '../../assets/images/GirlLaptop.png'
 import { Image } from '@nextui-org/react'
