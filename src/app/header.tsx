@@ -45,13 +45,6 @@ function Header() {
 
   const menuItems = [
     "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
     "Help & Feedback",
     "Log Out",
   ];
@@ -133,19 +126,9 @@ function Header() {
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
-          <DropdownItem key="profile" className="h-14 gap-2">
-            <p className="font-bold">Signed in as</p>
-            <p className="font-bold">@tonyreichert</p>
-          </DropdownItem>
           <DropdownItem key="settings">
-            My Settings
+            Profile
           </DropdownItem>
-          <DropdownItem key="team_settings">Team Settings</DropdownItem>
-          <DropdownItem key="analytics">
-            Analytics
-          </DropdownItem>
-          <DropdownItem key="system">System</DropdownItem>
-          <DropdownItem key="configurations">Configurations</DropdownItem>
           <DropdownItem key="help_and_feedback">
             Help & Feedback
           </DropdownItem>

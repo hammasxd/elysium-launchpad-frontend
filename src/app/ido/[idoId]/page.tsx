@@ -21,6 +21,8 @@ const sdk=useSDK()
 let IDO3;
 const [isLoading,setIsLoading]=useState(true);
 
+
+
  
   
 
@@ -84,7 +86,7 @@ const [isLoading,setIsLoading]=useState(true);
                                 (TotalTokenSold / resData.totalSupply) * 100;
                             resData.filledPercentage = filledPercentage;
                             resData.SetTotalTokenSold = TotalTokenSold;
-                            setShowCompleted(resData);
+                            SetCompletedIDO(resData);
                         } else {
                             setStatus("In-progress");
                             setShowCompleted(resData);

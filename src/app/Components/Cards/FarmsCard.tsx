@@ -1,9 +1,10 @@
  'use client'
  import {baseUrl} from '@/app/constants/baseUrl'
-import { Card, CardHeader, Divider, CardBody, CardFooter,Image,Link } from '@nextui-org/react'
+import { Card, CardHeader, Divider, CardBody, CardFooter,Image } from '@nextui-org/react'
 import React from 'react'
 import pyrIcon from '../../assets/images/PYRicon.png'
 import ImagesURL from "../../constants/ImagesURL";
+import Link from 'next/link'
 
 
 
@@ -13,7 +14,7 @@ import ImagesURL from "../../constants/ImagesURL";
 
  
    return (
-<Link href='#' className=' backdrop-blur bg-transparent'>
+<Link href={`/nftLaunchpad/lpTokens/${poolname}`}  className=' backdrop-blur bg-transparent'>
 <Card className=" p-5 backdrop-blur bg-transparent rounded-3xl hover:-translate-y-7  hover:backdrop-blur shadow-glow">
     <CardHeader className="flex flex-row justify-center">
     
