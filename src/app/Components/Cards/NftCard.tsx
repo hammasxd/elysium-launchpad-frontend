@@ -8,7 +8,7 @@ import React from 'react'
 function NftCard({nft,index,isLoaded,isLoadedImage}:{nft:NFTObject,index:number,isLoaded:boolean,isLoadedImage:boolean}) {
   return (
     <div key={index}>
-    <Card  className=" py-4 w-[300px] bg-transparent backdrop-brightness-125 backdrop-blur  ">
+    <Card  className=" py-4 w-[350px] bg-transparent backdrop-brightness-125 backdrop-blur  ">
 
         <CardBody className=" flex flex-row justify-center overflow-visible py-0 w-full px-0 rounded-r-2xl">
             <Skeleton
@@ -25,7 +25,7 @@ function NftCard({nft,index,isLoaded,isLoadedImage}:{nft:NFTObject,index:number,
             </Skeleton>
         </CardBody>
 
-        <CardHeader className="  flex-col items-start">
+        <CardHeader className=" mx-5 self-center  flex-col items-start">
             <Skeleton
                 className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
                 isLoaded={isLoaded}
@@ -64,7 +64,7 @@ function NftCard({nft,index,isLoaded,isLoadedImage}:{nft:NFTObject,index:number,
                 </Skeleton>
             </div>
             <Progress className=" mb-8 mt-2 h-3 rounded-lg" isStriped color="secondary" value={nft.FilledPercentage} aria-label="Loading..." />
-            <div className="grid grid-cols-2 grid-rows-2 gap-x-20 mb-8" >
+            <div className="grid grid-cols-2 grid-rows-2 gap-x-10 self-center mb-8" >
                 <div className="col-span-1 flex-initial">
                     <small className="w-full inline-flex text-tiny text-white">INO CLOSED</small>
                     <Skeleton
@@ -93,10 +93,10 @@ function NftCard({nft,index,isLoaded,isLoadedImage}:{nft:NFTObject,index:number,
                 className=' bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
                 isLoaded={isLoaded}
             >
-                <Button className="w-full bg-primary-PAROT font-semibold text text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
+                <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
                     // onPress={() => settingList(list)}
 
-                    href="#"><Link href={`#`}> LEARN MORE</Link></Button>
+                    href="#"><Link href={`#`} className=' text-white'> LEARN MORE</Link></Button>
             </Skeleton>
         </CardHeader>
 
