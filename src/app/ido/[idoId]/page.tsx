@@ -113,7 +113,7 @@ const [isLoading,setIsLoading]=useState(true);
    
 <> 
    
-         <div className=" w-9/12 mx-auto p-10 pb-5 shadow-secondary-700  ">
+         <div className=" w-9/12 mx-auto p-10 pb-5 rounded-2xl backdrop-blur shadow-xl shadow-primary-50 ">
            
          <div className=" flex flex-col gap-10 scrollbar-hide"> 
          <Skeleton className=' bg-primary before:bg-primary after:bg-purple-300 rounded-2xl' isLoaded={!isLoading }>   

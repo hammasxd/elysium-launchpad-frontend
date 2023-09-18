@@ -2,24 +2,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Ido_ABI } from "../../constants/info";
-import { saleToken } from "../../constants/baseUrl";
-import { timeConverter } from "../../constants/helper";
-import { useRouter } from "next/navigation";
+
 import { useSDK, useWallet } from "@thirdweb-dev/react";
 import Link from "next/link";
-import youtube from '../../assets/images/icon-youtube.svg'
-import { Card, CardFooter, Button, Image, CardBody, CardHeader, Divider, Progress, Spinner, Skeleton, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Snippet } from "@nextui-org/react";
+
+import {  Image,Spinner} from "@nextui-org/react";
 import { utils } from "ethers";
+import IdoCard from "../Cards/IdoCard";
 let IDO_ABI: any = Ido_ABI();
 
 
-const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key }: { apiUrl: string, apiUrlPaginated: string, IntroTitle: string, bgImageSrc: string,key:number }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [modalList, setModalList]: any = useState(null);
-    const settingList = (list: any) => {
-        setModalList(list)
-        onOpen()
-    }
+const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key,learnMore }: { apiUrl: string, apiUrlPaginated: string, IntroTitle: string, bgImageSrc: string,key:number,learnMore:any}) => {
+ 
 
     const sdk = useSDK()
     console.log(apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc);
@@ -27,7 +21,6 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key }: { api
     const [ShowCompleted, setShowCompleted] = useState([]);
     const [CompletedIDOs, SetCompletedIDO] = useState([]);
     const [Status, setStatus] = useState("");
-    const navigate = useRouter();
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoadedImage, setIsLoadedImage] = useState(false);
 
@@ -195,131 +188,14 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key }: { api
                 {ShowCompleted.length > 0 ? (
                     ShowCompleted.map((list: any, index) => {
                         return (
-                            <div key={index}>
-                                <Card  className=" pb-4 w-[350px] bg-transparent backdrop-brightness-125 ">
 
-                                    <CardBody className=" overflow-visible py-0 w-full px-0 rounded-none">
-                                        <Skeleton
-                                            className=' bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                            isLoaded={isLoadedImage}
-                                        >
-                                            <Image
-                                                alt="Card background"
-                                                className=""
-                                                src={`data:image/png;base64,${list.base64}`}
-                                                width={400}
-                                                height={218}
-
-                                            />
-                                        </Skeleton>
-                                    </CardBody>
-
-                                    <CardHeader className="pb-4 pt-2 px-8 flex-col items-start">
-                                        <Skeleton
-                                            className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                            isLoaded={isLoaded}
-                                        >
-                                            <h4 className="font-bold gap-6 text-2xl text-center w-full my-6 ">{list.ProjectTitle}
-                                            </h4>
-                                        </Skeleton>
-                                        <Skeleton
-                                            className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                            isLoaded={isLoaded}
-                                        >
-                                            <p className="text-tiny uppercase font-bold mb-8">
-                                                {list.ProjectShortDesc}
-                                            </p>
-                                        </Skeleton>
-
-                                        <p className="text-white w-full inline-flex mb-2">Total Raised</p>
-                                        <div className="flex w-full justify-between">
-                                            <Skeleton
-                                                className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                isLoaded={isLoaded}
-                                            >
-                                                <p className="text-white text-tiny flex-initial">
-                                                    {list.raised ? list.raised : "-"} {saleToken}
-                                                </p>
-
-                                            </Skeleton>
-                                            <Skeleton
-                                                className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                isLoaded={isLoaded}
-                                            >
-                                                <p className="text-white text-tiny flex-initial">
-                                                    {list.filledPercentage}%
-                                                </p>
-                                            </Skeleton>
-                                        </div>
-                                        <Progress className=" mb-8 mt-2 h-3 rounded-lg" isStriped color="secondary" value={list.filledPercentage} aria-label="Loading..." />
-                                        <div className="grid grid-cols-2 grid-rows-2 gap-x-20 mb-8" >
-                                            <div className="col-span-1 flex-initial">
-                                                <small className="w-full inline-flex text-tiny text-white">Tokens Offered</small>
-                                                <Skeleton
-                                                    className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                    isLoaded={isLoaded}
-                                                >
-                                                    <small className="font-bold">{list.totalSupply}
-                                                    </small>
-                                                </Skeleton>
-                                            </div>
-                                            <div className="col-span-1 flex-initial">
-                                                <small className="w-full inline-flex text-tiny text-white">Sale Price</small>
-                                                <Skeleton
-                                                    className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                    isLoaded={isLoaded}
-                                                >
-                                                    <small className="font-bold">
-                                                        1 {saleToken} = {list.tokenPrice} {list.TokenSymbol}
-                                                    </small >
-                                                </Skeleton>
-
-                                            </div>
-                                            <div className="col-span-1 flex-initial">
-                                                <small className="w-full inline-flex text-tiny text-white">Tokens Remaining</small>
-                                                <Skeleton
-                                                    className='rounded-3lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                    isLoaded={isLoaded}
-                                                >
-                                                    <small className="font-bold"> {list.totalSupply - list.SetTotalTokenSold}
-                                                    </small>
-                                                </Skeleton>
-
-                                            </div>
-                                            <div className="col-span-1 flex-initial">
-                                                <small className="w-full inline-flex text-tiny text-white">Sesion End Date</small>
-                                                <Skeleton
-                                                    className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                                    isLoaded={isLoaded}
-                                                >
-                                                    <small className="font-bold">
-                                                        {timeConverter(list.EndTime)}
-                                                    </small>
-                                                </Skeleton>
-
-                                            </div>
-                                        </div>
-                                        <Skeleton
-                                            className=' bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
-                                            isLoaded={isLoaded}
-                                        >
-                                            <Button className="w-full bg-primary-PAROT font-semibold text text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
-                                                // onPress={() => settingList(list)}
-
-                                                href="#"><Link href={`/ido/${list.LaunchPoolAddress}`}> LEARN MORE</Link></Button>
-                                        </Skeleton>
-                                    </CardHeader>
-
-                                </Card>
-                              
-
-                            </div>
+                                <IdoCard key={index} index={index} list={list} isLoaded={isLoaded} isLoadedImage={isLoadedImage}/>
 
                         );
                     } )
                     
                     
-                ) : CompletedIDOs.length == 0 && Status == "In-progress" ? (
+                ) : ShowCompleted.length == 0 && Status == "In-progress" ? (
                     <div className="w-full text-center items-center">
                         <Image
                             src={bgImageSrc}
@@ -332,11 +208,11 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key }: { api
             </div>
           
             <div className="">
-                {CompletedIDOs.length > 0 ? (
+                {ShowCompleted.length > 0 ? (
                     <div  className="col-md-12 text-center">
                         <Link
                             className=" text-primary-PAROT underline "
-                            href={'#'}
+                            href={learnMore}
                         >
                             View More
                         </Link>

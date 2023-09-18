@@ -40,7 +40,7 @@ async function nftLaunchpad() {
     <div className='lpTokenPool felx flex-col align-middle justify-center w-full mx-auto text-center mt-20'>
     <div className='FarmHeading'>
         <h1 className='text-6xl font-bold '>Farms</h1>
-        <p className=' mt-11'>Stake LP tokens</p>
+        <p className=' mt-11'>Stake LP tokens to earn.</p>
     </div>
     <div className='Farms flex flex-wrap mx-auto justify-center gap-4 mt-14 '>
     
