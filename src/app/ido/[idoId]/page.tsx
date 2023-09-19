@@ -123,7 +123,7 @@ const [isLoading,setIsLoading]=useState(true);
                  <div className=" flex flex-row align-middle gap-10">
                          <Image
                              src={CompletedIDOs.TokenImageURL}
-
+                                alt={'token image'}
                              className=" w-[70px] max-w-none rounded-full justify-start"
                          />
                          <div className="flex flex-col justify-center">
@@ -384,7 +384,7 @@ fill="#fff"
                  </div>
                  </Skeleton>
                  
-                  <div className=" scrollbar-hide">
+        <div className=" scrollbar-hide">
                   
                          <div className=' mb-5'>
                          <Skeleton className=' bg-primary rounded-2xl' isLoaded={!isLoading}>
@@ -547,7 +547,7 @@ fill="#fff"
 
 
 
-                  </div>
+            </div>
 
                 
              

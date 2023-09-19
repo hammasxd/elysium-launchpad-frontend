@@ -96,7 +96,7 @@ function NftCard({nft,index,isLoaded,isLoadedImage}:{nft:NFTObject,index:number,
                 <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
                     // onPress={() => settingList(list)}
 
-                    href="#"><Link href={`#`} className=' text-white'> LEARN MORE</Link></Button>
+                    href="#"><Link href={`#`}  className=' text-white'> LEARN MORE</Link></Button>
             </Skeleton>
         </CardHeader>
 
