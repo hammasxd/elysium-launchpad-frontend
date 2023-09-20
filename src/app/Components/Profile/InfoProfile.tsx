@@ -1,3 +1,4 @@
+'use client'
 import { Input, Button, Card, CardBody, CardHeader , Image, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/react'
 import React, { useState } from 'react'
 import demoProfile from '../../assets/images/ProfileImg.png'
