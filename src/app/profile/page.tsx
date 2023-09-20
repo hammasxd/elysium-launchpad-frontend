@@ -4,7 +4,8 @@ import React from 'react'
 import InfoDemoCard from '../Components/Profile/InfoDemoCard';
 import InfoCard from '../Components/Profile/InfoProfile';
 
-function page() {
+function Page() {
+    
     const userAddress=useAddress();
 
   return (
@@ -19,4 +20,4 @@ function page() {
   )
 }
 
-export default page
+export default Page;
