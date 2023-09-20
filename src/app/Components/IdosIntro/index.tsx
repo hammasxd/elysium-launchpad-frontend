@@ -25,81 +25,7 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key,learnMor
     const [isLoadedImage, setIsLoadedImage] = useState(false);
 
     //useEffect to get First #3 IDOs from Database
-    useEffect(
-        () => {
-            var array: any = [];
-
-            try {
-                axios
-                    .get(`${apiUrl}`)
-                    .then(async function (response) {
-                        array = await response.data.data;
-                        if (array == "" || array == null) {
-                            array = [];
-                            setStatus("In-progress");
-                            setShowCompleted(array);
-                        } else {
-                            for (var iteration = 0; iteration <= array.length; iteration++) {
-                                if (array[iteration]) {
-                                    var address = await array[iteration].LaunchPoolAddress;
-                                    try {
-                                        IDO3 = sdk?.getContractFromAbi(address, IDO_ABI)
-                                    } catch (err) {
-                                        continue;
-                                    }
-                                    if (array[iteration].project_File != null) {
-                                        array[iteration].base64 = btoa(
-                                            new Uint8Array(
-                                                array[iteration].project_File.data.data
-                                            ).reduce(function (data, byte) {
-                                                return data + String.fromCharCode(byte);
-                                            }, "")
-                                        );
-
-                                    }
-                                    var address = await array[iteration].LaunchPoolAddress;
-                                    IDO3 = await sdk?.getContractFromAbi(address, IDO_ABI);
-                                    await IDO3?.call('totalBUSDReceivedInAllTier').then(async (a) => {
-                                        array[iteration].raised = utils.formatEther(await a)
-                                    })
-
-
-                                    await IDO3?.call('getParameters').then(async (a: any) => {
-                                        array[iteration].maxCap = utils.formatEther(await a?.maxCap)
-                                        array[iteration].tokenPrice = a.IdoTokenPrice / 100;
-                                    })
-
-
-                                    await IDO3?.call('getTotalParticipants').then(async (a: any) => {
-                                        array[iteration].maxParticipants = a;
-                                    })
-
-                                    let TotalTokenSold =
-                                        array[iteration].tokenPrice * array[iteration].raised;
-                                    let filledPercentage =
-                                        (TotalTokenSold / array[iteration].totalSupply) * 100;
-                                    array[iteration].filledPercentage = filledPercentage;
-                                    array[iteration].SetTotalTokenSold = TotalTokenSold;
-                                    setShowCompleted(array);
-                                } else {
-                                    setStatus("In-progress");
-                                    setShowCompleted(array);
-                                }
-                            }
-                        }
-                        setShowCompleted(array);
-                        setIsLoadedImage(true);
-                        setIsLoaded(true);
-                    }).catch((err) => {
-                        console.log(err)
-                    });
-            } catch (err) {
-                setStatus("In-progress");
-            }
-        },
-        [5000] //useEffect will run only one time
-        //if you pass a value to array, like this [data] than clearTimeout will run every time this value changes (useEffect re-run)
-    );
+   
     //useEffect to get All Completed IDOs from Database
     useEffect(
         () => {
@@ -108,7 +34,7 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key,learnMor
                 axios
                     .post(`${apiUrlPaginated}`, {
                         offset: 0,
-                        limit: 4,
+                        limit: 3,
                     })
                     .then(async function (response) {
                         console.log("api response : ",response.data.data)
@@ -163,10 +89,13 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key,learnMor
                                 } else {
                                     setStatus("In-progress");
                                     setShowCompleted(array);
+
                                 }
                             }
                         }
                         SetCompletedIDO(array);
+                        setIsLoaded(true)
+                        setIsLoadedImage(true)
                     });
             } catch (err) {
                 setStatus("In-progress");

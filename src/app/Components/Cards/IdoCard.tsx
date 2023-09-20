@@ -16,10 +16,10 @@ function IdoCard({list,isLoadedImage,isLoaded,index}:any) {
                                         >
                                             <Image
                                                 alt="Card background"
-                                                className=""
+                                                className=" max-h-[218px] min-h-[218px] "
                                                 src={`data:image/png;base64,${list.base64}`}
                                                 width={400}
-                                                height={218}
+                                                
 
                                             />
                                         </Skeleton>

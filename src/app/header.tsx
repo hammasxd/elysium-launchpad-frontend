@@ -126,8 +126,8 @@ function Header() {
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
-          <DropdownItem key="settings">
-            Profile
+          <DropdownItem key="Profile">
+            <Link href='/profile'>Profile</Link>
           </DropdownItem>
           <DropdownItem key="help_and_feedback">
             Help & Feedback
