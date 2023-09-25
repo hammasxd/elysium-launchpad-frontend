@@ -1,5 +1,5 @@
 'use client'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, Link, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from '@nextui-org/react'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button,Link, NavbarMenu, NavbarMenuItem, NavbarMenuToggle,  Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from '@nextui-org/react'
 // import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import logoNew from "../app/assets/images/logoNew.svg";
@@ -10,10 +10,7 @@ function Header() {
   const router = useRouter()
   const [isScrolled, setIsScrolled] = useState(false);
   const connectedWallet=useWallet();
-  const Address=useAddress();
-
-  const [connected,setConnected]=useState(false);
-
+  
   const handleScroll = () => {
     if (window.scrollY > 0) {
       setIsScrolled(true);
@@ -21,23 +18,23 @@ function Header() {
       setIsScrolled(false);
     }
   };
-  const handleConnect=()=>{
-    alert('Connected')
+  const handleWallet = ()=>{
+    alert('Walllet connected');
   }
-  
   useEffect(() => {
     
 //listenrs
-    connectedWallet?.on('connect',handleConnect);
+    
+    connectedWallet?.on('connect',handleWallet)
     window.addEventListener('scroll', handleScroll);
-
+    
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      connectedWallet?.removeListener('connect',()=>{handleConnect})
+     
 
     };
   }, [connectedWallet]);
-  console.log('acountttttt',connectedWallet)
   
   
  
@@ -127,7 +124,7 @@ function Header() {
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
           <DropdownItem key="Profile">
-            <Link href='/profile'>Profile</Link>
+            <Link href={`/profile`} >Profile</Link>
           </DropdownItem>
           <DropdownItem key="help_and_feedback">
             Help & Feedback

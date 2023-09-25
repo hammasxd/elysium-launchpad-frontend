@@ -10,8 +10,6 @@ import LaunchProject from './Components/LaunchProject'
 import ChooseUs from './Components/ChooseUs'
 import WelcomeTo from './Components/WelcomeTo'
 import OurTeam from './Components/Team'
-import Footer from './footer'
-import { it } from 'node:test'
 export default function Home() {
 console.log(baseUrl);
 const IdosData:{apiUrl:any,apiUrlPaginated:any, IntroTitle:any, bgImageSrc:any,learnMore:any}[]=[

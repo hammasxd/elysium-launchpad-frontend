@@ -2,16 +2,24 @@
 import { NextUIProvider } from "@nextui-org/react";
 import { ThirdwebProvider, metamaskWallet, walletConnect } from "@thirdweb-dev/react";
 import {Elysium,ElysiumTestnet} from '@thirdweb-dev/chains'
-import React from "react";
+import React, { createContext } from "react";
 import logo from '../../assets/images/elysium-logo-launch.png'
 import LenisProvider from "./LanisProvider";
+
+
+
+
+
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
+
     const activeChain=ElysiumTestnet;
- const walletConfig= {
+    const walletConfig= {
     projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
     chainId: activeChain.chainId as number,
     qrcode: true,
   };
+
+
   const dAppMeta = {
        /**
        * the name of your app
