@@ -1,5 +1,5 @@
 'use client'
-import { Button, Card, CardBody, CardHeader , Image, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, Link, Skeleton } from '@nextui-org/react'
+import { Button, Card, CardHeader , Image, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure, Link, Skeleton } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import demoProfile from '../../assets/images/ProfileImg.png'
 import axios from 'axios';
@@ -7,14 +7,17 @@ import { toast } from "react-toastify";
 import { baseUrl } from '@/app/constants/baseUrl';
 import { useAddress } from '@thirdweb-dev/react';
 import { delay } from 'framer-motion';
+import {connectWalletRedux,disconnect} from '@/redux/features/userSlice'
+import {useDispatch} from 'react-redux'
+import { AppDispatch } from '@/redux/store';
+import { setAddress } from '@/redux/features/addressSlice';
 function InfoCard() {
+    const dispatch = useDispatch<AppDispatch>();
+
     const walletAddress=useAddress();
+
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    var f = new File([""], "filename.txt", {
-        type: "text/plain",
-        lastModified:Date.now(),
-      });
-    const [ProfileImage, setProfileImage] = useState(f);
+    const [ProfileImage, setProfileImage] = useState<File>();
     const [Imagee, setImage] = useState("");
     const [LoggedUser , setLoggedUser] = useState<any>([]);
     const [Name, setName] = useState("");
@@ -22,7 +25,6 @@ function InfoCard() {
   const [Medium, setMedium] = useState("");
   const [Telegram, setTelegram] = useState("");
   const [skeltonLoaded,setSkeltonLoaded]=useState(false);
-
   const onFileChange = (event:any) => {
     if (event.target.files[0] == null) {
     } else if (event.target.files[0].size > 3000000) {
@@ -32,13 +34,13 @@ function InfoCard() {
         autoClose: 2000,
         toastId: 2,
       });
-      setProfileImage(f);
     } else {
       setProfileImage(event.target.files[0]);
     }
   };
   
     const getVerifiedUser = () => {
+
         axios
           .post(`${baseUrl}/getVerifyUser`, { address: walletAddress })
           .then((response) => {
@@ -54,11 +56,15 @@ function InfoCard() {
                   )
                 )
               );
+              setLoggedUser(response.data.response);
+              dispatch(setAddress(walletAddress));
+              dispatch(connectWalletRedux(response.data));
+
             }
-    
+            
             // console.log(response.data.response);
-            setLoggedUser(response.data.response);
             console.log('user loged : ',LoggedUser);
+
             delay(()=>{
               setSkeltonLoaded(true)
             },2000)
@@ -124,7 +130,7 @@ function InfoCard() {
             toastId: "Telegram",
           });
         } else if (
-          ProfileImage.size == 0 ||
+          ProfileImage?.size == 0 ||
           ProfileImage == null
         ) {
           toast.info("Please Add Profile Image", {
@@ -167,27 +173,30 @@ function InfoCard() {
         }
       };
       useEffect(() => {
-        getVerifiedUser()
-      
+       
+          getVerifiedUser()
+          dispatch(connectWalletRedux(LoggedUser));
+
+
        
       }, [walletAddress]);
-      
+
       console.log('user loged : ',LoggedUser);
     return (
      
         <>
         
-        <Skeleton isLoaded={skeltonLoaded} className='py-4 w-full min-h-[190px] bg-primary-500 after:bg-primary-500 before:bg-primary-500 rounded-3xl px-10'>
-      <Card className="py-4 w-full min-h-[190px] bg-transparent backdrop-blur rounded-3xl px-10">
+        <Skeleton isLoaded={skeltonLoaded} className='py-4 w-full min-h-[190px] bg-primary-500 after:bg-primary-500 before:bg-primary-500 rounded-3xl'>
+      <Card className="py-4 w-full min-h-[190px] bg-transparent backdrop-blur rounded-3xl backdrop-brightness-150">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start ">
       <div className='w-full'>
       
-        {LoggedUser ? 
+        {
+        LoggedUser?.userName ? 
         <div className='flex flex-row justify-between items-top'>
         <div className='flex flex-row justify-start items-center gap-24'>
         <Image
           alt="Card background"
-          
           className="object-cove max-h-[150px] max-w-[150px] rounded-full"
           src={`data:image/png;base64,${Imagee}`}
           width={350}
@@ -331,7 +340,7 @@ function InfoCard() {
         <Button className=" bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
         onPress={onOpen} > ADD PROFILE</Button>
         </div>
-        } 
+}
        
       </div>
       

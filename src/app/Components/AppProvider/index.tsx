@@ -5,6 +5,7 @@ import {Elysium,ElysiumTestnet} from '@thirdweb-dev/chains'
 import React, { createContext } from "react";
 import logo from '../../assets/images/elysium-logo-launch.png'
 import LenisProvider from "./LanisProvider";
+import { ReduxProvider } from "@/redux/provider";
 
 
 
@@ -45,6 +46,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
     
 
     return (
+      
         <ThirdwebProvider
         activeChain={activeChain}
         clientId={process.env.NEXT_PUBLIC_THIRD_WEB_CLIENT_ID}
@@ -60,7 +62,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
               smoothWheel: true,
             }}>
         <NextUIProvider>
+          <ReduxProvider>
             {children}
+            </ReduxProvider>
         </NextUIProvider>
         </LenisProvider>
         </ThirdwebProvider>

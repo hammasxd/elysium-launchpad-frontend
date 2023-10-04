@@ -3,19 +3,14 @@ import ChooseUs from '../Components/ChooseUs'
 import FarmCard from '../Components/Cards/FarmsCard'
 import {baseUrl} from '../constants/baseUrl';
 
-
 async function getPoolData() {
     const response= await fetch(`${baseUrl}/distinctPoolTypes`);
     const data: any= response.json();
     return data;
 }
-
 async function nftLaunchpad() {
     const poolData= await getPoolData();
-
-   
     console.log(poolData);
-    
   return (
     <div className='  w-full mb-28'>
     <div className="container h-full m-auto">
@@ -44,17 +39,10 @@ async function nftLaunchpad() {
     </div>
     <div className='Farms flex flex-wrap mx-auto justify-center gap-4 mt-14 '>
     
-    
-  
-        
     {poolData.data.map((item:any, index:any) => (
-       
 
         <FarmCard key={index} poolname={item.poolName} count={item.count} />
-
-
-
-       
+        
       ))}
 
    

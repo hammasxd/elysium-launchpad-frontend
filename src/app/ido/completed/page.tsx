@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Ido_ABI } from "../../constants/info";
 import { useSDK } from "@thirdweb-dev/react";
 import completed from '../../assets/images/no-completed-IDO.png'
-import { Image, Spinner } from "@nextui-org/react";
+import { Image, Pagination, Spinner } from "@nextui-org/react";
 import { utils } from "ethers";
 import IdoCard from "@/app/Components/Cards/IdoCard";
 import { baseUrl } from "@/app/constants/baseUrl";
@@ -18,8 +18,20 @@ const Page = () => {
   const [status, setStatus] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoadedImage, setIsLoadedImage] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(3);
+const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = completedIDOs.slice(indexOfFirstItem, indexOfLastItem);
+  const handlePageChange = (newPage:any) => {
+    setCurrentPage(newPage);
+  };
   useEffect(() => {
+
+    const fetchCompletedCount=()=>{
+
+      
+    }
     const fetchData = async () => {
       var array:any = [];
       try {
@@ -29,8 +41,8 @@ const Page = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            offset: 0,
-            limit: 0,
+            offset: 1,
+            limit: 8,
           }),
         });
 
@@ -104,6 +116,7 @@ const Page = () => {
      
     };
   }, []);
+  
 
   return (
     <section className="flex flex-col mt-10 mb-10">
@@ -112,7 +125,7 @@ const Page = () => {
       </div>
       <div className="flex flex-wrap gap-10 z-40 mt-20 mx-auto h-auto items-center justify-center top-0 inset-x-0 mb-20 bg-transparent capitalize">
         {completedIDOs.length > 0 ? (
-          completedIDOs.map((list: any, index) => {
+          currentItems.map((list: any, index) => {
             return (
                 
               <IdoCard key={index} index={index} list={list} isLoaded={isLoaded} isLoadedImage={isLoadedImage} />
@@ -127,6 +140,17 @@ const Page = () => {
         ) : (
           <Spinner />
         )}
+      </div>
+      <div className="pagination-container">
+        <Pagination
+        className="flex justify-center"
+        loop
+        showControls
+          total={Math.ceil(completedIDOs.length / itemsPerPage)}
+          initialPage={1}
+          page={currentPage}
+          onChange={handlePageChange}
+        />
       </div>
     </section>
   );

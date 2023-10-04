@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className='purple-dark'>
-      <body  className={`${inter.className} w-full mb-11 scroll-smooth scrollbar-hide`} style={{ backgroundImage: `url(${ElysiumBanner.src})`,backgroundPosition:'top',backgroundRepeat:'no-repeat' }}  >
+      <body  className={`${inter.className} w-full scroll-smooth scrollbar-hide`} style={{ backgroundImage: `url(${ElysiumBanner.src})`,backgroundPosition:'top',backgroundRepeat:'no-repeat',backgroundAttachment:'fixed' }}  >
       <div className="box">
         <ul>
             <li></li>

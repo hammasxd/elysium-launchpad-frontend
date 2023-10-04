@@ -13,7 +13,7 @@ function Footer() {
     
 <footer>
       
-        <div>
+        <div className=' pb-10'>
         <Divider className='my-20'  />
           <div className=" flex flex-row justify-center gap-72">
             <div className="logos flex flex-col gap-8">

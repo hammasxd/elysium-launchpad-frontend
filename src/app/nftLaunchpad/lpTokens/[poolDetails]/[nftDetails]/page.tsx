@@ -18,7 +18,6 @@ async function getNFTData(params:any) {
             
              NFTPoolAddress: slug,
         })
-
     })
     
     

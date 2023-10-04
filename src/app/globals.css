@@ -22,9 +22,11 @@ body {
       #CompletedProjects .GradientBox.Twitter:after {
         background-image: url("../app/assets/images/bg-twitter.png"); }
        
-      
+        .tier1-3{
+          color: chocolate;
+        }
         .box ul li {
-            position: absolute;
+            position: fixed;
             width: 35px;
             height: 35px;
             list-style: none;

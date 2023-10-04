@@ -5,7 +5,7 @@ function InfoDemoCard() {
   
   return (
      
-      <Card className="py-4 w-full bg-transparent backdrop-blur rounded-3xl px-10">
+      <Card className="py-4 w-full bg-transparent backdrop-blur rounded-3xl px-10 backdrop-brightness-150">
       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start ">
       <div className='flex flex-row justify-start items-center gap-24'>
       <Image
