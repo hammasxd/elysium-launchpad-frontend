@@ -39,39 +39,45 @@ function InfoCard() {
     }
   };
   
-    const getVerifiedUser = () => {
-
-        axios
-          .post(`${baseUrl}/getVerifyUser`, { address: walletAddress })
-          .then((response) => {
-            // console.log("hello User", response);
-            if (response.data.response) {
-              setImage(
-                btoa(
-                  new Uint8Array(response.data.response.userDP.data.data).reduce(
-                    function (data, byte) {
-                      return data + String.fromCharCode(byte);
-                    },
-                    ""
-                  )
-                )
-              );
-              setLoggedUser(response.data.response);
-              dispatch(setAddress(walletAddress));
-              dispatch(connectWalletRedux(response.data));
-
-            }
-            
-            // console.log(response.data.response);
-            console.log('user loged : ',LoggedUser);
-
-            delay(()=>{
-              setSkeltonLoaded(true)
-            },2000)
-            ;
+    const getVerifiedUser = async() => {
 
 
-          });
+      fetch(`${baseUrl}/getVerifyUser`, {
+        cache:'force-cache',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ address: walletAddress }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.response) {
+            setImage(
+              btoa(
+                new Uint8Array(data.response.userDP.data.data).reduce(function (
+                  data,
+                  byte
+                ) {
+                  return data + String.fromCharCode(byte);
+                }, '')
+              )
+            );
+            setLoggedUser(data.response);
+            dispatch(setAddress(walletAddress));
+            dispatch(connectWalletRedux(data));
+          }
+      
+          console.log('user logged: ', LoggedUser);
+      
+          setTimeout(() => {
+            setSkeltonLoaded(true);
+          }, 2000);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+      
       };
       const AddUser = () => {
         if (walletAddress == null || walletAddress == "") {

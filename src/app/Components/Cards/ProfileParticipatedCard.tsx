@@ -41,7 +41,6 @@ useEffect(() => {
 <>
     <Card className='p-10 bg-transparent backdrop-blur shadow-xl backdrop-brightness-150'>
     <CardHeader>
-      
         <h1 className='text-left text-2xl w-full '> IDOs Participated </h1>
     </CardHeader>
     <CardBody>

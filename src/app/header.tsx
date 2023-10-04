@@ -151,7 +151,7 @@ function Header() {
               src:`data:image/png;base64,${Imagee}`,
             }}
             className="transition-transform"
-            description={`${LoggedUser?.address}`}
+            description={`${LoggedUser?.address?.slice(0,5)}...${LoggedUser?.address?.slice(37,42)}`}
             name={`${LoggedUser?.userName}`}
           />
         </DropdownTrigger>

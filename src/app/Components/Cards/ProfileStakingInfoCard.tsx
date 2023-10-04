@@ -364,9 +364,10 @@ function ProfileStakingInfoCard() {
 
                 </div>
                 <Divider className=' mt-3'/>
-                {(new Date().getTime()) >= parseInt((StakeObject7.StakingEndTime as BigInt).toLocaleString()) ?
+                {parseInt((((new Date().getTime())/1000).toFixed(0)).toString()) <= parseInt((StakeObject7.StakingEndTime as number).toLocaleString()) ?
                   <div className='mt-2'>
-                  <small>Time Left</small>
+                  <small>Time Left </small>
+
                   <>
                   {printCountdown(
                                     "timer7",
@@ -407,7 +408,7 @@ function ProfileStakingInfoCard() {
 
                 </div>
                 <Divider className=' mt-3'/>
-                {(new Date().getTime()) >= parseInt((StakeObject14.StakingEndTime as BigInt).toLocaleString()) ?
+                {parseInt((((new Date().getTime())/1000).toFixed(0)).toString()) <= parseInt((StakeObject14.StakingEndTime as number).toLocaleString()) ?
                   <div className='mt-2'>
                   <small>Time Left</small>
                   <>
@@ -449,7 +450,7 @@ function ProfileStakingInfoCard() {
 
                 </div>
                 <Divider className=' mt-3'/>
-                {(new Date().getTime()) >= parseInt((StakeObject30.StakingEndTime as BigInt).toLocaleString()) ?
+                {parseInt((((new Date().getTime())/1000).toFixed(0)).toString()) <= parseInt((StakeObject30.StakingEndTime as number).toLocaleString()) ?
                   <div className='mt-2'>
                   <small>Time Left</small>
                   <>
@@ -491,7 +492,7 @@ function ProfileStakingInfoCard() {
 
                 </div>
                 <Divider className=' mt-3'/>
-                {(new Date().getTime()) >= parseInt((StakeObject60.StakingEndTime as BigInt).toLocaleString()) ?
+                {parseInt((((new Date().getTime())/1000).toFixed(0)).toString()) <= parseInt((StakeObject60.StakingEndTime as number).toLocaleString()) ?
                   <div className='mt-2'>
                   <small>Time Left</small>
                   <>
@@ -533,7 +534,7 @@ function ProfileStakingInfoCard() {
 
                 </div>
                 <Divider className=' mt-3'/>
-                {(new Date().getTime()) >= parseInt((StakeObject90.StakingEndTime as BigInt).toLocaleString()) ?
+                {parseInt((((new Date().getTime())/1000).toFixed(0)).toString()) <= parseInt((StakeObject90.StakingEndTime as number).toLocaleString()) ?
                   <div className='mt-2'>
                   <small>Time Left</small>
                   <>
@@ -575,7 +576,7 @@ function ProfileStakingInfoCard() {
 
                 </div>
                 <Divider className=' mt-3'/>
-                {(new Date().getTime()) >= parseInt((StakeObject180.StakingEndTime as BigInt).toLocaleString()) ?
+                {parseInt((((new Date().getTime())/1000).toFixed(0)).toString()) <= parseInt((StakeObject180.StakingEndTime as number).toLocaleString()) ?
                   <div className='mt-2'>
                   <small>Time Left</small>
                   <>
