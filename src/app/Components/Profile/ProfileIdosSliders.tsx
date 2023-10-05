@@ -692,9 +692,9 @@ const pageCountClaimed = claimedOnly.length;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const startIndexClaimed = (currentPageClaimed - 1) * itemsPerPage;
-  const endIndexClaimed = startIndex + itemsPerPage;
+  const endIndexClaimed = startIndexClaimed + itemsPerPage;
   const startIndexInprogress = (currentPageInprogress - 1) * itemsPerPage;
-  const endIndexInprogress = startIndex + itemsPerPage;
+  const endIndexInprogress = startIndexInprogress + itemsPerPage;
 
 
   // Slice the array to get the items for the current page

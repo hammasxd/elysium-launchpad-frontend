@@ -1,13 +1,16 @@
 'use client'
 import  {baseUrl, saleToken } from '@/app/constants/baseUrl'
 import { timeConverter } from '@/app/constants/helper'
-import { Card, CardBody, Progress, Snippet, Image, Skeleton } from '@nextui-org/react'
+import { Card, CardBody, Progress, Snippet, Image, Skeleton, Button } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import youtube from '../../assets/images/icon-youtube.svg'
 import axios from 'axios'
-import { utils } from 'ethers'
-import { useSDK } from '@thirdweb-dev/react'
-import { Ido_ABI } from '@/app/constants/info'
+import { BaseContract, BigNumberish, Transaction, utils } from 'ethers'
+import { SmartContract, approveErc20Allowance, useAddress, useSDK } from '@thirdweb-dev/react'
+import { Ido_ABI, TokenContract_Add, token_ABI } from '@/app/constants/info'
+import { delay } from 'framer-motion'
+import { ToastContainer, toast } from 'react-toastify'
+import Link from 'next/link'
 
 
 
@@ -17,10 +20,17 @@ function IdoDetails({params}:{params:{idoId:string}}) {
     const [ShowCompleted, setShowCompleted] = useState([]);
     const [CompletedIDOs, SetCompletedIDO]:any = useState({});
     const [Status, setStatus] = useState("");
+    const [approved,setApproved]=useState();
+    const [userApprovedTier,setUserApprovedTier]=useState<number>();
+    const [maxAmount,setMaxAmount]=useState();
+    const [maxAllocation,setMaxAlloc]=useState<string>('');
+    const [transactionProgress,setTransactionProgress]=useState<boolean>(true);
 const sdk=useSDK()
-let IDO3;
+ const acountAddress=useAddress();
+ let IDO3 : SmartContract<BaseContract> | undefined;
 const [isLoading,setIsLoading]=useState(true);
-
+let TokenABI = token_ABI();
+  let TokenContractAddr = TokenContract_Add();
 
 
  
@@ -48,7 +58,7 @@ const [isLoading,setIsLoading]=useState(true);
                         if (resData) {
                             var address = await resData.LaunchPoolAddress;
                             try {
-                                IDO3 = sdk?.getContractFromAbi(address, IDO_ABI)
+                                IDO3 =await sdk?.getContractFromAbi(address, IDO_ABI)
                             } catch (err) {
                                 console.log('failed : ',err)
                             }
@@ -71,19 +81,123 @@ const [isLoading,setIsLoading]=useState(true);
 
 
                             await IDO3?.call('getParameters').then(async (a: any) => {
+                                
                                 resData.maxCap = utils.formatEther(await a?.maxCap)
+                                resData.minAlloca = utils.formatEther(await a?.minAllocaPerUserTierOne).toString();
                                 resData.tokenPrice = a.IdoTokenPrice / 100;
                             })
 
 
                             await IDO3?.call('getTotalParticipants').then(async (a: any) => {
-                                resData.maxParticipants = a;
+                                resData.maxParticipants = utils.formatUnits(a,'wei');
                             })
-
+                           
+                            if(acountAddress!=undefined){
+                            await IDO3?.call('getWhitelistOne',[acountAddress]).then(async (a: any) => {
+                                    if(a==true){
+                                        setApproved(a)
+                                        setUserApprovedTier(1)
+                                      IDO3?.call('maxAllocaPerUserTierOne').then((a:any)=>{
+                                        resData.maxAlloc = utils.formatEther(a);
+                                        setMaxAlloc(resData.maxAlloc)
+                                      })
+                                    }
+                                    alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                            })
+                            await IDO3?.call('getWhitelistTwo',[acountAddress]).then(async (a: any) => {
+                                if(a==true){
+                                    setApproved(a)
+                                    setUserApprovedTier(2)
+                                    alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                    IDO3?.call('maxAllocaPerUserTierTwo').then((a:any)=>{
+                                        resData.maxAlloc = utils.formatEther(a);
+                                        setMaxAlloc(resData.maxAlloc)
+                                      })
+                                }
+                                })
+                                
+                                await IDO3?.call('getWhitelistThree',[acountAddress]).then(async (a: any) => {
+                                    if(a==true){
+                                        setApproved(a)
+                                        setUserApprovedTier(3)
+                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        IDO3?.call('maxAllocaPerUserTierThree').then((a:any)=>{
+                                            resData.maxAlloc = utils.formatEther(a);
+                                            setMaxAlloc(resData.maxAlloc)
+                                          })
+                                    }
+                                    })
+                            await IDO3?.call('getWhitelistFour',[acountAddress]).then(async (a: any) => {
+                                    if(a==true){
+                                        setApproved(a)
+                                        setUserApprovedTier(4)
+                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        IDO3?.call('maxAllocaPerUserTierFour').then((a:any)=>{
+                                            resData.maxAlloc = utils.formatEther(a);
+                                            setMaxAlloc(resData.maxAlloc)
+                                          })
+                                    }
+                                })
+                            await IDO3?.call('getWhitelistFive',[acountAddress]).then(async (a: any) => {
+                                    if(a==true){
+                                        setApproved(a)
+                                        setUserApprovedTier(5)
+                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        IDO3?.call('maxAllocaPerUserTierFive').then((a:any)=>{
+                                            resData.maxAlloc = utils.formatEther(a);
+                                            setMaxAlloc(resData.maxAlloc)
+                                          })
+                                    }
+                                })
+                            await IDO3?.call('getWhitelistSix',[acountAddress]).then(async (a: any) => {
+                                    if(a==true){
+                                        setApproved(a)
+                                        setUserApprovedTier(6)
+                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        IDO3?.call('maxAllocaPerUserTierSix').then((a:any)=>{
+                                            resData.maxAlloc = utils.formatEther(a);
+                                            setMaxAlloc(resData.maxAlloc)
+                                          })
+                                    }
+                                })
+                            await IDO3?.call('getWhitelistSeven',[acountAddress]).then(async (a: any) => {
+                                    if(a==true){
+                                        setApproved(a)
+                                        setUserApprovedTier(7)
+                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        IDO3?.call('maxAllocaPerUserTierSeven').then((a:any)=>{
+                                            resData.maxAlloc = utils.formatEther(a);
+                                            setMaxAlloc(resData.maxAlloc)
+                                          })
+                                    }
+                                })
+                            await IDO3?.call('getWhitelistEight',[acountAddress]).then(async (a: any) => {
+                                    if(a==true){
+                                        setApproved(a)
+                                        setUserApprovedTier(8)
+                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        IDO3?.call('maxAllocaPerUserTierEight').then((a:any)=>{
+                                            resData.maxAlloc = utils.formatEther(a);
+                                            setMaxAlloc(resData.maxAlloc)
+                                          })
+                                    }
+                                })
+                            await IDO3?.call('getWhitelistNine',[acountAddress]).then(async (a: any) => {
+                                    if(a==true){
+                                        setApproved(a)
+                                        setUserApprovedTier(9)
+                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        IDO3?.call('maxAllocaPerUserTierNine').then((a:any)=>{
+                                            resData.maxAlloc = utils.formatEther(a);
+                                            setMaxAlloc(resData.maxAlloc)
+                                          })
+                                    }
+                                })
+}
                             let TotalTokenSold =
                                 resData.tokenPrice * resData.raised;
                             let filledPercentage =
-                                (TotalTokenSold / resData.totalSupply) * 100;
+                                (((TotalTokenSold / resData.totalSupply) * 100)as number).toFixed(9);
                             resData.filledPercentage = filledPercentage;
                             resData.SetTotalTokenSold = TotalTokenSold;
                             SetCompletedIDO(resData);
@@ -95,7 +209,9 @@ const [isLoading,setIsLoading]=useState(true);
                     
                 }
                 SetCompletedIDO(resData);
-                setIsLoading(false)
+               setIsLoading(false);
+
+                
                 
 
             });
@@ -103,9 +219,82 @@ const [isLoading,setIsLoading]=useState(true);
         setStatus("In-progress");
     }
 
+    
+    
+  }, [acountAddress])
+  
+  
+  const approve=async ()=>{
+    toast.success(
+        "Exists in tier# :" +
+          userApprovedTier +
+          " with range:" +
+          maxAllocation,
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          toastId: "existtier",
+        }
+      );
+      toast.loading('Transaction in Progress', {
+        position: "top-right",
+        autoClose: false,
+        
+        progress: undefined,
+        toastId: "loading",
+      });
+      const Msg = ({ txHash }:any) => (
+        <div className='flex flex-col gap-1 ml-3'>
+          <p>Tokens Approved</p>
+          <Link href={`https://blockscout.atlantischain.network/tx/${txHash}`} className=' text-primary-PAROT underline' >View on BlocksScout</Link>
+          
+        </div>
+      )
+  let tokenContract =await sdk?.getContractFromAbi(TokenContractAddr,TokenABI);
+    const inWei= utils.parseUnits(maxAllocation,18);
+    let args = [params.idoId, inWei];
+    await tokenContract?.call('approve',args,{
+        gasLimit:7000000,
+    }).then((tx:any)=>{
+        toast.dismiss('loading');
+        toast.success(<Msg txHash={tx?.receipt?.transactionHash}/>,{
+            toastId:'trans',
+            autoClose:3000,
+
+        });
+        console.log(tx?.receipt);
+    }).catch((error)=>{
+        toast.dismiss('loading');
+        toast.error('Transaction Failed',
+        {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "existtier",
+          })
+          console.log(error);
+    });
+
   
     
-  }, [])
+   
+
+
+
+
+
+
+   
+  }
   
 
    
@@ -124,7 +313,7 @@ const [isLoading,setIsLoading]=useState(true);
                          <Image
                              src={CompletedIDOs.TokenImageURL}
                                 alt={'token image'}
-                             className=" w-[70px] max-w-none rounded-full justify-start"
+                             className=" w-[70px] max-h-[70px] max-w-none rounded-full justify-start"
                          />
                          <div className="flex flex-col justify-center">
                              <h1 className=" text-2xl">
@@ -397,8 +586,10 @@ fill="#fff"
 
 
                          <div className="flex flex-col gap-10">
+                         <Skeleton isLoaded={!isLoading} className=' bg-primary rounded-2xl'>
                          <div className="imageAndDetail flex flex-row gap-14 justify-between content-end">
-                         <Skeleton isLoaded={!isLoading} className='w-[800px] bg-primary rounded-2xl'>
+                            
+                        
                              <div className="imageWali">
                                 
                                     <Image
@@ -410,8 +601,8 @@ fill="#fff"
                                 
                                
                              </div>
-                             </Skeleton>
-                             <Skeleton className=' bg-primary rounded-2xl' isLoaded={!isLoading}>
+                             
+                             
                              <div className="DetailsNft ">
                                  <Card  className=" bg-transparent shadow-none ">
 
@@ -430,12 +621,154 @@ fill="#fff"
                                            
                                             
                                                  <p className="text-white text-tiny flex-initial">
-                                                     {CompletedIDOs.filledPercentage}%
+                                                     {CompletedIDOs.filledPercentage} %
                                                  </p>
                                              
+
                                          </div>
                                          <Progress className=" mb-8 mt-2 h-3 rounded-lg" isStriped color="secondary" value={CompletedIDOs.filledPercentage} aria-label="Loading..." />
-                                         <div className="grid grid-cols-2 grid-rows-2 gap-x-20 mb-8" >
+                                         { CompletedIDOs.ProjectStatus=='In-progress' && 
+                                         <>
+                                          <div className="grid grid-cols-2 grid-rows-4 gap-x-20 mb-8" >
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Filled</small>
+                                                 
+                                                     <small className="font-bold">{CompletedIDOs.raised} / {CompletedIDOs.totalSupply}
+                                                     </small>
+                                                
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Sale Price</small>
+                                                
+                                                     <small className="font-bold">
+                                                         1 {saleToken} = {CompletedIDOs.tokenPrice} {CompletedIDOs.TokenSymbol}
+                                                     </small >
+                                                
+
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Max Cap</small>
+                                                
+                                                     <small className="font-bold">
+                                                          {CompletedIDOs.MaxCap}
+                                                     </small >
+                                                
+
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">MAX ALLOC.</small>
+                                                 
+                                                     <small className="font-bold"> {maxAllocation}
+                                                     </small>
+                                                
+
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Current Participants</small>
+                                                
+                                                     <small className="font-bold">
+                                                          {CompletedIDOs.maxParticipants}
+                                                     </small >
+                                                
+
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">MIN ALLOC.</small>
+                                                 
+                                                     <small className="font-bold"> {CompletedIDOs.minAlloca}
+                                                     </small>
+                                                
+
+                                             </div>
+                                            
+                                            
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Starting Time</small>
+                                                
+                                                     <small className="font-bold">
+                                                         {timeConverter(CompletedIDOs.StartTime)}
+                                                     </small>
+                                                
+
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Sesion End Date</small>
+                                                
+                                                     <small className="font-bold">
+                                                         {timeConverter(CompletedIDOs.EndTime)}
+                                                     </small>
+                                                
+
+                                             </div>
+                                         </div>
+                                         <div>
+                                            {
+                                                approved && 
+                                                
+                                                <Button onPress={approve}>Approve</Button>
+                                                
+                                            }
+                                         </div>
+                                         </>
+
+                                         }
+
+                                         { CompletedIDOs.ProjectStatus=='Up-coming' &&  <div className="grid grid-cols-2 grid-rows-3 gap-x-20 mb-8" >
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Tokens Offered</small>
+                                                 
+                                                     <small className="font-bold">TBA
+                                                     </small>
+                                                
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Sale Price</small>
+                                                
+                                                     <small className="font-bold">
+                                                         1 {saleToken} = TBA
+                                                     </small >
+                                                
+
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Min Allocation</small>
+                                                 
+                                                     <small className="font-bold"> {CompletedIDOs.minAlloca}
+                                                     </small>
+                                                
+
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Max Allocation</small>
+                                                
+                                                     <small className="font-bold">
+                                                          TBA
+                                                     </small >
+                                                
+
+                                             </div>
+                                            
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Initiate Time</small>
+                                                
+                                                     <small className="font-bold">
+                                                         {timeConverter(CompletedIDOs.StartTime)}
+                                                     </small>
+                                                
+
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Total Tiers</small>
+                                                
+                                                     <small className="font-bold">
+                                                         {CompletedIDOs.Tiers}
+                                                     </small>
+                                                
+
+                                             </div>
+                                         </div>}
+
+                                        { CompletedIDOs.ProjectStatus=='Completed' &&  <div className="grid grid-cols-2 grid-rows-3 gap-x-20 mb-8" >
                                              <div className="col-span-1 flex-initial">
                                                  <small className="w-full inline-flex text-tiny text-white">Tokens Offered</small>
                                                  
@@ -461,6 +794,25 @@ fill="#fff"
 
                                              </div>
                                              <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Max Cap</small>
+                                                
+                                                     <small className="font-bold">
+                                                          {CompletedIDOs.MaxCap}
+                                                     </small >
+                                                
+
+                                             </div>
+                                            
+                                             <div className="col-span-1 flex-initial">
+                                                 <small className="w-full inline-flex text-tiny text-white">Initiate Time</small>
+                                                
+                                                     <small className="font-bold">
+                                                         {timeConverter(CompletedIDOs.StartTime)}
+                                                     </small>
+                                                
+
+                                             </div>
+                                             <div className="col-span-1 flex-initial">
                                                  <small className="w-full inline-flex text-tiny text-white">Sesion End Date</small>
                                                 
                                                      <small className="font-bold">
@@ -469,7 +821,7 @@ fill="#fff"
                                                 
 
                                              </div>
-                                         </div>
+                                         </div>}
 
                                      </CardBody>
 
@@ -477,8 +829,10 @@ fill="#fff"
 
                                  </Card>
                              </div>
-                             </Skeleton>
+                            
+                             
                          </div>
+                         </Skeleton>
                          <Skeleton className=' bg-primary rounded-2xl' isLoaded={!isLoading}>
                          <div className="extraMaterial flex flex-row justify-between content-end">
                              <div className="AboutProject">
@@ -505,7 +859,9 @@ fill="#fff"
                                                  </div>
                                                  <div className="3">
                                                  <p>Total Supply</p>
-                                                 <p>{CompletedIDOs.totalSupply}</p>
+                                                 {CompletedIDOs.ProjectStatus != 'Up-coming' ?  <p>{CompletedIDOs.totalSupply}</p> : 
+                                                 <p>TBA</p>
+                                                 }
                                                  </div>
                                                  <div className="4">
                                                  <p>Decimals</p>
@@ -514,12 +870,14 @@ fill="#fff"
                                              </div>
                                              <div className="adrWali">
                                              <p>Address</p>
+                                             {CompletedIDOs.ProjectStatus != 'Up-coming' ? 
                                              <Snippet 
                                              symbol=''
                                              variant='flat'
                                              color='primary'
                                              className=" bg-transparent p-0"
                                              >{CompletedIDOs.TokenAddress}</Snippet>
+                                             : <p>TBA</p>}
                                              </div>
 
 

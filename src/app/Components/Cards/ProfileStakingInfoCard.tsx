@@ -53,7 +53,6 @@ function ProfileStakingInfoCard() {
       // console.log("Stak", withdrawLoader)
      const  stakingContractObj= await sdk?.getContractFromAbi(stakingContractAdress,StakingABI);
       toast('Transaction in Progress',{ position:'top-right',type:'info' });
-      
      toast.info('Starting');
       if (!account) {
         return;

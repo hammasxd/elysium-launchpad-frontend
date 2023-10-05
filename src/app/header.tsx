@@ -44,29 +44,38 @@ function Header() {
   connectedWallet?.on('connect',handleWalletConnect);
   const getAvatarData=()=>{
     if(connectedAddress) {
-    axios
-    .post(`${baseUrl}/getVerifyUser`, { address: connectedAddress })
-    .then((response) => {
-      // console.log("hello User", response);
-      if (response.data.response) {
-        setImage(
-          btoa(
-            new Uint8Array(response.data?.response.userDP.data.data).reduce(
-              function (data, byte) {
-                return data + String.fromCharCode(byte);
-              },
-              ""
-            )
-          )
-        );
-        setLoggedUser(response.data.response);
-          
-      }
+      fetch(`${baseUrl}/getVerifyUser`, {
+        cache:'force-cache',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ address: connectedAddress }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log("hello User", data);
+          if (data.response) {
+            setImage(
+              btoa(
+                new Uint8Array(data.response.userDP.data.data).reduce(function (
+                  data,
+                  byte
+                ) {
+                  return data + String.fromCharCode(byte);
+                },
+                '')
+              )
+            );
+            setLoggedUser(data.response);
+          }
       
-      // console.log(response.data.response);
-
-
-    });
+          // console.log(data.response);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+      
 
 }
   }

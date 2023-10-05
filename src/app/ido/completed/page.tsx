@@ -24,7 +24,9 @@ const Page = () => {
 
   const fetchCompletedCount = async () => {
     try {
-      const response = await fetch(`${baseUrl}/allIDOsCnt`);
+      const response = await fetch(`${baseUrl}/allIDOsCnt`,{
+        cache:'force-cache',
+      });
       const data = await response.json();
       setCompletedIDOsCount(data.data.Completed);
     } catch (err) {

@@ -9,7 +9,8 @@ import ElysiumBanner from "./assets/images/ElysiumBanner.png";
 import Header from './header';
 import Cursors from './Components/Cursor/Cursors';
 import Footer from './footer';
-
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/ReactToastify.min.css";
 // export const metadata: Metadata = {
 //   title: 'Elysium Launchpad',
 //   description: 'Elysium NFT launchpad by Vulcanforged',
@@ -23,6 +24,20 @@ export default function RootLayout({
   return (
     <html lang="en" className='purple-dark'>
       <body  className={`${inter.className} w-full scroll-smooth scrollbar-hide`} style={{ backgroundImage: `url(${ElysiumBanner.src})`,backgroundPosition:'top',backgroundRepeat:'no-repeat',backgroundAttachment:'fixed' }}  >
+      <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
+{/* Same as */}
+<ToastContainer />
       <div className="box">
         <ul>
             <li></li>
@@ -38,8 +53,8 @@ export default function RootLayout({
         <div className='wrapper' >
         <Header/>
         
-    
-    
+
+
         {children}
         <Footer/>
         </div>
