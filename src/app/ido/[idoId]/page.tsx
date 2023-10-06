@@ -11,6 +11,7 @@ import { Ido_ABI, TokenContract_Add, token_ABI } from '@/app/constants/info'
 import { delay } from 'framer-motion'
 import { ToastContainer, toast } from 'react-toastify'
 import Link from 'next/link'
+import { setTimeout } from 'timers/promises'
 
 
 
@@ -25,6 +26,7 @@ function IdoDetails({params}:{params:{idoId:string}}) {
     const [maxAmount,setMaxAmount]=useState();
     const [maxAllocation,setMaxAlloc]=useState<string>('');
     const [transactionProgress,setTransactionProgress]=useState<boolean>(true);
+    const [showApprovalButton,setShowApprovalButton]=useState(true)
 const sdk=useSDK()
  const acountAddress=useAddress();
  let IDO3 : SmartContract<BaseContract> | undefined;
@@ -102,13 +104,12 @@ let TokenABI = token_ABI();
                                         setMaxAlloc(resData.maxAlloc)
                                       })
                                     }
-                                    alert('approved status : '+approved+' Tier : '+userApprovedTier)
                             })
                             await IDO3?.call('getWhitelistTwo',[acountAddress]).then(async (a: any) => {
                                 if(a==true){
                                     setApproved(a)
                                     setUserApprovedTier(2)
-                                    alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                    
                                     IDO3?.call('maxAllocaPerUserTierTwo').then((a:any)=>{
                                         resData.maxAlloc = utils.formatEther(a);
                                         setMaxAlloc(resData.maxAlloc)
@@ -120,7 +121,7 @@ let TokenABI = token_ABI();
                                     if(a==true){
                                         setApproved(a)
                                         setUserApprovedTier(3)
-                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        
                                         IDO3?.call('maxAllocaPerUserTierThree').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
@@ -131,7 +132,7 @@ let TokenABI = token_ABI();
                                     if(a==true){
                                         setApproved(a)
                                         setUserApprovedTier(4)
-                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        
                                         IDO3?.call('maxAllocaPerUserTierFour').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
@@ -142,7 +143,7 @@ let TokenABI = token_ABI();
                                     if(a==true){
                                         setApproved(a)
                                         setUserApprovedTier(5)
-                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        
                                         IDO3?.call('maxAllocaPerUserTierFive').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
@@ -153,7 +154,7 @@ let TokenABI = token_ABI();
                                     if(a==true){
                                         setApproved(a)
                                         setUserApprovedTier(6)
-                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        
                                         IDO3?.call('maxAllocaPerUserTierSix').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
@@ -164,7 +165,7 @@ let TokenABI = token_ABI();
                                     if(a==true){
                                         setApproved(a)
                                         setUserApprovedTier(7)
-                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        
                                         IDO3?.call('maxAllocaPerUserTierSeven').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
@@ -175,7 +176,7 @@ let TokenABI = token_ABI();
                                     if(a==true){
                                         setApproved(a)
                                         setUserApprovedTier(8)
-                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        
                                         IDO3?.call('maxAllocaPerUserTierEight').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
@@ -186,7 +187,7 @@ let TokenABI = token_ABI();
                                     if(a==true){
                                         setApproved(a)
                                         setUserApprovedTier(9)
-                                        alert('approved status : '+approved+' Tier : '+userApprovedTier)
+                                        
                                         IDO3?.call('maxAllocaPerUserTierNine').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
@@ -267,10 +268,12 @@ let TokenABI = token_ABI();
             autoClose:3000,
 
         });
+        
+        setShowApprovalButton(false);
         console.log(tx?.receipt);
     }).catch((error)=>{
         toast.dismiss('loading');
-        toast.error('Transaction Failed',
+        toast.error('Approval Failed',
         {
             position: "top-right",
             autoClose: 5000,
@@ -284,18 +287,72 @@ let TokenABI = token_ABI();
           console.log(error);
     });
 
-  
-    
-   
-
-
-
-
-
-
    
   }
-  
+  const buyTokens=async ()=>{
+    const inWei= utils.parseUnits(maxAllocation,18);
+    let contract= await sdk?.getContractFromAbi(params.idoId,IDO_ABI);
+    toast.loading('Transaction in Progress', {
+        position: "top-right",
+        autoClose: false,
+        progress: undefined,
+        toastId: "buyProgress",
+      });
+    await contract?.call('buyTokens',[inWei],{
+        gasLimit:7000000,
+    }).then(()=>{
+        toast.dismiss('buyProgress');
+        delay(()=>{
+            toast.success(` ${inWei}  Tokens Bought`,
+        {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "existtier",
+          })
+        },10000);
+        
+
+    }).catch((err)=>{
+        toast.dismiss('buyProgress');
+        if(err?.hasOwnProperty('data')){
+            let error = err.data.message;
+                          let x = err.replace(
+                            "VM Exception while processing transaction:",
+                            ""
+                          );
+        toast.error(x,{
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "existtier",
+        })
+        }
+
+        else {
+            toast.error('Buy Failed',
+        {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "existtier",
+          })
+        }
+          console.log(err);
+    })
+}
 
    
          
@@ -606,12 +663,12 @@ fill="#fff"
                              <div className="DetailsNft ">
                                  <Card  className=" bg-transparent shadow-none ">
 
-                                     <CardBody className=" overflow-visible py-0 w-full px-0 rounded-none">
+                                     <CardBody className=" overflow-visible py-0 w-ful justify-center px-0 rounded-none">
 
                                         
                                         
                                        
-                                         <p className="text-white w-full inline-flex mb-2">Total Raised</p>
+                                         <p className="text-white w-full inline-flex  mb-2">Total Raised</p>
                                          <div className="flex w-full justify-between">
                                             
                                                  <p className="text-white text-tiny flex-initial">
@@ -626,7 +683,7 @@ fill="#fff"
                                              
 
                                          </div>
-                                         <Progress className=" mb-8 mt-2 h-3 rounded-lg" isStriped color="secondary" value={CompletedIDOs.filledPercentage} aria-label="Loading..." />
+                                         <Progress className=" mb-8 mt-2 h-3 rounded-lg " isStriped color="secondary" value={CompletedIDOs.filledPercentage} aria-label="Loading..." />
                                          { CompletedIDOs.ProjectStatus=='In-progress' && 
                                          <>
                                           <div className="grid grid-cols-2 grid-rows-4 gap-x-20 mb-8" >
@@ -701,12 +758,17 @@ fill="#fff"
 
                                              </div>
                                          </div>
-                                         <div>
+                                         <div className='flex justify-center'>
                                             {
-                                                approved && 
+                                                approved && showApprovalButton &&
+                                                <Button className='w-1/2 bg-primary mx-auto hover:bg-opacity-50 ' onPress={approve}>Approve</Button>
                                                 
-                                                <Button onPress={approve}>Approve</Button>
-                                                
+
+                                            }
+                                            {
+
+                                                !showApprovalButton &&
+                                                <Button className='w-1/2 bg-primary-PAROT mx-auto hover:bg-opacity-50 '  onPress={buyTokens}>Buy Tokens</Button>
                                             }
                                          </div>
                                          </>
