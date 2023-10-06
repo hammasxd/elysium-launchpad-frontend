@@ -242,7 +242,7 @@ const [buyValue,setBuyValue]=useState<string>('')
         return(
             <div className='flex flex-col gap-1 ml-3'>
               <p>Tokens Approved</p>
-              <Link href={`https://blockscout.atlantischain.network/tx/${txHash}`} className=' text-primary-PAROT underline' >View on BlocksScout</Link>
+              <Link target='_blank' href={`https://blockscout.atlantischain.network/tx/${txHash}`} className=' text-primary-PAROT underline' >View on BlocksScout</Link>
               
             </div>
           )
@@ -309,7 +309,8 @@ const [buyValue,setBuyValue]=useState<string>('')
             progress: undefined,
             toastId: "existtier",
           })
-        },10000);
+          setIsBuyModalOpen(false)
+        },5000);
         
 
     }).catch((err)=>{
@@ -860,9 +861,9 @@ fill="#fff"
                                                             Close
                                                           </Button>
                                                           <Button  color="primary" onPress={()=>{
-                                                                approve(approvalValue)
+                                                                buyTokens(approvalValue)
                                                           }}>
-                                                            Approve
+                                                            Buy
                                                           </Button>
                                                         </ModalFooter>
                                                       </>
