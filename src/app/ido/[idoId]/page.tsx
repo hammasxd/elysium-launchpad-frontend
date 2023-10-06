@@ -1,7 +1,7 @@
 'use client'
 import  {baseUrl, saleToken } from '@/app/constants/baseUrl'
 import { timeConverter } from '@/app/constants/helper'
-import { Card, CardBody, Progress, Snippet, Image, Skeleton, Button } from '@nextui-org/react'
+import { Card, CardBody, Progress, Snippet, Image, Skeleton, Button, Checkbox, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure,Link } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import youtube from '../../assets/images/icon-youtube.svg'
 import axios from 'axios'
@@ -10,9 +10,8 @@ import { SmartContract, approveErc20Allowance, useAddress, useSDK } from '@third
 import { Ido_ABI, TokenContract_Add, token_ABI } from '@/app/constants/info'
 import { delay } from 'framer-motion'
 import { ToastContainer, toast } from 'react-toastify'
-import Link from 'next/link'
 import { setTimeout } from 'timers/promises'
-
+import busd from '../../assets/images/busd-logo.png'
 
 
 const IDO_ABI=Ido_ABI()
@@ -28,13 +27,16 @@ function IdoDetails({params}:{params:{idoId:string}}) {
     const [transactionProgress,setTransactionProgress]=useState<boolean>(true);
     const [showApprovalButton,setShowApprovalButton]=useState(true)
 const sdk=useSDK()
+const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
+
  const acountAddress=useAddress();
  let IDO3 : SmartContract<BaseContract> | undefined;
 const [isLoading,setIsLoading]=useState(true);
 let TokenABI = token_ABI();
   let TokenContractAddr = TokenContract_Add();
-
-
+const [isBuyModalOpen,setIsBuyModalOpen]=useState(false);
+const [approvalValue,setApprovalValue]=useState<string>('')
+const [buyValue,setBuyValue]=useState<string>('')
  
   
 
@@ -220,44 +222,34 @@ let TokenABI = token_ABI();
         setStatus("In-progress");
     }
 
-    
+
     
   }, [acountAddress])
   
   
-  const approve=async ()=>{
-    toast.success(
-        "Exists in tier# :" +
-          userApprovedTier +
-          " with range:" +
-          maxAllocation,
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          toastId: "existtier",
-        }
-      );
+  const approve=async (e:string)=>{
+    
       toast.loading('Transaction in Progress', {
         position: "top-right",
-        autoClose: false,
-        
+        autoClose: false,   
+       
         progress: undefined,
         toastId: "loading",
+        theme:'colored'
       });
-      const Msg = ({ txHash }:any) => (
-        <div className='flex flex-col gap-1 ml-3'>
-          <p>Tokens Approved</p>
-          <Link href={`https://blockscout.atlantischain.network/tx/${txHash}`} className=' text-primary-PAROT underline' >View on BlocksScout</Link>
-          
-        </div>
-      )
+      const Msg = ({ txHash }:any) =>{
+        onClose();
+        return(
+            <div className='flex flex-col gap-1 ml-3'>
+              <p>Tokens Approved</p>
+              <Link href={`https://blockscout.atlantischain.network/tx/${txHash}`} className=' text-primary-PAROT underline' >View on BlocksScout</Link>
+              
+            </div>
+          )
+      } 
+      
   let tokenContract =await sdk?.getContractFromAbi(TokenContractAddr,TokenABI);
-    const inWei= utils.parseUnits(maxAllocation,18);
+    const inWei= utils.parseUnits(e,18);
     let args = [params.idoId, inWei];
     await tokenContract?.call('approve',args,{
         gasLimit:7000000,
@@ -267,7 +259,10 @@ let TokenABI = token_ABI();
             toastId:'trans',
             autoClose:3000,
 
-        });
+        }
+        
+        )
+       
         
         setShowApprovalButton(false);
         console.log(tx?.receipt);
@@ -289,8 +284,8 @@ let TokenABI = token_ABI();
 
    
   }
-  const buyTokens=async ()=>{
-    const inWei= utils.parseUnits(maxAllocation,18);
+  const buyTokens=async (e:string)=>{
+    const inWei= utils.parseUnits(e,18);
     let contract= await sdk?.getContractFromAbi(params.idoId,IDO_ABI);
     toast.loading('Transaction in Progress', {
         position: "top-right",
@@ -356,7 +351,12 @@ let TokenABI = token_ABI();
 
    
          
-   
+const BusdLogo = ({ }:any) => (
+    <>
+    <Image src={busd.src} width={30} height={30}/>     
+    <span className=' text-yellow-400 font-extrabold'>BUSD</span>     
+    </>  
+      )
   return (
    
 <> 
@@ -761,15 +761,116 @@ fill="#fff"
                                          <div className='flex justify-center'>
                                             {
                                                 approved && showApprovalButton &&
-                                                <Button className='w-1/2 bg-primary mx-auto hover:bg-opacity-50 ' onPress={approve}>Approve</Button>
+                                                <>
+                                                <Button onPress={onOpen}  color="primary" className='w-1/2 hover:bg-opacity-50 '>Approve BUSD</Button>
+                                                <Modal 
+                                                backdrop='blur'
+                                                  isOpen={isOpen} 
+                                                  onOpenChange={onOpenChange}
+                                                  placement="top-center"
                                                 
+                                                  className='bg-primary-50 bg-opacity-70 backdrop-blur'
+                                                >
+
+                                                  <ModalContent>
+                                                    {(onClose) => (
+                                                      <>
+                                                        <ModalHeader className="flex flex-col gap-1 text-center text-primary">Approve BUSD</ModalHeader>
+                                                        <ModalBody>
+                                                            <p>Tier : {userApprovedTier}</p>
+                                                            <p> Range : {CompletedIDOs.minAlloca} BUSD - {maxAllocation} BUSD</p>
+                                                          <Input
+                                                            size='lg'
+                                                            autoFocus
+                                                            endContent={
+                                                              <BusdLogo />
+                                                            }
+                                                            onChange={(e) => {
+                                                                setApprovalValue(e.target.value);
+                                                              }}
+                                                            defaultValue={maxAllocation}
+                                                            variant='bordered'
+                                                            className=''
+
+                                                          />
+                                                         
+                                                          <div className="flex py-2 px-1 justify-between">
+                                                            
+                                                           
+                                                          </div>
+                                                        </ModalBody>
+                                                        <ModalFooter>
+                                                          <Button color="danger" variant="flat" onPress={onClose}>
+                                                            Close
+                                                          </Button>
+                                                          <Button  color="primary" onPress={()=>{
+                                                                approve(approvalValue)
+                                                          }}>
+                                                            Approve
+                                                          </Button>
+                                                        </ModalFooter>
+                                                      </>
+                                                    )}
+                                                  </ModalContent>
+                                                </Modal>  
+                                                </>                                              
 
                                             }
                                             {
 
                                                 !showApprovalButton &&
-                                                <Button className='w-1/2 bg-primary-PAROT mx-auto hover:bg-opacity-50 '  onPress={buyTokens}>Buy Tokens</Button>
-                                            }
+                                                <>
+                                                <Button onPress={()=>setIsBuyModalOpen(true)}  color="primary" className='w-1/2 hover:bg-opacity-50 '>Buy Token</Button>
+                                                <Modal 
+                                                backdrop='blur'
+                                                  isOpen={isBuyModalOpen} 
+                                                  onOpenChange={()=>setIsBuyModalOpen(false)}
+                                                  placement="top-center"
+                                                  className='bg-primary-50 bg-opacity-70 backdrop-blur'
+                                                >
+
+                                                  <ModalContent>
+                                                    {(onClose) => (
+                                                      <>
+                                                        <ModalHeader className="flex flex-col gap-1 text-center text-primary">Buy Tokens</ModalHeader>
+                                                        <ModalBody>
+                                                            
+                                                            <p> Approved Tokens : {approvalValue}  BUSD</p>
+                                                          <Input
+                                                            size='lg'
+                                                            autoFocus
+                                                            endContent={
+                                                              <BusdLogo />
+                                                            }
+                                                            onChange={(e) => {
+                                                                setBuyValue(e.target.value);
+                                                              }}
+                                                            variant='bordered'
+                                                            className=''
+
+                                                          />
+                                                         
+                                                          <div className="flex py-2 px-1 justify-between">
+                                                            
+                                                           
+                                                          </div>
+                                                        </ModalBody>
+                                                        <ModalFooter>
+                                                          <Button color="danger" variant="flat" onPress={onClose}>
+                                                            Close
+                                                          </Button>
+                                                          <Button  color="primary" onPress={()=>{
+                                                                approve(approvalValue)
+                                                          }}>
+                                                            Approve
+                                                          </Button>
+                                                        </ModalFooter>
+                                                      </>
+                                                    )}
+                                                  </ModalContent>
+                                                </Modal>  
+                                                </>    
+                                                 }
                                          </div>
                                          </>
 

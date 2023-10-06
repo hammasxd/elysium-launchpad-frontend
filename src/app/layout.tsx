@@ -37,7 +37,8 @@ pauseOnHover
 theme="light"
 />
 {/* Same as */}
-<ToastContainer />
+<ToastContainer
+/>
       <div className="box">
         <ul>
             <li></li>

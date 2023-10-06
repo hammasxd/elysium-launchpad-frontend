@@ -9,6 +9,9 @@ import Link from 'next/link'
 
  async function FarmCard({poolname,count}:any) {
 
+ 
+
+ 
    return (
 <Link href={`/nftLaunchpad/lpTokens/${poolname}`}  className=' backdrop-blur bg-transparent'>
 <Card className=" p-5 backdrop-blur bg-transparent rounded-3xl hover:-translate-y-7  hover:backdrop-blur shadow-glow">
