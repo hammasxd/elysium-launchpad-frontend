@@ -16,6 +16,10 @@ import { useAddress, useSDK, useWallet } from '@thirdweb-dev/react'
 import { formatUnits, parseEther } from 'ethers/lib/utils'
 import { ethers } from 'ethers'
 import Web3 from 'web3';
+import { baseUrl } from '@/app/constants/baseUrl'
+import { ok } from 'assert'
+import { toast } from 'react-toastify'
+import { delay } from '@reduxjs/toolkit/dist/utils'
 function StakingCard() {
     const stakeTokenAddress=StakeToken_Add();
     const web3 = new Web3();
@@ -24,10 +28,12 @@ function StakingCard() {
     const [symbol,setSymbol] = useState<string | undefined>(undefined)
     const [selectedKeys, setSelectedKeys]=useState(new Set(["text"]))
     const [balance, setBalance]=useState<string | undefined>(undefined)
+    const [alreadyStaking, setAlreadyStaking]=useState();
+    const [curretnDays,setCurretDays] = useState<number>();
     const wallet=useWallet();
     const walletAddress=useAddress()
     const sdk=useSDK();
-
+    const [stakeDurationContract,setStakeDurationContract] = useState<string | undefined>(StakingABIContract_Add7());
     //get token balance from contract
     const getBalance=async ()=>{
         await sdk?.getContractFromAbi(stakeTokenAddress,stakeToken_ABI()).then(
@@ -41,8 +47,13 @@ function StakingCard() {
                     eth = parseFloat(eth).toFixed(4)
                     setBalance( eth);
                     console.log('ethhhhhh',eth)
+                });
+                await a.call('symbol',[]).then((a:any)=>{
+                    setSymbol(a)
+                    console.log('symbol :  ', a)
                 })
             }
+
 
         )
     }
@@ -50,7 +61,67 @@ function StakingCard() {
     const selectedValue = React.useMemo(
         () => Array.from(selectedKeys).join(", "),
         [selectedKeys]
+
       );
+      const selectLockedDurationContract = ()=>{
+       
+switch (selectedValue) {
+    case '7':
+      setStakeDurationContract (StakingABIContract_Add7());
+      break;
+    case '14':
+        setStakeDurationContract (StakingABIContract_Add14());
+      break;
+    case '30':
+        setStakeDurationContract (StakingABIContract_Add30());
+      break;
+    case '60':
+        setStakeDurationContract (StakingABIContract_Add60());
+      break;
+    case '90':
+        setStakeDurationContract (StakingABIContract_Add90());
+      break;
+    case '180':
+        setStakeDurationContract (StakingABIContract_Add180());
+      break;
+    default:
+      // Handle the case where selectedValue doesn't match any of the cases
+      break;
+  }
+        
+      }
+
+      //get user current staking
+      const getUserStakingInfo=async ()=>{
+        const response= await fetch(`${baseUrl}/getVerifyUser`,{
+            method:'POST',
+            cache:'force-cache',
+            headers:{
+                'Content-Type':'application/json',
+                'Accept':'application/json'
+            },
+            body:JSON.stringify({
+                address:walletAddress
+            },
+            )
+        })
+        if(response.ok){
+
+            return await response.json();
+
+            }
+        return 'error';
+      }
+
+      const getUserCurrentStakingInfo=async ()=>{
+        const data = await getUserStakingInfo();
+        const current=data.response.stakingDays;
+        const alreadyStakedAmount = data.response.stakeAmount;
+        setAlreadyStaking(alreadyStakedAmount);
+        setCurretDays(current);
+        console.log('currentttttttttt : ',curretnDays)
+    }
+
       //pyr logo
       const PYRLogo=()=>{
         return <Image src={PYRlogo.src} width={20} height={20} />
@@ -67,14 +138,46 @@ function StakingCard() {
         );
       };
 
-const getStakedAmount = ()=>{
+      const approveAmount=async ()=>{
 
-}
+        if(curretnDays!=0 || curretnDays){
+            toast.error(`already Staked for ${curretnDays} days`);
+        }
+        else{
+           
+            toast.loading('Transaction in Progress', {
+                position: "top-right",
+                autoClose: false,
+                progress: undefined,
+                toastId: "buyProgress",
+              });
+                await sdk?.getContractFromAbi(stakeTokenAddress,stakeToken_ABI()).then(
+                    async (a)=>{
+                        let _amountWei = web3.utils.toWei(stakingAmount.toString(18), 'ether');
+                        await a.call('approve',[stakeDurationContract,_amountWei]).then((a)=>{
+                            toast.dismiss('buyProgress');
+                            
+                        })
+                    }
+                ).catch((err)=>{
+                    console.log(err)
+                    toast.dismiss('buyProgress');
+                    toast.error('transaction failed');
+                });
+
+            
+            
+        }
+      }
 
        useEffect(() => {
         if(walletAddress!=undefined){
 
-            console.log(walletAddress)
+           
+
+
+
+            getUserCurrentStakingInfo();
             getBalance()
         }
          
@@ -82,6 +185,9 @@ const getStakedAmount = ()=>{
         
        }, [walletAddress])
        
+
+
+       console.log('stakinggggggggg durationnnnnnnn : ',stakeDurationContract);
   return (
     <div className='stakingCardContainer text-center '>
         <Card className='flex flex-col gap-5 justify-center bg-primary-50 bg-opacity-50  backdrop-blur backdrop-brightness-150 px-16 py-16'>
@@ -100,18 +206,17 @@ const getStakedAmount = ()=>{
           defaultSelectedKeys={'7'}
           onSelectionChange={(keys)=>setSelectedKeys(keys as any)}
         >
-          <ListboxItem className='w-[100px]' color='primary' selectedIcon='' key={'7'}>7 Days</ListboxItem>
-          <ListboxItem className='w-[100px]' color='primary' selectedIcon='' key={'14'}>14 Days</ListboxItem>
-          <ListboxItem className='w-[100px]' color='primary' selectedIcon='' key={'30'}>30 Days</ListboxItem>
-          <ListboxItem className='w-[100px]' color='primary' selectedIcon='' key={'60'}>60 Days</ListboxItem>
-          <ListboxItem className='w-[100px]' color='primary' selectedIcon='' key={'90'}>90 Days</ListboxItem>
-
-          <ListboxItem className='w-[100px]' color='primary' selectedIcon='' key={'180'}>180 Days</ListboxItem>
+          <ListboxItem onPress={selectLockedDurationContract} className='w-[100px]' color='primary' selectedIcon='' key={'7'}>7 Days</ListboxItem>
+          <ListboxItem onPress={selectLockedDurationContract} className='w-[100px]' color='primary' selectedIcon='' key={'14'}>14 Days</ListboxItem>
+          <ListboxItem onPress={selectLockedDurationContract} className='w-[100px]' color='primary' selectedIcon='' key={'30'}>30 Days</ListboxItem>
+          <ListboxItem onPress={selectLockedDurationContract} className='w-[100px]' color='primary' selectedIcon='' key={'60'}>60 Days</ListboxItem>
+          <ListboxItem onPress={selectLockedDurationContract} className='w-[100px]' color='primary' selectedIcon='' key={'90'}>90 Days</ListboxItem>
+          <ListboxItem onPress={selectLockedDurationContract} className='w-[100px]' color='primary' selectedIcon='' key={'180'}>180 Days</ListboxItem>
         </Listbox>
    
     <div className='flex flex-col gap-2'>
         <h1>Your Staked Amount</h1>
-        <h1 className='text-xl font-bold'>{7000.0000} {symbol}</h1>
+        <h1 className='text-xl font-bold'>{alreadyStaking ? alreadyStaking:'0' } {symbol}</h1>
 
     </div>
     <Divider/>
@@ -119,8 +224,8 @@ const getStakedAmount = ()=>{
             <CardFooter>
                 <div className='flex flex-col gap-3 w-full'>
                     <div className='flex flex-row justify-between'>
-                        <h1>Amount in PYR</h1>
-                        <h1>Balance : {balance} </h1>
+                        <h1>Amount in {symbol}</h1>
+                        <h1>Balance : {balance} {symbol} </h1>
                     </div>
                     <div className='inputStakingAmount'>
                     <Input
@@ -143,6 +248,7 @@ const getStakedAmount = ()=>{
 
                                                           />
                     </div>
+                    <Button onPress={approveAmount}>Approve</Button>
                 </div>
             </CardFooter>
         </Card>
