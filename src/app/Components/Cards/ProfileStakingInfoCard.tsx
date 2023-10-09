@@ -69,7 +69,7 @@ function ProfileStakingInfoCard() {
     };
     let userAllStakingsCnt :any;
 
-
+    
     useEffect(() => {
         
         const fetchAllStakingDurations = async () => {

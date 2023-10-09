@@ -76,7 +76,7 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key,learnMor
 
 
                                     await IDO3?.call('getTotalParticipants').then(async (a: any) => {
-                                        array[iteration].maxParticipants = a;
+                                        array[iteration].maxParticipants =parseInt(a._hex, 16);
                                     })
 
                                     let TotalTokenSold =

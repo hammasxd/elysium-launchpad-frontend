@@ -86,6 +86,18 @@ function IdoCard({list,isLoadedImage,isLoaded,index}:any) {
                                                 </Skeleton>
 
                                             </div>
+                                            { 
+                                            list.ProjectStatus=='In-progress' ? <div className="col-span-1 flex-initial">
+                                            <small className="w-full inline-flex text-tiny text-white">Participants</small>
+                                            <Skeleton
+                                                className='rounded-3lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+                                                isLoaded={isLoaded}
+                                            >
+                                                <small className="font-bold"> {(list.maxParticipants)}
+                                                </small>
+                                            </Skeleton>
+
+                                        </div> :
                                             <div className="col-span-1 flex-initial">
                                                 <small className="w-full inline-flex text-tiny text-white">Tokens Remaining</small>
                                                 <Skeleton
@@ -97,6 +109,8 @@ function IdoCard({list,isLoadedImage,isLoaded,index}:any) {
                                                 </Skeleton>
 
                                             </div>
+                                            }
+                                            
                                             <div className="col-span-1 flex-initial">
                                                 <small className="w-full inline-flex text-tiny text-white">Sesion End Date</small>
                                                 <Skeleton

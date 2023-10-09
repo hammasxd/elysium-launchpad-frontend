@@ -96,9 +96,9 @@ function Header() {
     ,
     {name:"GETTING STARTED",hrf:'#'}
     ,
-    {name:"TIERS",hrf:'#'}
+    {name:"TIERS",hrf:'/tiers'}
     ,
-    {name:"STAKING" ,hrf:'#'}
+    {name:"STAKING" ,hrf:'/staking'}
 
 
   ]

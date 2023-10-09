@@ -5,6 +5,7 @@ import idos from "../../assets/images/icon-pyr.png";
 import axios from 'axios';
 
 
+
 function PYRInfoCard() {
     const [circulatingSupply,setCirculatingSupply]=useState('')
     const [marketCap,setMarketCap]=useState('')
