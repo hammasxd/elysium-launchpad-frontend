@@ -1,5 +1,5 @@
 'use client'
-import { Card, CardBody, CardFooter, CardHeader,Divider,Input,Listbox, ListboxItem,Image, Button } from '@nextui-org/react'
+import { Card, CardBody, CardFooter, CardHeader,Divider,Input,Listbox, ListboxItem,Image, Button,Link } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import PYRlogo from '../../assets/images/PYRicon.png'
 import {
@@ -30,9 +30,12 @@ function StakingCard() {
     const [balance, setBalance]=useState<string | undefined>(undefined)
     const [alreadyStaking, setAlreadyStaking]=useState();
     const [curretnDays,setCurretDays] = useState<number>();
+    const [buyAmount,setBuyAmount]=useState<number>();
     const wallet=useWallet();
     const walletAddress=useAddress()
     const sdk=useSDK();
+    const [showBuy,setShowBuy]=useState(false);
+    const [currentAllowance,setCurrentAllowance]=useState<number>(0);
     const [stakeDurationContract,setStakeDurationContract] = useState<string | undefined>(StakingABIContract_Add7());
     //get token balance from contract
     const getBalance=async ()=>{
@@ -68,26 +71,43 @@ function StakingCard() {
 switch (selectedValue) {
     case '7':
       setStakeDurationContract (StakingABIContract_Add7());
+      getAllowanceAmount(stakeDurationContract);
+
       break;
     case '14':
         setStakeDurationContract (StakingABIContract_Add14());
+        getAllowanceAmount(stakeDurationContract);
+
       break;
     case '30':
         setStakeDurationContract (StakingABIContract_Add30());
+        getAllowanceAmount(stakeDurationContract);
+
       break;
     case '60':
         setStakeDurationContract (StakingABIContract_Add60());
+        getAllowanceAmount(stakeDurationContract);
+
       break;
     case '90':
         setStakeDurationContract (StakingABIContract_Add90());
+        getAllowanceAmount(stakeDurationContract);
+
       break;
     case '180':
         setStakeDurationContract (StakingABIContract_Add180());
+        getAllowanceAmount(stakeDurationContract);
+
+
       break;
     default:
-      // Handle the case where selectedValue doesn't match any of the cases
+      setStakeDurationContract (StakingABIContract_Add7());
+      getAllowanceAmount(stakeDurationContract);
+
       break;
+
   }
+
         
       }
 
@@ -137,9 +157,9 @@ switch (selectedValue) {
           <Button className='bg-primary rounded-lg hover:bg-opacity-50' onPress={handleMaxClick}>MAX</Button>
         );
       };
-
+//approve Staking Amount
       const approveAmount=async ()=>{
-
+        console.log('buyyyy amounttttttttt',buyAmount);
         if(curretnDays!=0 || curretnDays){
             toast.error(`already Staked for ${curretnDays} days`);
         }
@@ -155,6 +175,7 @@ switch (selectedValue) {
                     async (a)=>{
                         let _amountWei = web3.utils.toWei(stakingAmount.toString(18), 'ether');
                         await a.call('approve',[stakeDurationContract,_amountWei]).then((a)=>{
+
                             toast.dismiss('buyProgress');
                             
                         })
@@ -170,21 +191,102 @@ switch (selectedValue) {
         }
       }
 
+
+
+      // custom toast
+
+
+      const Msg = ({ txHash }:any) =>{
+       
+        return(
+            <div className='flex flex-col gap-1 ml-3'>
+              <p>Tokens Approved</p>
+              <Link target='_blank' href={`https://blockscout.atlantischain.network/tx/${txHash}`} className=' text-primary-PAROT underline' >View on BlocksScout</Link>
+              
+            </div>
+          )
+      } 
+// stake approved amount
+const stake=async ()=>{
+
+  if (buyAmount == 0 || buyAmount == undefined || buyAmount == null) {
+    toast.error("Enter Amount to Stake", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      toastId: 'StakeAMnteErr',
+    })
+    return;
+  }
+  if(curretnDays!=0 || curretnDays){
+    toast.error(`already Staked for ${curretnDays} days`);
+    return;
+} 
+
+toast.loading('Transaction in Progress', {
+    position: "top-right",
+    autoClose: false,
+    progress: undefined,
+    toastId: "stakeProgress",
+  });
+  await sdk?.getContractFromAbi(stakeDurationContract as string,Staking_ABI()).then( async(a)=>{
+    let _amountWei = web3.utils.toWei(buyAmount.toString(18), 'ether')
+    let args = [
+      _amountWei
+    ]
+    a.call('stake',[_amountWei]).then((tx:any)=>{
+
+      toast.dismiss('stakeProgress')
+      toast.success(<Msg txHash={tx?.receipt?.transactionHash}/>,{
+          toastId:'trans',
+          autoClose:3000,
+
+      }
+      
+      )
+
+
+
+}).catch(()=>{
+  toast.dismiss('stakeProgress')
+  toast.error('transaction failed');
+})
+    
+  })
+
+}
        useEffect(() => {
         if(walletAddress!=undefined){
 
-           
-
-
-
             getUserCurrentStakingInfo();
             getBalance()
+            getAllowanceAmount(stakeDurationContract);
+
         }
          
        
         
-       }, [walletAddress])
-       
+       }, [walletAddress,stakeDurationContract])
+       const getAllowanceAmount=async (durationAddress:any)=>{
+          await sdk?.getContractFromAbi(stakeTokenAddress,stakeToken_ABI()).then(async (a)=>{
+            await a.call('allowance',[walletAddress,durationAddress]).then((a:any)=>{
+              const hexValue = a._hex; // Replace with your hexadecimal value as a string
+              const hexValueWithoutPrefix = hexValue.replace("0x", ""); // Remove "0x" prefix
+              const decimalValue = BigInt("0x" + hexValueWithoutPrefix); // Convert to decimal number
+              const stringValue = decimalValue.toString();
+              let eth = web3.utils.fromWei(stringValue, 'ether');
+              let toSet=parseInt(eth)
+                setCurrentAllowance(toSet)
+              console.log('allowance amount : ',currentAllowance)
+
+
+            })
+          })
+       }
 
 
        console.log('stakinggggggggg durationnnnnnnn : ',stakeDurationContract);
@@ -214,10 +316,29 @@ switch (selectedValue) {
           <ListboxItem onPress={selectLockedDurationContract} className='w-[100px]' color='primary' selectedIcon='' key={'180'}>180 Days</ListboxItem>
         </Listbox>
    
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-row justify-between'>
+      <div className='flex flex-col gap-2'>
+        {alreadyStaking ?
+        <>
         <h1>Your Staked Amount</h1>
-        <h1 className='text-xl font-bold'>{alreadyStaking ? alreadyStaking:'0' } {symbol}</h1>
+        <h1 className='text-xl font-bold'>{alreadyStaking ? alreadyStaking:'0' } {symbol}</h1> 
+        </>
+        : 
+        <h1 className='text-xl font-bold'>No current Staking</h1>
+        }
 
+      </div>
+      <div className='flex flex-col gap-2'>
+        { alreadyStaking ? 
+        <>
+        <h1>Staked For</h1>
+        <h1 className='text-xl font-bold'>{curretnDays} Days</h1>
+        </>
+      :
+          ''
+      }
+      </div>
+        
     </div>
     <Divider/>
             </CardBody>
@@ -240,6 +361,8 @@ switch (selectedValue) {
                                                             }
                                                             onChange={(e) => {
                                                                 setStakingAmount(e.target.value as unknown as number);
+
+                                                                setBuyAmount(parseFloat(e.target.value));
                                                               }}
                                                               inputMode='decimal'
                                                             value={stakingAmount as unknown as string}
@@ -248,7 +371,12 @@ switch (selectedValue) {
 
                                                           />
                     </div>
-                    <Button onPress={approveAmount}>Approve</Button>
+                    { stakingAmount>=currentAllowance ?                     <Button className='bg-primary hover:bg-opacity-50 '  onPress={approveAmount}>Approve</Button>
+                  :
+                  <Button className='bg-primary hover:bg-opacity-50 '  onPress={stake}>Stake</Button>
+
+
+                    }
                 </div>
             </CardFooter>
         </Card>
