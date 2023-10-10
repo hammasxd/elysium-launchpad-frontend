@@ -5,9 +5,11 @@ import React from 'react'
 import pyrIcon from '../../../assets/images/PYRicon.png'
 import completed from '../../../assets/images/No-Completed-NFT.png'
 import upcomming from '../../../assets/images/No-Upcoming-NFT.png'
+import inprogressBg from '../../../assets/images/no-active-nft.png'
 import { baseUrl } from '@/app/constants/baseUrl'
 import NftIntroCompleted from '@/app/Components/NftIntroCompleted'
 import NftIntroUpcomming from '@/app/Components/NftIntroUpcomming'
+import NftIntroInprogress from '@/app/Components/NftIntroInprogress'
 function page({params}:{params:{poolDetails:string}}) {
  
 
@@ -47,6 +49,8 @@ function page({params}:{params:{poolDetails:string}}) {
     
 <NftIntroCompleted   poolName={params.poolDetails} IntroTitle={'Completed NFTs'} bgImageSrc={completed.src} learnMore={'#'}/>
 <NftIntroUpcomming   poolName={params.poolDetails} IntroTitle={'Upcomming NFTs'} bgImageSrc={upcomming.src} learnMore={'#'}/>
+<NftIntroInprogress   poolName={params.poolDetails} IntroTitle={'Active NFTs'} bgImageSrc={inprogressBg.src} learnMore={'#'}/>
+
    
   </Card>
 

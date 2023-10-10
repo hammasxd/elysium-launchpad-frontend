@@ -5,8 +5,10 @@ import { Button, Card, CardBody, CardHeader, Link, Progress, Skeleton,Image } fr
 import { list } from 'postcss'
 import React from 'react'
 
-function NftCard({nft,index,isLoaded,isLoadedImage}:{nft:NFTObject,index:number,isLoaded:boolean,isLoadedImage:boolean}) {
+function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nft:NFTObject,index:number,isLoaded:boolean,isLoadedImage:boolean}) {
+    console.log('nft object  : ',nft)
   return (
+
     <div key={index}>
     <Card  className=" py-4 w-[350px] bg-transparent backdrop-brightness-125 backdrop-blur  ">
 
@@ -59,11 +61,11 @@ function NftCard({nft,index,isLoaded,isLoadedImage}:{nft:NFTObject,index:number,
                     isLoaded={isLoaded}
                 >
                     <p className="text-white text-tiny flex-initial">
-                        {nft.FilledPercentage}%
+                        {parseFloat((nft.filledPercentage.toString())).toFixed(1)}%
                     </p>
                 </Skeleton>
             </div>
-            <Progress className=" mb-8 mt-2 h-3 rounded-lg" isStriped color="secondary" value={nft.FilledPercentage} aria-label="Loading..." />
+            <Progress className=" mb-8 mt-2 h-3 rounded-lg" isStriped color="secondary" value={nft.filledPercentage} aria-label="Loading..." />
             <div className="grid grid-cols-2 grid-rows-2 gap-x-10 self-center mb-8" >
                 <div className="col-span-1 flex-initial">
                     <small className="w-full inline-flex text-tiny text-white">INO CLOSED</small>
@@ -96,7 +98,7 @@ function NftCard({nft,index,isLoaded,isLoadedImage}:{nft:NFTObject,index:number,
                 <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
                     // onPress={() => settingList(list)}
 
-                    href="#"><Link href={`#`}  className=' text-white'> LEARN MORE</Link></Button>
+                    href="#"><Link href={`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`}  className=' text-white'> LEARN MORE</Link></Button>
             </Skeleton>
         </CardHeader>
 

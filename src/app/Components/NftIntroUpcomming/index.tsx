@@ -95,7 +95,7 @@ const NftIntroUpcomming = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
                     upcommingNftPool.map((item: any, index) => {
                         return (
 
-                            <NftCard key={index} index={index} nft={item} isLoaded={isLoaded} isLoadedImage={isLoadedImage}/>
+                            <NftCard key={index} poolName={poolName} index={index} nft={item} isLoaded={isLoaded} isLoadedImage={isLoadedImage}/>
                         );
                     } )
                     
