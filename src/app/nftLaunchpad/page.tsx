@@ -4,7 +4,9 @@ import FarmCard from '../Components/Cards/FarmsCard'
 import {baseUrl} from '../constants/baseUrl';
 
 async function getPoolData() {
-    const response= await fetch(`${baseUrl}/distinctPoolTypes`);
+    const response= await fetch(`${baseUrl}/distinctPoolTypes`,{
+      cache:'no-cache'
+    });
     const data: any= response.json();
     return data;
 }

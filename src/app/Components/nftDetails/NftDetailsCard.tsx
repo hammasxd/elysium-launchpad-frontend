@@ -48,35 +48,33 @@ function NftDetailsCard({nftData}:any) {
        nftPool();
       }, [WalleAddress,liked])
 
-      const  printCountdown=(id:any, endDate:any)=> {
-        // Set the date we're counting down to
-        var countDownDate = new Date(endDate).getTime();
-    
-        // Update the count down every 1 second
-        var x = setInterval(function () {
-    
-            // Get today's date and time
-            var now = new Date().getTime();
-    
-            // Find the distance between now and the count down date
-          
-            var distance = countDownDate - now;
-            var el = document.getElementById(id);
-            if (now <= countDownDate) {
-    
-                // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, "0");
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, "0");
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, "0");
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, "0");
-    
-                if (el) {
-                    el.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-                }
-            }
-    
-        }, 1000);
-    }
+      function Countdown({ unixTimestamp }:any) {
+        const [countdown, setCountdown] = useState('');
+      
+        useEffect(() => {
+          const updateCountdown = () => {
+            const currentTime = new Date().getTime();
+            const timeRemaining = unixTimestamp * 1000 - currentTime;
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            const countdownString = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            setCountdown(countdownString);
+          };
+      
+          // Update the countdown initially
+          updateCountdown();
+      
+          // Update the countdown every second
+          const intervalId = setInterval(updateCountdown, 1000);
+      
+          // Cleanup when the component unmounts
+          return () => clearInterval(intervalId);
+        }, [unixTimestamp]);
+      
+        return <p>{countdown}</p>;
+      }
 //like nft
 const likeNft=()=> {
     axios
@@ -424,25 +422,14 @@ const likeNft=()=> {
 </div>}
 {
   nftData.ProjectStatus=='In-progress' &&
-  <div className='flex flex-row justify-between'>
+  <div className='flex flex-row justify-between text-center'>
  <div className='startingDate' >
-  <p className=' text-sm'>INO Started At:<small className=' font-bold'>{timeConverter(nftData.StartTime)}</small> </p>
+  <p className=' text-sm'>INO Started  </p><small className=' font-bold'>{timeConverter(nftData.StartTime)}</small> 
   </div>
   <div className='EndingDate' >
     
-  <>                        
-                        
-                        {
-                          printCountdown(
-                              `timer1`,
-                              new Date(
-                                Number(nftData.EndTime) * 1000
-                              ).toString()
-                            )}
-
-
-                            </>
-  <p className=' text-sm'>INO Ends In:</p> <small className="font-bold" id={`timer1`}></small>
+ 
+  <p className=' text-sm'>INO Ends  </p> <small className="font-bold" id={`timer1`}><Countdown unixTimestamp={nftData.EndTime}/></small>
   </div>
   </div>
  
