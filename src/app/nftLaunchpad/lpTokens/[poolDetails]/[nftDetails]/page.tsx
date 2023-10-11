@@ -14,6 +14,7 @@ async function getNFTData(nftAdress:any) {
    console.log(nftAdress)
     const response= await fetch(`${baseUrl}/singleNFTPool`,{
         method:'POST',
+        cache:'no-cache',
         headers:{
             'Content-Type': 'application/json',
         },
@@ -42,7 +43,6 @@ async function page({params}:{params:{nftDetails:string}}) {
 
 
 const nftData = await getNFTData(params.nftDetails);
-
 
 
  

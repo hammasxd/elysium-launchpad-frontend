@@ -22,7 +22,7 @@
     ProjectYoutube: string;
     Purchased:string;
     Participants:string;
-    filledPercentage:number;
+    FilledPercentage:number;
     ProjectDiscord: string;
     AboutProject: string;
     ProjectShortDesc: string;

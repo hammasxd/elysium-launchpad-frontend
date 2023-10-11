@@ -1,12 +1,13 @@
+'use client'
 import { saleToken } from '@/app/constants/baseUrl'
-import { timeConverter } from '@/app/constants/helper'
+import { printCountdownOther} from '@/app/constants/helper'
 import { NFTObject } from '@/app/constants/types'
 import { Button, Card, CardBody, CardHeader, Link, Progress, Skeleton,Image } from '@nextui-org/react'
 import { list } from 'postcss'
 import React from 'react'
 
 function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nft:NFTObject,index:number,isLoaded:boolean,isLoadedImage:boolean}) {
-    console.log('nft object  : ',nft)
+    console.log('nft object endtimee : ',nft.EndTime)
   return (
 
     <div key={index}>
@@ -67,24 +68,59 @@ function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nf
             </div>
             <Progress className=" mb-8 mt-2 h-3 rounded-lg" isStriped color="secondary" value={nft.FilledPercentage} aria-label="Loading..." />
             <div className="grid grid-cols-2 grid-rows-2 gap-x-10 self-center mb-8" >
+                <div className="col-span-1 flex-row">
+                    <small className="w-full inline-flex text-tiny text-white">Sesion Ends In</small>
+                    
+                        <>                        
+                        
+                        {
+                          printCountdownOther(
+                              `timer${nft.NFTPoolAddress}`,
+                              new Date(
+                                Number(nft.EndTime) * 1000
+                              ).toString()
+                            )}
+
+
+                            </>
+
+                        <small className="font-bold" id={`timer${nft.NFTPoolAddress}`}>
+                        </small>
+                    
+                </div>
                 <div className="col-span-1 flex-initial">
-                    <small className="w-full inline-flex text-tiny text-white">INO CLOSED</small>
+                    <small className="w-full inline-flex text-tiny text-white">Sale Price</small>
                     <Skeleton
                         className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
                         isLoaded={isLoaded}
                     >
-                        <small className="font-bold">{timeConverter(nft.EndTime)}
-                        </small>
+                        <small className="font-bold">
+                        {nft.AmounttoLock} PYR
+                        </small >
                     </Skeleton>
+
                 </div>
                 <div className="col-span-1 flex-initial">
-                    <small className="w-full inline-flex text-tiny text-white">NFT Sold</small>
+                    <small className="w-full inline-flex text-tiny text-white">Purchased</small>
                     <Skeleton
                         className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
                         isLoaded={isLoaded}
                     >
                         <small className="font-bold">
                            {nft.Purchased}
+                        </small >
+                    </Skeleton>
+
+                </div>
+               
+                <div className="col-span-1 flex-initial">
+                    <small className="w-full inline-flex text-tiny text-white">NFT Remaining</small>
+                    <Skeleton
+                        className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+                        isLoaded={isLoaded}
+                    >
+                        <small className="font-bold">
+                        {nft.NFTMaxCap-(nft.Purchased as unknown as number)}
                         </small >
                     </Skeleton>
 
@@ -98,7 +134,7 @@ function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nf
                 <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
                     // onPress={() => settingList(list)}
 
-                    href="#"><Link href={`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`}  className=' text-white'> LEARN MORE</Link></Button>
+><Link href={`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`}  className=' text-white'> LEARN MORE</Link></Button>
             </Skeleton>
         </CardHeader>
 

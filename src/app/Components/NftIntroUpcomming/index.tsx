@@ -8,6 +8,7 @@ import NftCard from '../Cards/NftCard';
 import { Spinner ,Link, Image} from '@nextui-org/react';
 import { useSDK } from '@thirdweb-dev/react';
 import { nftPool_ABI } from '@/app/constants/info';
+import NFTUpcommingCard from '../Cards/NFTUpcommingCard';
 
 const NftIntroUpcomming = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
     let PoolName = poolName;
@@ -54,7 +55,8 @@ const NftIntroUpcomming = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
                     
     
                     let filledPercentage =
-                      (poolArray[i].purchased / poolArray[i].NFTMaxCap) * 100;
+                      (poolArray[i].Purchased / poolArray[i].NFTMaxCap) * 100;
+                      console.log('purchased: ' + poolArray[i].Purchased +'max cap : '+ poolArray[i].NFTMaxCap);
                     poolArray[i].FilledPercentage = filledPercentage;
                   } else {
                     setStatus("In-progress");
@@ -95,7 +97,7 @@ const NftIntroUpcomming = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
                     upcommingNftPool.map((item: any, index) => {
                         return (
 
-                            <NftCard key={index} poolName={poolName} index={index} nft={item} isLoaded={isLoaded} isLoadedImage={isLoadedImage}/>
+                            <NFTUpcommingCard key={index} poolName={poolName} index={index} nft={item} isLoaded={isLoaded} isLoadedImage={isLoadedImage}/>
                         );
                     } )
                     
