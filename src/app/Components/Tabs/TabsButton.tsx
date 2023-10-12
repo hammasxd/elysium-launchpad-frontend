@@ -12,7 +12,7 @@ function TabsButton() {
       size="md"
       aria-label="Tabs form"
       color='primary'
-      variant={'underlined'}
+      variant='underlined'
       className='  bg-transparent backdrop-blur shadow-md mb-16 backdrop-brightness-150 rounded-xl'
     >
       <Tab key="idos" title="IDOs" className=''>

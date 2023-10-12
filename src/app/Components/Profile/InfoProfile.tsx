@@ -13,7 +13,7 @@ import { AppDispatch } from '@/redux/store';
 import { setAddress } from '@/redux/features/addressSlice';
 function InfoCard() {
     const dispatch = useDispatch<AppDispatch>();
-
+  const [isOpenEdit,setIsOpenEdit]= useState(false)
     const walletAddress=useAddress();
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -38,6 +38,7 @@ function InfoCard() {
       setProfileImage(event.target.files[0]);
     }
   };
+  
   
     const getVerifiedUser = async() => {
 
@@ -178,6 +179,91 @@ function InfoCard() {
           });
         }
       };
+      const EditUser = () => {
+        if (walletAddress == null || walletAddress == "") {
+          toast.info("Please Connect Your Wallet", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "WalletConnect",
+          });
+        } else if (Name == null || Name == "") {
+          toast.info("Please Add User Name", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "Name",
+          });
+        } else if (Tweeter == null || Tweeter == "") {
+          toast.info("Please Add Twitter Account", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "Twitter",
+          });
+        } else if (Medium == null || Medium == "") {
+          toast.info("Please Add Medium Account", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "Medium",
+          });
+        } else if (Telegram == null || Telegram == "") {
+          toast.info("Please Add Telegram Account", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            toastId: "Telegram",
+          });
+        } else {
+         
+    
+          axios
+          .post(`${baseUrl}/editUser`, {
+            address: walletAddress,
+            userName: Name,
+            tweeter: Tweeter,
+            medium: Medium,
+            telegram: Telegram,
+          })
+          .then(function (response) {
+            if (response.data.success) {
+              toast.success("Your Profile Updated successfuly", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                toastId: "ProfileUpdated",
+              });
+  
+              getVerifiedUser();
+            }
+          });
+        }
+      };
       useEffect(() => {
        
           getVerifiedUser()
@@ -210,7 +296,7 @@ function InfoCard() {
         <div className='flex flex-col gap-5'>
         <h1 className='text-2xl'>{LoggedUser?.userName}</h1>
         <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
-        onPress={onOpen} > EDIT PROFILE</Button>   
+        onPress={()=>setIsOpenEdit(true)} > EDIT PROFILE</Button>   
         </div> 
 
         </div>
@@ -455,6 +541,98 @@ function InfoCard() {
         </ModalContent>
       </Modal>
     
+      <Modal 
+        backdrop="opaque" 
+        isOpen={isOpenEdit} 
+        onOpenChange={()=>setIsOpenEdit(false)}
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          }
+        }}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1 text-center">Edit Profile</ModalHeader>
+              <ModalBody>
+              <form>
+                    <div className="">
+                      <label className=" ">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control my-4 "
+                        aria-label=""
+                        placeholder="User Name"
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                      <label className=" ">
+                        Twitter
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control my-4"
+                        aria-label=""
+                        placeholder="Twitter"
+                        onChange={(e) => setTweeter(e.target.value)}
+                      />
+                      <label className=" ">
+                        Medium
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control my-4"
+                        aria-label=""
+                        placeholder="Medium"
+                        onChange={(e) => setMedium(e.target.value)}
+                      />
+                      <label className=" ">
+                        Telegram
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control my-4"
+                        aria-label=""
+                        placeholder="Telegram"
+                        onChange={(e) => setTelegram(e.target.value)}
+                      />
+                      
+                      
+                    </div>
+                  </form>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary"  onPress={()=>{
+                    setIsOpenEdit(false);
+                    EditUser();
+                }}>
+                  EDIT PROFILE
+                </Button>
+                <Button color="danger" variant="light" onPress={onClose}>
+                 CANCEL
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
       </Skeleton>
     </>
 

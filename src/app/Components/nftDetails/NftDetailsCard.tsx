@@ -1,13 +1,17 @@
 'use client'
-import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader,Divider,Image, Progress } from '@nextui-org/react'
+import { Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader,Divider,Image, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Progress, useDisclosure } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import {  timeConverter } from '@/app/constants/helper'
 import { useAddress, useSDK } from '@thirdweb-dev/react'
-import { nftPool_ABI } from '@/app/constants/info'
+import { nftPool_ABI, token_ABI } from '@/app/constants/info'
 import {baseUrl} from '@/app/constants/baseUrl'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-
+import lava from '../../assets/images/LAVA-PYR.png'
+import Web3 from 'web3'
+import { delay } from 'framer-motion'
+import ImagesURL from '@/app/constants/ImagesURL'
+import { useAppSelector } from '@/redux/store'
 function NftDetailsCard({nftData}:any) {
 
   console.log(nftData.ProjectStatus)
@@ -16,9 +20,14 @@ function NftDetailsCard({nftData}:any) {
     const [filledPercentage,setFilledPercentage]=useState<any>();
     const [liked,setLiked]=useState<boolean>(false)
     const WalleAddress=useAddress();
+    let lpTokenAbi = token_ABI();
+    let nftPoolAbi = nftPool_ABI();
+    const [userWhitelisted,setUserWhitelisted]=useState(false);
+  const[tokenAlloance,setTokenAllowance]=useState<string>();
     const sdk=useSDK();
     let nftAdditional=nftData;
     let address = nftAdditional.NFTPoolAddress;
+    
     const nftPool =async () =>{
         console.log(address)
         await sdk?.getContractFromAbi(address,nftPool_ABI()).then(async (a)=>{
@@ -37,12 +46,17 @@ function NftDetailsCard({nftData}:any) {
 
         })
        
-        
        
       }
+      const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
+      const [approvalValue,setApprovalValue]=useState();
+      const [boughtNfts,setBoughtNfts]=useState<number>(0);
       useEffect(() => {
         if(WalleAddress){
             alreadyLikeNft();
+            userBoughtNfts();
+            checkWhitelisted();
+            checkAllowance();
         }
        
        nftPool();
@@ -356,12 +370,178 @@ const likeNft=()=> {
           
         );
       };
+      const totalInvest=useAppSelector((state)=> state.userReducer.value.response.tier);
 
-      const buyNFT=()=>{
+
+      const checkWhitelisted = async () => {
+        const nftPool = sdk?.getContractFromAbi(nftData.NFTPoolAddress,nftPoolAbi).then((a)=>{
+          a.call('getCheck',[WalleAddress],{
+            gasLimit:7000000
+          }).then((b:any)=>{
+            setUserWhitelisted(b);
+            console.log('is whitelisted : ',b);
+            console.log( 'testing app selecto : ',totalInvest);
+
+          })
+        })
+      };
+      const checkAllowance = async () => {
+        const contract = await sdk?.getContractFromAbi(nftData.LPTokenAddress,lpTokenAbi).then((a)=>{
+          a.call('allowance',[WalleAddress,nftData.NFTPoolAddress],{
+            gasLimit:7000000
+          }).then((b:any)=>{
+            setTokenAllowance(Web3.utils.fromWei(b.toString(), "ether"));
+            console.log('Token allowance : ', tokenAlloance);
+
+          })
+        })
+       
+      };
+      //approve nft
+      const approve=async ()=>{
+        toast.loading('Transaction in Progress', {
+          position: "top-right",
+          autoClose: false,
+          progress: undefined,
+          toastId: "buyProgress",
+        });
+          const contract = await sdk?.getContractFromAbi(nftData.LPTokenAddress,lpTokenAbi).then((a)=>{
+            let amounttoApprove = nftData.AmounttoLock;
+            let _amountWei = Web3.utils.toWei(amounttoApprove.toString(), "ether");
+            a.call('approve',[nftData.NFTPoolAddress,_amountWei]).then((a)=>{
+              toast.dismiss('buyProgress');
+              delay(()=>{
+                toast.success(` ${nftData.AmounttoLock} ${nftData.NFTPoolType} Approved`,
+            {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                toastId: "existtier",
+              })
+              checkAllowance();
+
+              onClose();
+
+               },1000);
+            }).catch((err)=>{
+              toast.dismiss('buyProgress');
+              toast.error("Transaction Failed",
+              {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                toastId: "existtier",
+              })
+              onClose();
+
+            })
+          })
+          
 
       
+        }
+        //
+        const userBoughtNfts=async ()=>{
+          const nftPool =await sdk?.getContractFromAbi(nftData.NFTPoolAddress,nftPoolAbi).then(async (a)=>{
+           await a.call('getUserCntLocksForToken',[WalleAddress]).then((result:any)=>{
+              let inString= result?.toString();
+              setBoughtNfts(result?.toString());
+              console.log('userBoughtNfts : ' ,boughtNfts);
+              console.log('userBoughtNfts in hex : ' ,result);
+            })
+          })
+
+        }
+      //buy nft
+      const buyNft=async ()=>{
+        toast.loading('Transaction in Progress', {
+          position: "top-right",
+          autoClose: false,
+          progress: undefined,
+          toastId: "buyProgress",
+        });
+        const nftPool =await sdk?.getContractFromAbi(nftData.NFTPoolAddress,nftPoolAbi).then(async (a)=>{
+
+          let _amountWei = Web3.utils.toWei(nftData.AmounttoLock.toString(), "ether");
+          await a.call('lockLPTokenWithFixedTime',[_amountWei],{
+            gasLimit:7000000,
+          }).then((tx:any)=>{
+            toast.dismiss('buyProgress');
+              delay(async ()=>{
+                toast.success(` ${nftData.AmounttoLock} ${nftData.NFTPoolType} Approved`,
+            {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                toastId: "existtier",
+              })
+              checkAllowance();
+              await a.call('totalNFTSoldInAllTier').then((result:any)=>{
+                let inInt=parseInt(result._hex,16)
+                setPurchased(inInt);
+              }).catch((err)=>{
+                console.log('err in getting total sold nft : ',err)
+              })
+              onClose();
+
+               },1000);
+          }).catch((err)=>{
+
+            if (err.hasOwnProperty("reason")) {
+              toast.dismiss('buyProgress');
+              toast.error(err.reason, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                toastId: "TokenLockReceiptErr",
+              });
+            }
+          
+
+            else {
+              toast.dismiss('buyProgress');
+
+              toast.error("Transaction Failed",
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              toastId: "existtier",
+            })
+            }
+            
+            console.log('err in locking tokens : ',err)
+            onClose();
+          })
+        }).catch((err)=>{
+          console.log('error invoking the contract : ' , err)
+        });
       }
-    
+    const LAVALogo = () =>(
+      <>
+      <Image src={ImagesURL[`${nftData.NFTPoolType}`]} width={30} height={30}/>     
+      </>  
+        )
      
         const [expanded, setExpanded] = useState(false);
       
@@ -439,7 +619,7 @@ const likeNft=()=> {
     <h1 className=' text-2xl font-bold '>{purchased} / {nftAdditional.NFTMaxCap}</h1>
     <h1 className=' text-2xl font-bold ' >{filledPercentage}%</h1>
 </div>
-<Progress isStriped color="secondary" value={parseFloat(filledPercentage as string)} aria-label="Loading..."/>
+<Progress isStriped color="secondary" value={filledPercentage } aria-label="Loading..."/>
 <Divider/>
 <div className='salePrice flex flex-col gap-3'>
     <p>Sale Price</p>
@@ -448,7 +628,117 @@ const likeNft=()=> {
 </div>
 <div>
   {
-    nftData.ProjectStatus =='In-progress' ? <Button onPress={buyNFT}>Buy</Button> : ''
+    nftData.ProjectStatus =='In-progress' && userWhitelisted && tokenAlloance == (undefined || '0') ?
+    <>
+    <Button onPress={onOpen}  color="primary" className='w-1/2 hover:bg-opacity-50 '>Approve BUSD</Button>
+    <Modal 
+    backdrop='blur'
+      isOpen={isOpen} 
+      onOpenChange={onOpenChange}
+      placement="top-center"
+    
+      className='bg-primary-50 bg-opacity-70 backdrop-blur'
+    >
+
+      <ModalContent>
+        {(onClose) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1 text-center text-primary">Approve {nftData.NFTPoolType}</ModalHeader>
+            <ModalBody>
+                <p>Your {nftData.AmounttoLock} {nftData.NFTPoolType} - PYR will be Approved </p>
+              <Input
+                size='lg'
+                autoFocus
+                disabled
+                isClearable={false}
+                color='primary'
+                isReadOnly
+                endContent={
+                  <LAVALogo />
+                }
+               
+                defaultValue={nftData.AmounttoLock}
+                variant='bordered'
+                className=''
+
+              />
+             
+              <div className="flex py-2 px-1 justify-between">
+                
+               
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="flat" onPress={onClose}>
+                Close
+              </Button>
+              <Button  color="primary" onPress={()=>{
+                    approve()
+              }}>
+                Approve
+              </Button>
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+    </Modal>  
+    </>   : nftData.ProjectStatus =='In-progress' && userWhitelisted && tokenAlloance == nftData.AmounttoLock ? 
+  
+   <>
+   <Button onPress={onOpen}  color="primary" className='w-1/2 hover:bg-opacity-50 '>Buy NFT</Button>
+   <Modal 
+   backdrop='blur'
+     isOpen={isOpen} 
+     onOpenChange={onOpenChange}
+     placement="top-center"
+   
+     className='bg-primary-50 bg-opacity-70 backdrop-blur'
+   >
+
+     <ModalContent>
+       {(onClose) => (
+         <>
+           <ModalHeader className="flex flex-col gap-1 text-center text-primary">Lock {nftData.NFTPoolType}</ModalHeader>
+           <ModalBody>
+               <p>Your {nftData.AmounttoLock} {nftData.NFTPoolType} - PYR will be Locked </p>
+             <Input
+               size='lg'
+               autoFocus
+               disabled
+               isClearable={false}
+               color='primary'
+               isReadOnly
+               endContent={
+                 <LAVALogo />
+               }
+              
+               defaultValue={nftData.AmounttoLock}
+               variant='bordered'
+               className=''
+
+             />
+            
+             <div className="flex py-2 px-1 justify-between">
+               
+              
+             </div>
+           </ModalBody>
+           <ModalFooter>
+             <Button color="danger" variant="flat" onPress={onClose}>
+               Close
+             </Button>
+             <Button  color="primary" onPress={()=>{
+                   buyNft()
+             }}>
+               Confirm
+             </Button>
+           </ModalFooter>
+         </>
+       )}
+     </ModalContent>
+   </Modal>  
+   </> 
+              :  ''
   }
     
 </div>

@@ -29,6 +29,35 @@
     ProjectStatus: string;
     __v: number;
   };
+  export type NFTProject = {
+    _id: string;
+    NFTPoolAddress: string;
+    NFTPoolType: string;
+    NFTMaxCap: number;
+    StartTime: number;
+    EndTime: number;
+    UnlockTime: number;
+    Tiers: number;
+    LPTokenName: string;
+    LPTokenAddress: string;
+    AmounttoLock: string;
+    NFTName: string;
+    NFTArtist: string;
+    NFTImageURL: string;
+    ProjectTitle: string;
+    ProjectFacebook: string;
+    ProjectInsta: string;
+    ProjectTwitter: string;
+    ProjectMedium: string;
+    ProjectTelegram: string;
+    ProjectYoutube: string;
+    ProjectDiscord: string;
+    AboutProject: string;
+    ProjectShortDesc: string;
+    ProjectStatus: string;
+    __v: number;
+    TokenLocks: any[]; // You may want to replace 'any[]' with a specific type if you know the structure of TokenLocks.
+  };
   export type getUserIdpParticipatedType={
     success: boolean;
     data: Array<{

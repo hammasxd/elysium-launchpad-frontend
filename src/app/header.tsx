@@ -6,6 +6,11 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import { ConnectWallet, WalletInstance, useAddress, useWallet} from '@thirdweb-dev/react';
 import axios from 'axios';
+import {connectWalletRedux,disconnect} from '@/redux/features/userSlice'
+
+import {useDispatch} from 'react-redux';
+import { AppDispatch } from '@/redux/store';
+
 import { baseUrl } from './constants/baseUrl';
 import fs from 'fs'
 function Header() {
@@ -15,7 +20,8 @@ function Header() {
     const [Imagee, setImage] = useState("");
   const [LoggedUser,setLoggedUser]=useState<any>();
   const connectedAddress = useAddress();
-  
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleScroll = () => {
     if (window.scrollY > 0) {
       setIsScrolled(true);
@@ -67,6 +73,8 @@ function Header() {
                 '')
               )
             );
+           dispatch(connectWalletRedux(data));
+
             setLoggedUser(data.response);
           }
       
@@ -160,8 +168,8 @@ function Header() {
               src:`data:image/png;base64,${Imagee}`,
             }}
             className="transition-transform"
-            description={`${LoggedUser?.address?.slice(0,5)}...${LoggedUser?.address?.slice(37,42)}`}
-            name={`${LoggedUser?.userName}`}
+            description={`${LoggedUser?.address ?   LoggedUser?.address?.slice(0,5)+'...'+LoggedUser?.address?.slice(37,42):'Not Set ' }  `}
+            name={`${LoggedUser?.userName ? LoggedUser?.userName : "Not Set "}`}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">

@@ -1,6 +1,8 @@
 import { Tabs, Tab } from '@nextui-org/react'
 import React from 'react'
 import IdosTab from './IdosTab'
+import UserCompletedNfts from '../UserNFTs/UserCompletedNfts'
+import UserInprogressNfts from '../UserNFTs/UserInprogressNfts'
 
 function NftsTab() {
   return (
@@ -14,10 +16,15 @@ function NftsTab() {
       variant={'underlined'}
       className='  bg-transparent backdrop-blur shadow-md mb-16 backdrop-brightness-150 rounded-xl'
     >
-      <Tab key="idos" title="IDOs" className=''>
-          
+      <Tab key="inProgress" title="InProgress" className=''>
+        <UserInprogressNfts/>
       </Tab>
-      <Tab key="nfts" title="NFTs" className=''>
+      <Tab key="completed" title="Completed" className=''>
+      <UserCompletedNfts/>
+
+      </Tab>
+
+      <Tab key="liked" title="Liked" className=''>
         
       </Tab>
     </Tabs>
