@@ -94,7 +94,7 @@ function Header() {
     ,
     {name : "NFT LAUNCHPAD",hrf:'/nftLaunchpad'}
     ,
-    {name:"GETTING STARTED",hrf:'#'}
+    {name:"GETTING STARTED",hrf:'/#gettingStarted'}
     ,
     {name:"TIERS",hrf:'/tiers'}
     ,
