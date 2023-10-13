@@ -7,9 +7,10 @@ import { nftPool_ABI } from '@/app/constants/info';
 import { Pagination , Image } from '@nextui-org/react'; // Import Pagination
 import {baseUrl} from '@/app/constants/baseUrl';
 import bgCompleted from '@/app/assets/images/No-Completed-NFT.png'
-import UserCompletedNftsCard from './Cards/UserCompletedNftsCard';
 
-const UserCompletedNfts = () => {
+import NFTUpcommingCard from '../Cards/NFTUpcommingCard';
+
+const UserLikedNfts = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoadedImage, setIsLoadedImage] = useState(false);
@@ -19,26 +20,19 @@ const UserCompletedNfts = () => {
   const nftPoolAbi = nftPool_ABI();
   let nftPool;
   const walletAddress = useAddress();
-  const [revalidation,setRevalidation]=useState(false)
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3; // Items per page
 
   const getUserCompletedNFTPools = () => {
     let poolArray: any = [];
     try {
-      fetch(`${baseUrl}/userCompletedNfts`, {
-        cache:'no-cache',
-        method: 'POST',
-        
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userAddress: walletAddress }),
-      })
-        .then(async (response) =>response.json() .then(async (response) => {
+      axios
+        .post(`${baseUrl}/userLikedNfts`, {
+          userAddress: walletAddress
+        })
+        .then(async (response) => {
 
-          poolArray = await response.data;
+          poolArray = await response.data.data;
 
           if (poolArray == '' || poolArray === null || poolArray == 'null') {
             setStatus('In-progress');
@@ -77,7 +71,7 @@ const UserCompletedNfts = () => {
           }
           
           
-        }))
+        })
         .catch((err) => {
           setStatus('In-progress');
           setCompletedNFTPool(poolArray);
@@ -90,9 +84,8 @@ const UserCompletedNfts = () => {
   useEffect(() => {
     if(walletAddress){
     getUserCompletedNFTPools();
-    console.log('this is validation : ',revalidation);
   }
-  }, [walletAddress,revalidation]);
+  }, [walletAddress]);
 
   // Calculate the range of items to display on the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -102,24 +95,29 @@ const UserCompletedNfts = () => {
   return (
     <section className="flex flex-col justify-center ">
       <div className="w-full m-auto text-center mb-10">
-        <h3 className="text-7xl font-bold">Completed</h3>
+        <h3 className="text-7xl font-bold">Liked</h3>
       </div>
+     
+      
+      
+      
+      
+        
+
       {completedNFTPool.length > 0 ? 
       
       <div className='flex flex-col gap-10 '>
         <div className='flex flex-row flex-wrap gap-10 justify-center' >
         {
-        displayedNFTPool.map((nft: any, index) => {
+        displayedNFTPool.map((item: any, index) => {
           return (
-            <UserCompletedNftsCard
+            <NFTUpcommingCard
               key={index}
-              poolName={nft.NFTPoolType}
+              poolName={item.NFTPoolType}
               index={index}
-              nft={nft}
+              nft={item}
               isLoaded={isLoaded}
               isLoadedImage={isLoadedImage}
-              revalidation={revalidation}
-              setRevalidation={setRevalidation}
             />
           );
         })
@@ -169,4 +167,4 @@ const UserCompletedNfts = () => {
   );
 };
 
-export default UserCompletedNfts;
+export default UserLikedNfts;

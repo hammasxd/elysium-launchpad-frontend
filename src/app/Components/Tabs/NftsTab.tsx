@@ -3,6 +3,7 @@ import React from 'react'
 import IdosTab from './IdosTab'
 import UserCompletedNfts from '../UserNFTs/UserCompletedNfts'
 import UserInprogressNfts from '../UserNFTs/UserInprogressNfts'
+import UserLikedNfts from '../UserNFTs/UserLikedNfts'
 
 function NftsTab() {
   return (
@@ -25,7 +26,7 @@ function NftsTab() {
       </Tab>
 
       <Tab key="liked" title="Liked" className=''>
-        
+        <UserLikedNfts/>
       </Tab>
     </Tabs>
     </>
