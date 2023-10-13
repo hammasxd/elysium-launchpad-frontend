@@ -13,10 +13,12 @@
   NFTName: string;
   NFTArtist: string;
   NFTImageURL: string;
+  FilledPercentage:number;
   ProjectTitle: string;
   ProjectFacebook: string;
   ProjectInsta: string;
   ProjectTwitter: string;
+  Purchased:string
   ProjectMedium: string;
   ProjectTelegram: string;
   ProjectYoutube: string;
