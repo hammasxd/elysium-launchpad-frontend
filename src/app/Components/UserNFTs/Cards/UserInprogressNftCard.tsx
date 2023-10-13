@@ -1,13 +1,40 @@
 'use client'
 import ImagesURL from '@/app/constants/ImagesURL'
-import { printCountdownOther} from '@/app/constants/helper'
+import { printCountdownOther, timeConverter} from '@/app/constants/helper'
+import { nftPool_ABI } from '@/app/constants/info'
 import { NFTObject } from '@/app/constants/types'
 import { Button, Card, CardBody, CardHeader, Link, Progress, Skeleton,Image, Snippet, Modal, ModalHeader, ModalBody, ModalFooter, ModalContent } from '@nextui-org/react'
-import React, { useState } from 'react'
+import { useAddress, useSDK } from '@thirdweb-dev/react'
+import React, { useEffect, useState } from 'react'
+import Cursors from '../../Cursor/Cursors'
 
 function UserInprogressNftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nft:NFTObject,index:number,isLoaded:boolean,isLoadedImage:boolean}) {
     console.log('nft object endtimee : ',nft.EndTime)
     const [isOpenModal,setIsOpenModal]=useState(false)
+    const sdk=useSDK();
+    const nftAbi=nftPool_ABI();
+    const walletAddress = useAddress();
+    const [boughtNfts,setBoughtNfts]=useState(0);
+
+    const userBoughtNfts=async ()=>{
+        const nftPool =await sdk?.getContractFromAbi(nft.NFTPoolAddress,nftAbi).then(async (a)=>{
+         await a.call('getUserCntLocksForToken',[walletAddress]).then((result:any)=>{
+            let inString= result?.toString();
+            setBoughtNfts(result?.toString());
+            console.log('userBoughtNfts : ' ,boughtNfts);
+            console.log('userBoughtNfts in hex : ' ,result);
+          })
+        })
+
+      }
+      useEffect(() => {
+        if(walletAddress){
+            userBoughtNfts();
+        }
+       
+        
+      }, [walletAddress])
+      
   return (
 
     <div key={index}>
@@ -128,17 +155,27 @@ function UserInprogressNftCard({poolName,nft,index,isLoaded,isLoadedImage}:{pool
                                             </div>
                                         </ModalHeader>
                                         <ModalBody>
-                                    <div className='grid grid-cols-2 grid-rows-2'>
+                                    <div className='grid grid-cols-2 grid-rows-2 text-center gap-5'>
                                         <div>
-                                            <p></p>
+                                            <p className=' font-bold text-sm text-gray-400'>NFTs Bought</p>
+                                            <p className='font-extrabold '>{boughtNfts}</p>
                                         </div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
+                                        <div>
+                                            <p className=' font-bold text-sm text-gray-400'>Locked Amount</p>
+                                            <p className='font-extrabold '>{parseInt(nft.AmounttoLock)*boughtNfts} {nft.LPTokenName}</p>
+                                        </div>
+                                        <div>
+                                            <p className=' font-bold text-sm text-gray-400'>Locked Date</p>
+                                            <p className='font-extrabold '>{timeConverter(nft.StartTime)}</p>
+                                        </div>
+                                        <div>
+                                            <p className=' font-bold text-sm text-gray-400'>Unlock Date</p>
+                                            <p className='font-extrabold '>{timeConverter(nft.EndTime)}</p>
+                                        </div>
                                     </div>
                                         </ModalBody>
-                                        <ModalFooter>
-
+                                        <ModalFooter className=' justify-center items-end'>
+                                        <Button className=' cursor-not-allowed bg-primary-PAROT bg-opacity-50 border-[2px] border-primary-PAROT' disabled>UNLOCK/CLAIM</Button>
                                         </ModalFooter>
                                         </ModalContent>
                                     </Modal>

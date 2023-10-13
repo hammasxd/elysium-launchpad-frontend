@@ -623,14 +623,14 @@ const likeNft=()=> {
 <Divider/>
 <div className='salePrice flex flex-col gap-3'>
     <p>Sale Price</p>
-    <h1>{nftAdditional.AmounttoLock} {nftAdditional.NFTPoolType}-PYR</h1>
+    <h1>{nftAdditional.AmounttoLock} {nftAdditional.LPTokenName}</h1>
 
 </div>
 <div>
   {
     nftData.ProjectStatus =='In-progress' && userWhitelisted && tokenAlloance == (undefined || '0') ?
     <>
-    <Button onPress={onOpen}  color="primary" className='w-1/2 hover:bg-opacity-50 '>Approve BUSD</Button>
+    <Button onPress={onOpen}  color="primary" className='w-1/2 hover:bg-opacity-50 '>Approve {nftData.LPTokenName}</Button>
     <Modal 
     backdrop='blur'
       isOpen={isOpen} 
@@ -643,9 +643,9 @@ const likeNft=()=> {
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 text-center text-primary">Approve {nftData.NFTPoolType}</ModalHeader>
+            <ModalHeader className="flex flex-col gap-1 text-center text-primary">Approve {nftData.LPTokenName}</ModalHeader>
             <ModalBody>
-                <p>Your {nftData.AmounttoLock} {nftData.NFTPoolType} - PYR will be Approved </p>
+                <p>Your {nftData.AmounttoLock} {nftData.LPTokenName}  will be Approved </p>
               <Input
                 size='lg'
                 autoFocus
@@ -698,9 +698,9 @@ const likeNft=()=> {
      <ModalContent>
        {(onClose) => (
          <>
-           <ModalHeader className="flex flex-col gap-1 text-center text-primary">Lock {nftData.NFTPoolType}</ModalHeader>
+           <ModalHeader className="flex flex-col gap-1 text-center text-primary">Lock {nftData.LPTokenName}</ModalHeader>
            <ModalBody>
-               <p>Your {nftData.AmounttoLock} {nftData.NFTPoolType} - PYR will be Locked </p>
+               <p>Your {nftData.AmounttoLock} {nftData.LPTokenName}  will be Locked </p>
              <Input
                size='lg'
                autoFocus
