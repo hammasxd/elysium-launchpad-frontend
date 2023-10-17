@@ -30,7 +30,7 @@ function StakingCard() {
     const [balance, setBalance]=useState<string | undefined>(undefined)
     const [alreadyStaking, setAlreadyStaking]=useState();
     const [curretnDays,setCurretDays] = useState<number>();
-    const [buyAmount,setBuyAmount]=useState<number>();
+    const [buyAmount,setBuyAmount]=useState<any>();
     const wallet=useWallet();
     const walletAddress=useAddress()
     const sdk=useSDK();
@@ -208,7 +208,7 @@ switch (selectedValue) {
       } 
 // stake approved amount
 const stake=async ()=>{
-
+console.log('checking nuy amount : ' ,buyAmount)
   if (buyAmount == 0 || buyAmount == undefined || buyAmount == null) {
     toast.error("Enter Amount to Stake", {
       position: "top-right",
@@ -233,6 +233,7 @@ toast.loading('Transaction in Progress', {
     progress: undefined,
     toastId: "stakeProgress",
   });
+  
   await sdk?.getContractFromAbi(stakeDurationContract as string,Staking_ABI()).then( async(a)=>{
     let _amountWei = web3.utils.toWei(buyAmount.toString(18), 'ether')
     let args = [
@@ -362,7 +363,8 @@ toast.loading('Transaction in Progress', {
                                                             onChange={(e) => {
                                                                 setStakingAmount(e.target.value as unknown as number);
 
-                                                                setBuyAmount(parseFloat(e.target.value));
+                                                                setBuyAmount(e.target.value);
+                                                                console.log(e.target.value)
                                                               }}
                                                               inputMode='decimal'
                                                             value={stakingAmount as unknown as string}

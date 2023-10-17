@@ -11,8 +11,12 @@ const staked =createSlice( {
     initialState,
     reducers:{
         setStakedAmount : (state : stakedAmount,action:PayloadAction<any>) =>{
-            console.log('stakedd amountttt', action.payload);
-           return {
+            if(action.payload==null){
+                return {
+                    value:0,
+                }
+            }
+            return {
             value:action.payload
         }
         },

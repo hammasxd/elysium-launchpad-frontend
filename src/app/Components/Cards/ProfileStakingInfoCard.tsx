@@ -412,7 +412,7 @@ function ProfileStakingInfoCard() {
                   <small>Time Left</small>
                   <>
                   {printCountdown(
-                                    "timer7",
+                                    "timer14",
                                     new Date(
                                       Number(StakeObject14.StakingEndTime) *
                                         1000
@@ -454,7 +454,7 @@ function ProfileStakingInfoCard() {
                   <small>Time Left</small>
                   <>
                   {printCountdown(
-                                    "timer7",
+                                    "timer30",
                                     new Date(
                                       Number(StakeObject30.StakingEndTime) *
                                         1000
@@ -496,7 +496,7 @@ function ProfileStakingInfoCard() {
                   <small>Time Left</small>
                   <>
                   {printCountdown(
-                                    "timer7",
+                                    "timer60",
                                     new Date(
                                       Number(StakeObject60.StakingEndTime) *
                                         1000
@@ -538,7 +538,7 @@ function ProfileStakingInfoCard() {
                   <small>Time Left</small>
                   <>
                   {printCountdown(
-                                    "timer7",
+                                    "timer90",
                                     new Date(
                                       Number(StakeObject90.StakingEndTime) *
                                         1000
@@ -580,13 +580,13 @@ function ProfileStakingInfoCard() {
                   <small>Time Left</small>
                   <>
                   {printCountdown(
-                                    "timer7",
+                                    "timer180",
                                     new Date(
                                       Number(StakeObject180.StakingEndTime) *
                                         1000
                                     ).toString()
                                   )}
-                  <p className='text-3xl font-bold' id={'timer7'}> </p>
+                  <p className='text-3xl font-bold' id={'timer180'}> </p>
                   
                  
 
