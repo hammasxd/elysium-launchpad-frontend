@@ -13,11 +13,10 @@ import {
     StakeToken_Add
   } from '../../constants/info'
 import { useAddress, useSDK, useWallet } from '@thirdweb-dev/react'
-import { formatUnits, parseEther } from 'ethers/lib/utils'
-import { ethers } from 'ethers'
+
 import Web3 from 'web3';
-import { baseUrl } from '@/app/constants/baseUrl'
-import { ok } from 'assert'
+import { baseUrl, tokenName, tokenSymbol } from '@/app/constants/baseUrl'
+
 import { toast } from 'react-toastify'
 import { delay } from '@reduxjs/toolkit/dist/utils'
 function StakingCard() {
@@ -29,7 +28,7 @@ function StakingCard() {
     const [selectedKeys, setSelectedKeys]=useState(new Set(["text"]))
     const [balance, setBalance]=useState<string | undefined>(undefined)
     const [alreadyStaking, setAlreadyStaking]=useState();
-    const [curretnDays,setCurretDays] = useState<number>();
+    const [curretnDays,setCurretDays] = useState<number>(0);
     const [buyAmount,setBuyAmount]=useState<any>();
     const wallet=useWallet();
     const walletAddress=useAddress()
@@ -67,41 +66,50 @@ function StakingCard() {
       const selectLockedDurationContract = ()=>{
        
 switch (selectedValue) {
-    case '7':
+    case '7' && walletAddress:
+
       setStakeDurationContract (StakingABIContract_Add7());
       getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '14':
+    case '14' && walletAddress:
         setStakeDurationContract (StakingABIContract_Add14());
         getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '30':
+    case '30' && walletAddress:
         setStakeDurationContract (StakingABIContract_Add30());
         getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '60':
+    case '60' && walletAddress :
         setStakeDurationContract (StakingABIContract_Add60());
         getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '90':
+    case '90' && walletAddress : 
         setStakeDurationContract (StakingABIContract_Add90());
         getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '180':
+    case '180' && walletAddress:
         setStakeDurationContract (StakingABIContract_Add180());
         getAllowanceAmount(stakeDurationContract);
 
 
       break;
     default:
+      if(walletAddress){
       setStakeDurationContract (StakingABIContract_Add7());
       getAllowanceAmount(stakeDurationContract);
 
+    } else if(!walletAddress){
+      toast.error('Please connect wallet',{
+        position: "top-right",
+            
+            toastId: "connectWallet",
+      });
+    }
       break;
 
   }
@@ -135,17 +143,29 @@ switch (selectedValue) {
         const handleMaxClick = () => {
           setStakingAmount(balance);
         };
-      
         return (
           <Button className='bg-primary rounded-lg hover:bg-opacity-50' onPress={handleMaxClick}>MAX</Button>
         );
       };
 //approve Staking Amount
       const approveAmount=async ()=>{
-       
-        if(curretnDays!=0 || curretnDays){
+       if(!walletAddress){
+          toast.error('Please connect wallet',{
+            position: "top-right",
+                autoClose: false,
+                closeOnClick:true,
+                toastId: "connectWallet",
+          });
+          return;
+       }
+       else if(Number(balance)<stakingAmount){
+        toast.error(`Not enough ${tokenName}`);
+
+       }
+        else if(curretnDays!=0 || curretnDays){
             toast.error(`already Staked for ${curretnDays} days`);
         }
+        
         else{
            
             toast.loading('Transaction in Progress', {

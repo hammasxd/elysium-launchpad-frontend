@@ -4,18 +4,10 @@ import GirlLaptop from '../../assets/images/GirlLaptop.png'
 import { Image } from '@nextui-org/react'
 function LaunchProject() {
   return (
-    <div>
-       <div className="box">
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
-<div className="flex flex-wrap mt-20 mb-20 justify-center" id='gettingStarted'>
+    <div id='gettingStarted'>
+    <div className='spaceunder pt-12'  >
+      </div>
+<div className="flex flex-wrap mt-20 mb-20 justify-center" >
 
   <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 p-4 justify-center">
     <h2 className="mb-5 text-7xl font-bold ">Launch a Project on Elysium Now!</h2>

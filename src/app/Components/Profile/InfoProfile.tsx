@@ -263,10 +263,10 @@ function InfoCard() {
         }
       };
       useEffect(() => {
-       
-          getVerifiedUser()
+        if(walletAddress){
+          getVerifiedUser();
           dispatch(connectWalletRedux(LoggedUser));
-
+}
 
        
       }, [walletAddress]);
