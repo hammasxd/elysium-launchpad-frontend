@@ -52,7 +52,6 @@ const [buyValue,setBuyValue]=useState<string>('')
                 LaunchPoolAddress:params.idoId
             })
             .then(async function (response) {
-                console.log("api response : ",response.data.data)
                 resData = await response.data.data;
                 if (resData == "" || resData == null) {
                     resData = null;
@@ -265,7 +264,6 @@ const [buyValue,setBuyValue]=useState<string>('')
        
         
         setShowApprovalButton(false);
-        console.log(tx?.receipt);
     }).catch((error)=>{
         toast.dismiss('loading');
         toast.error('Approval Failed',

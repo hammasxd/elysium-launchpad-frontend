@@ -6,7 +6,6 @@ import { list } from 'postcss'
 import React from 'react'
 
 function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nft:NFTObject,index:number,isLoaded:boolean,isLoadedImage:boolean}) {
-    console.log('nft object  : ',nft)
   return (
 
     <div key={index}>

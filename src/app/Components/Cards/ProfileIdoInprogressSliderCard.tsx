@@ -39,7 +39,6 @@ function ProfileIdoInprogressSliderCard({key,index,Ido}:any) {
           ""
         )
       );
-  console.log("ido in cards : ",  Ido)
   return (
 
     <Card key={key} className=' w-full py-10 px-5 bg-transparent backdrop-blur backdrop-brightness-150 rounded-xl'>

@@ -90,7 +90,6 @@ const UserCompletedNfts = () => {
   useEffect(() => {
     if(walletAddress){
     getUserCompletedNFTPools();
-    console.log('this is validation : ',revalidation);
   }
   }, [walletAddress,revalidation]);
 

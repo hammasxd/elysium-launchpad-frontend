@@ -49,11 +49,9 @@ function StakingCard() {
                     let eth = web3.utils.fromWei(stringValue, 'ether');
                     eth = parseFloat(eth).toFixed(4)
                     setBalance( eth);
-                    console.log('ethhhhhh',eth)
                 });
                 await a.call('symbol',[]).then((a:any)=>{
                     setSymbol(a)
-                    console.log('symbol :  ', a)
                 })
             }
 
@@ -112,35 +110,21 @@ switch (selectedValue) {
       }
 
       //get user current staking
-      const getUserStakingInfo=async ()=>{
-        const response= await fetch(`${baseUrl}/getVerifyUser`,{
-            method:'POST',
-            cache:'force-cache',
-            headers:{
-                'Content-Type':'application/json',
-                'Accept':'application/json'
-            },
-            body:JSON.stringify({
-                address:walletAddress
-            },
-            )
+      const getUserStakingInfo=()=>{
+        fetch(`${baseUrl}/userStakings`,{
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ address: walletAddress }),
+      }).then((response)=>response.json()).then((data)=>{
+          setAlreadyStaking(data?.data?.amount)
+          setCurretDays(data?.data?.days);
         })
-        if(response.ok){
-
-            return await response.json();
-
-            }
-        return 'error';
+        
       }
 
-      const getUserCurrentStakingInfo=async ()=>{
-        const data = await getUserStakingInfo();
-        const current=data.response.stakingDays;
-        const alreadyStakedAmount = data.response.stakeAmount;
-        setAlreadyStaking(alreadyStakedAmount);
-        setCurretDays(current);
-        console.log('currentttttttttt : ',curretnDays)
-    }
+     
 
       //pyr logo
       const PYRLogo=()=>{
@@ -150,7 +134,6 @@ switch (selectedValue) {
       const MaxButton = ({ stakingAmount, setStakingAmount }:any) => {
         const handleMaxClick = () => {
           setStakingAmount(balance);
-          console.log(stakingAmount) // Update the stakingAmount state in the parent component
         };
       
         return (
@@ -159,7 +142,7 @@ switch (selectedValue) {
       };
 //approve Staking Amount
       const approveAmount=async ()=>{
-        console.log('buyyyy amounttttttttt',buyAmount);
+       
         if(curretnDays!=0 || curretnDays){
             toast.error(`already Staked for ${curretnDays} days`);
         }
@@ -208,7 +191,6 @@ switch (selectedValue) {
       } 
 // stake approved amount
 const stake=async ()=>{
-console.log('checking nuy amount : ' ,buyAmount)
   if (buyAmount == 0 || buyAmount == undefined || buyAmount == null) {
     toast.error("Enter Amount to Stake", {
       position: "top-right",
@@ -263,7 +245,7 @@ toast.loading('Transaction in Progress', {
        useEffect(() => {
         if(walletAddress!=undefined){
 
-            getUserCurrentStakingInfo();
+          getUserStakingInfo();
             getBalance()
             getAllowanceAmount(stakeDurationContract);
 
@@ -282,7 +264,6 @@ toast.loading('Transaction in Progress', {
               let eth = web3.utils.fromWei(stringValue, 'ether');
               let toSet=parseInt(eth)
                 setCurrentAllowance(toSet)
-              console.log('allowance amount : ',currentAllowance)
 
 
             })
@@ -290,7 +271,6 @@ toast.loading('Transaction in Progress', {
        }
 
 
-       console.log('stakinggggggggg durationnnnnnnn : ',stakeDurationContract);
   return (
     <div className='stakingCardContainer text-center '>
         <Card className='flex flex-col gap-5 justify-center bg-primary-50 bg-opacity-50  backdrop-blur backdrop-brightness-150 px-16 py-16'>
@@ -364,7 +344,6 @@ toast.loading('Transaction in Progress', {
                                                                 setStakingAmount(e.target.value as unknown as number);
 
                                                                 setBuyAmount(e.target.value);
-                                                                console.log(e.target.value)
                                                               }}
                                                               inputMode='decimal'
                                                             value={stakingAmount as unknown as string}

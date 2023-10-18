@@ -19,14 +19,12 @@ const participatedIdos = createSlice({
     setParticipatedIdos: (state: initialStateType, action: PayloadAction<initialStateType>) => {
       // Initialize as an empty array of the correct type
       let filteredIdos: initialStateType = [];
-      console.log("action idooo payload : ", action.payload);
       action.payload.forEach((item) => {
         if (item.exist === true) {
           filteredIdos.push(item);
         }
       });
 
-      console.log('participated ido action payload: ', filteredIdos);
 
       return filteredIdos; // Return the filtered array directly
     },

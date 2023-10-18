@@ -13,7 +13,6 @@ function NftMatrics({nftData}:any) {
     let nftAdditional=nftData;
     let address = nftAdditional.NFTPoolAddress;
     const nftPool =async () =>{
-        console.log(address)
         await sdk?.getContractFromAbi(address,nftPool_ABI()).then(async (a)=>{
             await a?.call('totalNFTSoldInAllTier').then((result:any)=>{
                 let inInt=parseInt(result._hex,16)
@@ -25,7 +24,6 @@ function NftMatrics({nftData}:any) {
               })
               let filledPercentage =
                 (nftAdditional.Purchased / parseFloat(nftAdditional.NFTMaxCap)) * 100;
-                console.log('purchased : ',nftAdditional.Purchased,"maxCap : ",nftAdditional.NFTMaxCap );
               setFilledPercentage(filledPercentage);
         })
        

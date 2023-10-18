@@ -12,7 +12,6 @@ async function getPoolData() {
 }
 async function nftLaunchpad() {
     const poolData= await getPoolData();
-    console.log(poolData);
   return (
     <div className='  w-full mb-28'>
     <div className="container h-full m-auto">

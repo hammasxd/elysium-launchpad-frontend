@@ -11,7 +11,6 @@ const deposits =createSlice( {
     initialState,
     reducers:{
         setDeposits : (state : deposits,action:PayloadAction<any>) =>{
-            console.log('user depositsssss : ', action.payload);
            return {
             value:action.payload
         }

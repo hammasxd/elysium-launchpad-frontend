@@ -69,7 +69,6 @@ function InfoCard() {
             dispatch(connectWalletRedux(data));
           }
       
-          console.log('user logged: ', LoggedUser);
       
           setTimeout(() => {
             setSkeltonLoaded(true);
@@ -151,7 +150,6 @@ function InfoCard() {
             toastId: "ProfileImage",
           });
         } else {
-          // console.log("Profile iMAW", ProfileImage.size);
           const formdata = new FormData();
           formdata.append("myFile", ProfileImage);
           formdata.append("address", walletAddress);
@@ -273,7 +271,6 @@ function InfoCard() {
        
       }, [walletAddress]);
 
-      console.log('user loged : ',LoggedUser);
     return (
      
         <>

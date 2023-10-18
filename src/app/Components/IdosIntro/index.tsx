@@ -12,11 +12,10 @@ import IdoCard from "../Cards/IdoCard";
 let IDO_ABI: any = Ido_ABI();
 
 
-const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key,learnMore }: { apiUrl: string, apiUrlPaginated: string, IntroTitle: string, bgImageSrc: string,key:number,learnMore:any}) => {
+const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,learnMore }: { apiUrl: string, apiUrlPaginated: string, IntroTitle: string, bgImageSrc: string,learnMore:any}) => {
  
 
     const sdk = useSDK()
-    console.log(apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc);
     let IDO3;
     const [ShowCompleted, setShowCompleted] = useState([]);
     const [CompletedIDOs, SetCompletedIDO] = useState([]);
@@ -37,7 +36,6 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key,learnMor
                         limit: 3,
                     })
                     .then(async function (response) {
-                        console.log("api response : ",response.data.data)
                         array = await response.data.data;
                         if (array == "" || array == null) {
                             array = [];
@@ -104,9 +102,8 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,key,learnMor
         [5000] //useEffect will run only one time
         //if you pass a value to array, like this [data] than clearTimeout will run every time this value changes (useEffect re-run)
     );
-    console.log("here is all the data", ShowCompleted)
     return (
-        <section key={key}
+        <section 
             className=" flex flex-col  mt-10 mb-10"
         >
 

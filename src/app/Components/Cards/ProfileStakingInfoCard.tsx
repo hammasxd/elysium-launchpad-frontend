@@ -50,7 +50,6 @@ function ProfileStakingInfoCard() {
 
     
     const withdraw = async (stakingContractAdress:any) => {
-      // console.log("Stak", withdrawLoader)
      const  stakingContractObj= await sdk?.getContractFromAbi(stakingContractAdress,StakingABI);
       toast('Transaction in Progress',{ position:'top-right',type:'info' });
      toast.info('Starting');
@@ -60,7 +59,6 @@ function ProfileStakingInfoCard() {
       try {
         const tx = await stakingContractObj?.call('withdraw',[],{ gasLimit:7000000})
         const receipt = tx.receipt;   
-        console.log(receipt);
         toast('Transaction Completed',{ position:'top-right',type:'info' });
         
       } catch (error) {
@@ -87,7 +85,6 @@ function ProfileStakingInfoCard() {
             staking7?.call('deposits',[account])
             .
               then(async (result:any) => {
-                console.log('here is the ending date of staking : ',(result.endTime as BigInt).toLocaleString());
                 setStakeObject7({
                   StakingDespositTime: result.depositTime,
                   StakingEndTime: result.endTime,
@@ -255,7 +252,6 @@ function ProfileStakingInfoCard() {
             let staking60 =  await sdk?.getContractFromAbi(StakingABIContractAdd60,StakingABI)
             let staking90 =  await sdk?.getContractFromAbi(StakingABIContractAdd90,StakingABI)
             let staking180 =  await sdk?.getContractFromAbi(StakingABIContractAdd180,StakingABI)
-            console.log(staking7);
           let totalTiersAmt : any;
           await staking7?.call('stakedBalance')
             .then(async (balance) => {

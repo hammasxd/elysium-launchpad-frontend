@@ -11,7 +11,6 @@ function Stats() {
   const [UseUpComing, SetUpComingIDO] = useState('');
   const [UseCompleted, SetCompletedIDO] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
-  console.log(baseUrl);
 useEffect(() => {
     const fetchData = () => {
       axios

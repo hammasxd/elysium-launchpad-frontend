@@ -12,7 +12,6 @@ import { toast } from 'react-toastify'
 import { error } from 'console'
 
 function UserCompletedNftCard({ poolName, nft, index, isLoaded, isLoadedImage,setRevalidation ,revalidation}: { poolName: string, nft: NFTObject, index: number, isLoaded: boolean, isLoadedImage: boolean,setRevalidation:any ,revalidation:boolean}) {
-    console.log('nft object endtimee : ', nft.EndTime)
     const [isOpenModal, setIsOpenModal] = useState(false)
     const sdk = useSDK();
     const nftAbi = nftPool_ABI();
@@ -22,7 +21,6 @@ function UserCompletedNftCard({ poolName, nft, index, isLoaded, isLoadedImage,se
     const [unlockStatus,setUnlockStatus] = useState(false);
     const withdrawandClaim = async (contractAddress:any, index:any, lockId:any, amount:any) => {
      
-        console.log('sdf, ...'+contractAddress, "dsds, ..."+index, "dff, ..."+lockId, 'ert, ...'+amount)
 
         let nftPool =await sdk?.getContractFromAbi(contractAddress,nftAbi).then(
             async (a)=>{
