@@ -2,7 +2,7 @@ module.exports = {
 
    // baseUrl: "http://127.0.0.1:5008/api",
    // baseUrl: "https://elysium-launchpad-adminbackend-dev.vulcanforged.com/api",
-   baseUrl: "http://localhost:5008/api",
+   baseUrl: "https://elysium-launchpad-adminbackend-nft-dev.vulcanforged.com/api",
    saleToken: "EUSD",
    RPC_URL: "https://rpc.atlantischain.network",
    ChainID: '1338',
