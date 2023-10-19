@@ -295,7 +295,6 @@ function InfoCard() {
         <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
         onPress={()=>setIsOpenEdit(true)} > EDIT PROFILE</Button>   
         </div> 
-
         </div>
         {
           LoggedUser.kycStatus==true && 

@@ -11,10 +11,10 @@ import Cursors from './Components/Cursor/Cursors';
 import Footer from './footer';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/ReactToastify.min.css";
-// export const metadata: Metadata = {
-//   title: 'Elysium Launchpad',
-//   description: 'Elysium NFT launchpad by Vulcanforged',
-// }
+export const metadata: Metadata = {
+  title: 'Elysium Launchpad',
+  description: 'Elysium NFT launchpad by Vulcanforged',
+}
 
 export default function RootLayout({
   children,

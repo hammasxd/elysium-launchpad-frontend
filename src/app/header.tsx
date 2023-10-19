@@ -10,9 +10,9 @@ import {connectWalletRedux,disconnect} from '@/redux/features/userSlice'
 import demoImage from '@/app/assets/images/ProfileImg.png'
 import {useDispatch} from 'react-redux';
 import { AppDispatch } from '@/redux/store';
-
 import { baseUrl } from './constants/baseUrl';
-import fs from 'fs'
+// import { cookies } from 'next/headers';
+import fs from 'fs';
 function Header() {
   const router = useRouter()
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,7 +21,7 @@ function Header() {
   const [LoggedUser,setLoggedUser]=useState<any>();
   const connectedAddress = useAddress();
   const dispatch = useDispatch<AppDispatch>();
-
+ 
   const handleScroll = () => {
     if (window.scrollY > 0) {
       setIsScrolled(true);
@@ -29,15 +29,37 @@ function Header() {
       setIsScrolled(false);
     }
   };
-  
+  const handleConnect=()=>{
+    fetch('/api/cookies/',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        isAuth:false,
+      }),
+    });
+  }
+  const handleDisconnect= () => {
+    fetch('/api/cookies/',{
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        isAuth:false,
+      }),
+    });
+  }
 
   const handleWalletConnect=async ()=>{
     alert('success wallet connect');
   }
   useEffect(() => {
-    
+    connectedWallet?.on('disconnect',handleDisconnect)
        
  if(connectedAddress){
+ handleConnect()
   getAvatarData()
 }
     
