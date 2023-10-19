@@ -10,7 +10,6 @@ import Cursors from '../../Cursor/Cursors'
 import Web3 from 'web3'
 
 function UserInprogressNftCard({ poolName, nft, index, isLoaded, isLoadedImage }: { poolName: string, nft: NFTObject, index: number, isLoaded: boolean, isLoadedImage: boolean }) {
-    console.log('nft object endtimee : ', nft.EndTime)
     const [isOpenModal, setIsOpenModal] = useState(false)
     const sdk = useSDK();
     const nftAbi = nftPool_ABI();
@@ -24,8 +23,6 @@ function UserInprogressNftCard({ poolName, nft, index, isLoaded, isLoadedImage }
             await a.call('getUserCntLocksForToken', [walletAddress]).then((result: any) => {
                 let inString = result?.toString();
                 setBoughtNfts(result?.toString());
-                console.log('userBoughtNfts : ', boughtNfts);
-                console.log('userBoughtNfts in hex : ', result);
             })
         })
 

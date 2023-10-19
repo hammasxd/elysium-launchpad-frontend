@@ -7,12 +7,12 @@ import { useRouter } from 'next/navigation';
 import { ConnectWallet, WalletInstance, useAddress, useWallet} from '@thirdweb-dev/react';
 import axios from 'axios';
 import {connectWalletRedux,disconnect} from '@/redux/features/userSlice'
-
+import demoImage from '@/app/assets/images/ProfileImg.png'
 import {useDispatch} from 'react-redux';
 import { AppDispatch } from '@/redux/store';
-
 import { baseUrl } from './constants/baseUrl';
-import fs from 'fs'
+// import { cookies } from 'next/headers';
+import fs from 'fs';
 function Header() {
   const router = useRouter()
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,7 +21,7 @@ function Header() {
   const [LoggedUser,setLoggedUser]=useState<any>();
   const connectedAddress = useAddress();
   const dispatch = useDispatch<AppDispatch>();
-
+ 
   const handleScroll = () => {
     if (window.scrollY > 0) {
       setIsScrolled(true);
@@ -29,14 +29,39 @@ function Header() {
       setIsScrolled(false);
     }
   };
-  
+  const handleConnect=()=>{
+    fetch('/api/cookies/',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        isAuth:false,
+      }),
+    });
+  }
+  const handleDisconnect= () => {
+    fetch('/api/cookies/',{
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        isAuth:false,
+      }),
+    });
+  }
 
   const handleWalletConnect=async ()=>{
     alert('success wallet connect');
   }
   useEffect(() => {
-    
-    
+    connectedWallet?.on('disconnect',handleDisconnect)
+       
+ if(connectedAddress){
+ handleConnect()
+  getAvatarData()
+}
     
     window.addEventListener('scroll', handleScroll);
     getAvatarData();
@@ -74,11 +99,13 @@ function Header() {
               )
             );
            dispatch(connectWalletRedux(data));
-
             setLoggedUser(data.response);
+          } else{setLoggedUser({
+            address:'Not Set',
+            userName:'Not Set'});
+            setImage(demoImage.src)
           }
-      
-          // console.log(data.response);
+          
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -87,8 +114,8 @@ function Header() {
 
 }
   }
-  
- 
+
+
  
 
   const menuItems = [
@@ -179,7 +206,11 @@ function Header() {
           <DropdownItem key="help_and_feedback">
             Help & Feedback
           </DropdownItem>
-          <DropdownItem key="logout" color="danger" onPress={()=>connectedWallet?.disconnect()}>
+          <DropdownItem key="logout" color="danger" onPress={()=>{
+            connectedWallet?.disconnect()
+            router.push('/')
+          }
+            }>
             Log Out
           </DropdownItem>
         </DropdownMenu>

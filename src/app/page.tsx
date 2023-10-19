@@ -11,13 +11,11 @@ import ChooseUs from './Components/ChooseUs'
 import WelcomeTo from './Components/WelcomeTo'
 import OurTeam from './Components/Team'
 export default function Home() {
-console.log(baseUrl);
 const IdosData:{apiUrl:any,apiUrlPaginated:any, IntroTitle:any, bgImageSrc:any,learnMore:any}[]=[
   {apiUrl:`${baseUrl.baseUrl}/getfirstActiveIDOs`,apiUrlPaginated:`${baseUrl.baseUrl}/getActiveIDOsPaginated`,IntroTitle:'Active Projects',bgImageSrc:activee.src,learnMore:'/ido/active'},
   {apiUrl:`${baseUrl.baseUrl}/getfirstUpcomingIDOs`,apiUrlPaginated:`${baseUrl.baseUrl}/getUpComingIDOsPaginated`,IntroTitle:'Upcomming Projects',bgImageSrc:upcomming.src,learnMore:'/ido/upcomming'},
     {apiUrl:`${baseUrl.baseUrl}/getfirstCompletedIDOs`,apiUrlPaginated:`${baseUrl.baseUrl}/getCompletedIDOsPaginated`,IntroTitle:'Complete Projects',bgImageSrc:completed.src,learnMore:'/ido/completed'}
   ]
-  
   return (
    <div className='w-full'> 
     <Intro/>
@@ -29,7 +27,6 @@ const IdosData:{apiUrl:any,apiUrlPaginated:any, IntroTitle:any, bgImageSrc:any,l
     <ChooseUs/>
     <WelcomeTo/>
     <OurTeam/>
-  
     </div>
   )
 }

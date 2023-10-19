@@ -12,7 +12,6 @@ import NFTInprogressCard from '../Cards/NFTInprogressCard';
 
 const NftIntroInprogress = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
     let PoolName = poolName;
-    console.log('pooooooooollll : ',poolName);
     const [isLoaded,setIsLoaded]=useState(false)
     const [isLoadedImage,setIsLoadedImage]=useState(false)
     const [upcommingNftPool, setupcommingNftPool] = useState([]);
@@ -29,9 +28,7 @@ const NftIntroInprogress = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
               NFTPoolType: PoolName,
             })
             .then(async (response) => {
-              // console.log(response);
               poolArray = await response.data.data;
-              // upcommingNftPool(response.data.data);
               if (poolArray == "" || poolArray == null) {
                 setStatus("In-progress");
                 setupcommingNftPool(poolArray);

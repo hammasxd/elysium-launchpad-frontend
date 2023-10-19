@@ -12,7 +12,6 @@ import NFTUpcommingCard from '../Cards/NFTUpcommingCard';
 
 const NftIntroUpcomming = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
     let PoolName = poolName;
-    console.log('pooooooooollll : ',poolName);
     const [isLoaded,setIsLoaded]=useState(false)
     const [isLoadedImage,setIsLoadedImage]=useState(false)
     const [upcommingNftPool, setupcommingNftPool] = useState([]);
@@ -29,7 +28,6 @@ const NftIntroUpcomming = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
               NFTPoolType: PoolName,
             })
             .then(async (response) => {
-              // console.log(response);
               poolArray = await response.data.data;
               // upcommingNftPool(response.data.data);
               if (poolArray == "" || poolArray == null) {
@@ -56,7 +54,6 @@ const NftIntroUpcomming = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
     
                     let filledPercentage =
                       (poolArray[i].Purchased / poolArray[i].NFTMaxCap) * 100;
-                      console.log('purchased: ' + poolArray[i].Purchased +'max cap : '+ poolArray[i].NFTMaxCap);
                     poolArray[i].FilledPercentage = filledPercentage;
                   } else {
                     setStatus("In-progress");

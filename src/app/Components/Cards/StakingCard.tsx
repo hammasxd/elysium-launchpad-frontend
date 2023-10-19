@@ -13,11 +13,10 @@ import {
     StakeToken_Add
   } from '../../constants/info'
 import { useAddress, useSDK, useWallet } from '@thirdweb-dev/react'
-import { formatUnits, parseEther } from 'ethers/lib/utils'
-import { ethers } from 'ethers'
+
 import Web3 from 'web3';
-import { baseUrl } from '@/app/constants/baseUrl'
-import { ok } from 'assert'
+import { baseUrl, tokenName, tokenSymbol } from '@/app/constants/baseUrl'
+
 import { toast } from 'react-toastify'
 import { delay } from '@reduxjs/toolkit/dist/utils'
 function StakingCard() {
@@ -29,7 +28,7 @@ function StakingCard() {
     const [selectedKeys, setSelectedKeys]=useState(new Set(["text"]))
     const [balance, setBalance]=useState<string | undefined>(undefined)
     const [alreadyStaking, setAlreadyStaking]=useState();
-    const [curretnDays,setCurretDays] = useState<number>();
+    const [curretnDays,setCurretDays] = useState<number>(0);
     const [buyAmount,setBuyAmount]=useState<any>();
     const wallet=useWallet();
     const walletAddress=useAddress()
@@ -49,11 +48,9 @@ function StakingCard() {
                     let eth = web3.utils.fromWei(stringValue, 'ether');
                     eth = parseFloat(eth).toFixed(4)
                     setBalance( eth);
-                    console.log('ethhhhhh',eth)
                 });
                 await a.call('symbol',[]).then((a:any)=>{
                     setSymbol(a)
-                    console.log('symbol :  ', a)
                 })
             }
 
@@ -69,41 +66,50 @@ function StakingCard() {
       const selectLockedDurationContract = ()=>{
        
 switch (selectedValue) {
-    case '7':
+    case '7' && walletAddress:
+
       setStakeDurationContract (StakingABIContract_Add7());
       getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '14':
+    case '14' && walletAddress:
         setStakeDurationContract (StakingABIContract_Add14());
         getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '30':
+    case '30' && walletAddress:
         setStakeDurationContract (StakingABIContract_Add30());
         getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '60':
+    case '60' && walletAddress :
         setStakeDurationContract (StakingABIContract_Add60());
         getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '90':
+    case '90' && walletAddress : 
         setStakeDurationContract (StakingABIContract_Add90());
         getAllowanceAmount(stakeDurationContract);
 
       break;
-    case '180':
+    case '180' && walletAddress:
         setStakeDurationContract (StakingABIContract_Add180());
         getAllowanceAmount(stakeDurationContract);
 
 
       break;
     default:
+      if(walletAddress){
       setStakeDurationContract (StakingABIContract_Add7());
       getAllowanceAmount(stakeDurationContract);
 
+    } else if(!walletAddress){
+      toast.error('Please connect wallet',{
+        position: "top-right",
+            
+            toastId: "connectWallet",
+      });
+    }
       break;
 
   }
@@ -112,35 +118,21 @@ switch (selectedValue) {
       }
 
       //get user current staking
-      const getUserStakingInfo=async ()=>{
-        const response= await fetch(`${baseUrl}/getVerifyUser`,{
-            method:'POST',
-            cache:'force-cache',
-            headers:{
-                'Content-Type':'application/json',
-                'Accept':'application/json'
-            },
-            body:JSON.stringify({
-                address:walletAddress
-            },
-            )
+      const getUserStakingInfo=()=>{
+        fetch(`${baseUrl}/userStakings`,{
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ address: walletAddress }),
+      }).then((response)=>response.json()).then((data)=>{
+          setAlreadyStaking(data?.data?.amount)
+          setCurretDays(data?.data?.days);
         })
-        if(response.ok){
-
-            return await response.json();
-
-            }
-        return 'error';
+        
       }
 
-      const getUserCurrentStakingInfo=async ()=>{
-        const data = await getUserStakingInfo();
-        const current=data.response.stakingDays;
-        const alreadyStakedAmount = data.response.stakeAmount;
-        setAlreadyStaking(alreadyStakedAmount);
-        setCurretDays(current);
-        console.log('currentttttttttt : ',curretnDays)
-    }
+     
 
       //pyr logo
       const PYRLogo=()=>{
@@ -150,19 +142,30 @@ switch (selectedValue) {
       const MaxButton = ({ stakingAmount, setStakingAmount }:any) => {
         const handleMaxClick = () => {
           setStakingAmount(balance);
-          console.log(stakingAmount) // Update the stakingAmount state in the parent component
         };
-      
         return (
           <Button className='bg-primary rounded-lg hover:bg-opacity-50' onPress={handleMaxClick}>MAX</Button>
         );
       };
 //approve Staking Amount
       const approveAmount=async ()=>{
-        console.log('buyyyy amounttttttttt',buyAmount);
-        if(curretnDays!=0 || curretnDays){
+       if(!walletAddress){
+          toast.error('Please connect wallet',{
+            position: "top-right",
+                autoClose: false,
+                closeOnClick:true,
+                toastId: "connectWallet",
+          });
+          return;
+       }
+       else if(Number(balance)<stakingAmount){
+        toast.error(`Not enough ${tokenName}`);
+
+       }
+        else if(curretnDays!=0 || curretnDays){
             toast.error(`already Staked for ${curretnDays} days`);
         }
+        
         else{
            
             toast.loading('Transaction in Progress', {
@@ -208,7 +211,6 @@ switch (selectedValue) {
       } 
 // stake approved amount
 const stake=async ()=>{
-console.log('checking nuy amount : ' ,buyAmount)
   if (buyAmount == 0 || buyAmount == undefined || buyAmount == null) {
     toast.error("Enter Amount to Stake", {
       position: "top-right",
@@ -263,7 +265,7 @@ toast.loading('Transaction in Progress', {
        useEffect(() => {
         if(walletAddress!=undefined){
 
-            getUserCurrentStakingInfo();
+          getUserStakingInfo();
             getBalance()
             getAllowanceAmount(stakeDurationContract);
 
@@ -282,7 +284,6 @@ toast.loading('Transaction in Progress', {
               let eth = web3.utils.fromWei(stringValue, 'ether');
               let toSet=parseInt(eth)
                 setCurrentAllowance(toSet)
-              console.log('allowance amount : ',currentAllowance)
 
 
             })
@@ -290,7 +291,6 @@ toast.loading('Transaction in Progress', {
        }
 
 
-       console.log('stakinggggggggg durationnnnnnnn : ',stakeDurationContract);
   return (
     <div className='stakingCardContainer text-center '>
         <Card className='flex flex-col gap-5 justify-center bg-primary-50 bg-opacity-50  backdrop-blur backdrop-brightness-150 px-16 py-16'>
@@ -364,7 +364,6 @@ toast.loading('Transaction in Progress', {
                                                                 setStakingAmount(e.target.value as unknown as number);
 
                                                                 setBuyAmount(e.target.value);
-                                                                console.log(e.target.value)
                                                               }}
                                                               inputMode='decimal'
                                                             value={stakingAmount as unknown as string}

@@ -11,7 +11,6 @@ import React from 'react'
 async function getNFTData(nftAdress:any) {
     
    
-   console.log(nftAdress)
     const response= await fetch(`${baseUrl}/singleNFTPool`,{
         method:'POST',
         cache:'no-cache',
@@ -27,7 +26,6 @@ async function getNFTData(nftAdress:any) {
         console.log('error in response', response.status);
     }
     const data=await response.json();
-    console.log(data.data)
     return data.data;
     
     

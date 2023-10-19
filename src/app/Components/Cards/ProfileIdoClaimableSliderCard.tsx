@@ -18,7 +18,6 @@ function ProfileIdoClaimableSliderCard({key,index,Ido}:any) {
         try{
             const tx = await contract?.call('ClaimTokens',[],{ gasLimit:7000000});
             const receipt= tx.receipt;
-            console.log(receipt);
 
         }catch(error){
             console.log('error in transaction : ' ,error)
@@ -51,7 +50,6 @@ function ProfileIdoClaimableSliderCard({key,index,Ido}:any) {
           ""
         )
       );
-  console.log("ido in cards : ",  Ido)
   return (
 
     <Card key={key} className=' w-full py-10 px-5 bg-transparent backdrop-blur backdrop-brightness-150 rounded-xl'>

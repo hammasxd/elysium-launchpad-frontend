@@ -3,7 +3,7 @@ import { Card, CardHeader,  CardBody,  Image, Skeleton} from '@nextui-org/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import idos from "../../assets/images/icon-pyr.png";
-const baseUrl = process.env.NEXT_API_BASE_URL;
+import { baseUrl } from '@/app/constants/baseUrl';
 
 function Stats() {
     const [UseTotal, SetTotalIDO] = useState('');
@@ -11,11 +11,10 @@ function Stats() {
   const [UseUpComing, SetUpComingIDO] = useState('');
   const [UseCompleted, SetCompletedIDO] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
-  console.log(baseUrl);
 useEffect(() => {
     const fetchData = () => {
       axios
-        .get(`https://elysium-launchpad-adminbackend-nft-dev.vulcanforged.com/api/allIDOsCnt`)
+        .get(`${baseUrl}/allIDOsCnt`)
         .then(function (response) {
           SetTotalIDO(response.data.data.total);
           SetInprogressIDO(response.data.data.InProgress);

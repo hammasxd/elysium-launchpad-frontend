@@ -1,11 +1,35 @@
+'use client'
 import { Card, CardHeader, CardBody,Image } from '@nextui-org/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import pyrLogo from '../../assets/images/PYRicon.png'
 import busdIcon from '../../assets/images/busd-logo.png'
-import { saleToken, tokenName } from '@/app/constants/baseUrl'
+import { baseUrl, saleToken, tokenName } from '@/app/constants/baseUrl'
 import { useAppSelector } from '@/redux/store'
 function TotalUserInvestmentCard() {
+    const [deposits,setDeposits]=useState<any>();
     const userDeposits= useAppSelector((state)=> state.depositsReduder.value)
+    const userAddress= useAppSelector((state)=> state.addressReducer.value)
+    const gettingDeposits=()=>{
+        return fetch(`${baseUrl}/userStakings`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ address: userAddress }),
+        }).then((response)=>response.json()).then((data)=>{
+            setDeposits(data?.data);
+        }
+        )
+    }
+   useEffect(() => {
+     
+   if(userAddress){
+    gettingDeposits();
+   }
+    
+   }, [userAddress])
+   
+
   return (
     <>
         <Card className='p-10 bg-transparent backdrop-blur shadow-xl h-full backdrop-brightness-150'>
@@ -38,7 +62,7 @@ function TotalUserInvestmentCard() {
                         />
                             <div className='flex flex-col ml-4 text-left'>
                         <p className='text-right text-sm'>Current PYR</p>
-                        <p className=' text-lg font-bold'>{userDeposits.toString()}</p>
+                        <p className=' text-lg font-bold'>{deposits?.amount}</p>
                         </div>
                     </div>
                  

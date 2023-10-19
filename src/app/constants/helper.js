@@ -3,12 +3,10 @@ import { BigNumber } from 'ethers'
 
 //2000 = 20% we add in already estimated value
 export function calculateGasMargin(value) {
-    console.log(value.mul(BigNumber.from(10000 + 2000)).div(BigNumber.from(10000)));
     return value.mul(BigNumber.from(10000 + 2000)).div(BigNumber.from(10000));
 }
 
 export function calculateGasApprove(value) {
-    console.log(value.mul(BigNumber.from(10000 + 2000)).div(BigNumber.from(10000)));
     return value.mul(BigNumber.from(10000 + 2000)).div(BigNumber.from(10000));
 }
 

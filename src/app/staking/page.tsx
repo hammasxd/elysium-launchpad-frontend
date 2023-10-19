@@ -5,7 +5,6 @@ import BuyOnVulcan from '../Components/Buttons/BuyOnVulcan'
 import StakingCard from '../Components/Cards/StakingCard'
 
 async function getData() {
-    console.log('i am here')
     const res = await fetch('https://api.coingecko.com/api/v3/coins/vulcan-forged?tickers=true&market_data=true',{
         cache:'force-cache',
         headers:{

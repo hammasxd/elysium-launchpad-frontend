@@ -28,9 +28,7 @@ const NftIntroCompleted = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
               NFTPoolType: PoolName,
             })
             .then(async (response) => {
-              // console.log(response);
               poolArray = await response.data.data;
-              // completedNFTPool(response.data.data);
               if (poolArray == "" || poolArray == null) {
                 setStatus("In-progress");
                 setCompletedNFTPool(poolArray);
@@ -58,7 +56,6 @@ const NftIntroCompleted = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
     
                     let filledPercentage =
                       (poolArray[i].Purchased / parseFloat(poolArray[i].NFTMaxCap)) * 100;
-                      console.log('purchased : ',poolArray[i].Purchased,"maxCap : ",poolArray[i].NFTMaxCap );
                     poolArray[i].FilledPercentage = filledPercentage;
                   } else {
                     setStatus("In-progress");

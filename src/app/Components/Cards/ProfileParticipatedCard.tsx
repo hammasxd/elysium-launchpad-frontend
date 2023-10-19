@@ -32,7 +32,6 @@ useEffect(() => {
       dispatch(setParticipatedIdos(toSet));
       toSet=toSet[(toSet.length)-1];
       setpartiIdo(toSet);
-      console.log('This is response data i need',dataiNeed)
       //Response Of IDOS
     })}
 }, [walletAddress])

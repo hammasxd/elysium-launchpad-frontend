@@ -14,7 +14,6 @@ import ImagesURL from '@/app/constants/ImagesURL'
 import { useAppSelector } from '@/redux/store'
 function NftDetailsCard({nftData}:any) {
 
-  console.log(nftData.ProjectStatus)
     const [purchased,setPurchased]=useState<any>('');
     const [participant,setParticipant]=useState<any>();
     const [filledPercentage,setFilledPercentage]=useState<any>();
@@ -29,7 +28,6 @@ function NftDetailsCard({nftData}:any) {
     let address = nftAdditional.NFTPoolAddress;
     
     const nftPool =async () =>{
-        console.log(address)
         await sdk?.getContractFromAbi(address,nftPool_ABI()).then(async (a)=>{
             await a?.call('totalNFTSoldInAllTier').then((result:any)=>{
                 let inInt=parseInt(result._hex,16)
@@ -41,7 +39,6 @@ function NftDetailsCard({nftData}:any) {
               })
               let filledPercentage =
                 (purchased / parseFloat(nftData.NFTMaxCap)) * 100;
-                console.log('purchased : ',purchased,"maxCap : ",nftAdditional.NFTMaxCap );
               setFilledPercentage(filledPercentage);
 
         })
@@ -97,7 +94,6 @@ const likeNft=()=> {
         NFTPoolAddress: nftAdditional.NFTPoolAddress,
       })
       .then((res) => {
-        // console.log(res);
         if (res.data.success == true) {
           toast.success("Nft added to Liked Successfully!", {
             position: "top-right",
@@ -143,7 +139,6 @@ const likeNft=()=> {
         NFTPoolAddress: nftAdditional.NFTPoolAddress,
       })
       .then((res) => {
-        // console.log(res);
         if (res.data.success == true) {
           toast.success("Nft removed from Liked Successfully!", {
             position: "top-right",
@@ -187,8 +182,6 @@ const likeNft=()=> {
         NFTPoolAddress: nftData.NFTPoolAddress,
       })
       .then((res) => {
-        // console.log(res.data.success);
-        console.log('cheking like : ' ,res.data.success )
         if (res.data.success == true) {
             
           setLiked(true);
@@ -379,8 +372,6 @@ const likeNft=()=> {
             gasLimit:7000000
           }).then((b:any)=>{
             setUserWhitelisted(b);
-            console.log('is whitelisted : ',b);
-            console.log( 'testing app selecto : ',totalInvest);
 
           })
         })
@@ -391,7 +382,6 @@ const likeNft=()=> {
             gasLimit:7000000
           }).then((b:any)=>{
             setTokenAllowance(Web3.utils.fromWei(b.toString(), "ether"));
-            console.log('Token allowance : ', tokenAlloance);
 
           })
         })
@@ -454,8 +444,7 @@ const likeNft=()=> {
            await a.call('getUserCntLocksForToken',[WalleAddress]).then((result:any)=>{
               let inString= result?.toString();
               setBoughtNfts(result?.toString());
-              console.log('userBoughtNfts : ' ,boughtNfts);
-              console.log('userBoughtNfts in hex : ' ,result);
+             
             })
           })
 

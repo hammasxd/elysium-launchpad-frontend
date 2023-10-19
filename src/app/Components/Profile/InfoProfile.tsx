@@ -69,7 +69,6 @@ function InfoCard() {
             dispatch(connectWalletRedux(data));
           }
       
-          console.log('user logged: ', LoggedUser);
       
           setTimeout(() => {
             setSkeltonLoaded(true);
@@ -151,7 +150,6 @@ function InfoCard() {
             toastId: "ProfileImage",
           });
         } else {
-          // console.log("Profile iMAW", ProfileImage.size);
           const formdata = new FormData();
           formdata.append("myFile", ProfileImage);
           formdata.append("address", walletAddress);
@@ -265,15 +263,14 @@ function InfoCard() {
         }
       };
       useEffect(() => {
-       
-          getVerifiedUser()
+        if(walletAddress){
+          getVerifiedUser();
           dispatch(connectWalletRedux(LoggedUser));
-
+}
 
        
       }, [walletAddress]);
 
-      console.log('user loged : ',LoggedUser);
     return (
      
         <>
@@ -298,7 +295,6 @@ function InfoCard() {
         <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
         onPress={()=>setIsOpenEdit(true)} > EDIT PROFILE</Button>   
         </div> 
-
         </div>
         {
           LoggedUser.kycStatus==true && 

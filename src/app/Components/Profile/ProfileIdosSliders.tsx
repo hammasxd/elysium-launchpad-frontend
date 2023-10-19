@@ -44,13 +44,10 @@ useEffect(
           .post(`${baseUrl}/getUserParticipatedIDOs`, { address: account })
           .then(function (response) {
             //Response Of IDOS
-            console.log('response for api participated',response.data.data)
 
             response.data.data.forEach(async (Ido:any) => {
-              console.log('total idos ',Ido.total)
               //For User Invested IDOS
               if(account!=undefined&&Ido.IDO!=null||''||undefined){
-                console.log('here is the addressfor thirdweb ',Ido.IDO)
                 let ido = await sdk?.getContractFromAbi(Ido.IDO,IDO_ABI)
             
                 const maxParticipants = async () => {
@@ -624,7 +621,6 @@ useEffect(
                           array.push(ido.data.data);
                           setArrLength(array.length);
                           setParticipatedDetails(array);
-                          console.log('this is participated state',array);
                         })
                         .catch(
                           (err)=>{
@@ -637,7 +633,6 @@ useEffect(
                      console.log(err)
                     });
                     setInvested(invest);
-                    console.log('this is main participated state : ',ParticipatedDetails)
 
             }
 
@@ -654,25 +649,19 @@ useEffect(
   //if you pass a value to array, like this [data] than clearTimeout will run every time this value changes (useEffect re-run)
 );
  
-console.log('THEE MAINNNN PARTICIPATEDDDD : ',ParticipatedDetails);
 let claimableOnly : Array<any> =[];
 let inProgressOnly : Array<any> = [];
 let claimedOnly: Array<any>=[];
-console.log('i am trying here : ',ParticipatedDetails)
 ParticipatedDetails.forEach((Ido:any)=>{
-  console.log('ALL THE PARTICIPATED IN LOOP IS THIS status ',Ido.Claimed)
   if(Ido?.ProjectStatus=='Completed'&& Ido.Claimed==false){
     claimableOnly.push(Ido);
-    console.log('console for claimable Only : ',claimableOnly)
   }
   if(Ido?.ProjectStatus=='In-progress' && Ido.Claimed==false){
     inProgressOnly.push(Ido)
-    console.log('console for inProgress Only : ',inProgressOnly)
 
   }
   if(Ido?.ProjectStatus=='Completed'&& Ido.Claimed==true){
     claimedOnly.push(Ido)
-    console.log('console for claimed Only : ',claimedOnly)
 
   }
 
