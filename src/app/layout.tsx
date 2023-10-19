@@ -14,6 +14,9 @@ import "react-toastify/ReactToastify.min.css";
 export const metadata: Metadata = {
   title: 'Elysium Launchpad',
   description: 'Elysium NFT launchpad by Vulcanforged',
+  icons: {
+    icon: '/icon.png',
+  },
 }
 
 export default function RootLayout({
@@ -23,6 +26,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className='purple-dark'>
+      <head>
+      <link rel="icon" href="/icon.png" />
+      </head>
       <body  className={`${inter.className} w-full scroll-smooth scrollbar-hide`} style={{ backgroundImage: `url(${ElysiumBanner.src})`,backgroundPosition:'top',backgroundRepeat:'no-repeat',backgroundAttachment:'fixed' }}  >
       <ToastContainer
 position="top-right"

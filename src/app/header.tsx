@@ -21,7 +21,6 @@ function Header() {
   const [LoggedUser,setLoggedUser]=useState<any>();
   const connectedAddress = useAddress();
   const dispatch = useDispatch<AppDispatch>();
- 
   const handleScroll = () => {
     if (window.scrollY > 0) {
       setIsScrolled(true);
