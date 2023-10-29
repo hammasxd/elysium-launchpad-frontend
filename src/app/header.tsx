@@ -138,7 +138,7 @@ function Header() {
   ]
 
   return (
-    <Navbar isBlurred={false} height={'8em'} maxWidth='xl' className={` z-50 mb-20 bg-transparent capitalize  ${
+    <Navbar isBlurred={false} height={'4em'} maxWidth='xl' className={`  z-50 py-5 bg-transparent capitalize  ${
       isScrolled ? 'backdrop-blur-md' : ''
     }`}>
       <NavbarContent className="sm:hidden" justify="start">

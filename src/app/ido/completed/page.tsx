@@ -19,7 +19,7 @@ const Page = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isLoadedImage, setIsLoadedImage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 4;
   const [completedIDOsCount, setCompletedIDOsCount] = useState(1);
 
   const fetchCompletedCount = async () => {
@@ -113,7 +113,7 @@ const Page = () => {
   };
   useEffect(() => {
     fetchCompletedCount();
-    fetchData();
+   fetchData();
   }, [currentPage]); // Make sure to fetch data when the page changes
 
   const handlePageChange = (newPage: number) => {
@@ -128,11 +128,11 @@ const Page = () => {
   let indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   return (
-    <section className="flex flex-col mt-10 mb-10">
-      <div className="w-full m-auto text-center">
+    <section className="flex flex-col">
+      <div className="w-full mx-auto text-center">
         <h3 className="text-7xl font-bold">Completed Projects</h3>
       </div>
-      <div className="flex flex-wrap gap-10 z-40 mt-20 mx-auto h-auto items-center justify-center top-0 inset-x-0 mb-20 bg-transparent capitalize">
+      <div className="flex flex-wrap gap-10 z-40 mt-8 mx-auto h-auto items-center justify-center top-0 inset-x-0 mb-8 bg-transparent capitalize">
         {completedIDOs.length > 0 ? (
           completedIDOs.map((list: any, index) => {
             return (

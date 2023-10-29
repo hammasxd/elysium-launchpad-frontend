@@ -17,7 +17,7 @@ const IdosData:{apiUrl:any,apiUrlPaginated:any, IntroTitle:any, bgImageSrc:any,l
     {apiUrl:`${baseUrl.baseUrl}/getfirstCompletedIDOs`,apiUrlPaginated:`${baseUrl.baseUrl}/getCompletedIDOsPaginated`,IntroTitle:'Complete Projects',bgImageSrc:completed.src,learnMore:'/ido/completed'}
   ]
   return (
-   <div className='w-full'> 
+   <div className='w-full mt-10'> 
     <Intro/>
     <Stats/>
     {IdosData.map((item, index) => (
