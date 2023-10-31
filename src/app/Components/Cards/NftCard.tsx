@@ -2,10 +2,13 @@ import { saleToken } from '@/app/constants/baseUrl'
 import { timeConverter } from '@/app/constants/helper'
 import { NFTObject } from '@/app/constants/types'
 import { Button, Card, CardBody, CardHeader, Link, Progress, Skeleton,Image } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 import { list } from 'postcss'
 import React from 'react'
 
 function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nft:NFTObject,index:number,isLoaded:boolean,isLoadedImage:boolean}) {
+    const router = useRouter()
+
   return (
 
     <div key={index}>
@@ -96,8 +99,8 @@ function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nf
             >
                 <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
                     // onPress={() => settingList(list)}
-
-                    href="#"><Link href={`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`}  className=' text-white'> LEARN MORE</Link></Button>
+                    onPress={()=>router.push(`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`)}
+                    >LEARN MORE</Button>
             </Skeleton>
         </CardHeader>
 

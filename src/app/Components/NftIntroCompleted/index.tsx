@@ -8,8 +8,10 @@ import NftCard from '../Cards/NftCard';
 import { Spinner ,Link, Image} from '@nextui-org/react';
 import { useSDK } from '@thirdweb-dev/react';
 import { nftPool_ABI } from '@/app/constants/info';
+import { useRouter } from 'next/navigation';
 
 const NftIntroCompleted = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
+  const router=useRouter()
     let PoolName = poolName;
    
     const [isLoaded,setIsLoaded]=useState(false)
@@ -118,7 +120,7 @@ const NftIntroCompleted = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
                     <div  className="col-md-12 text-center">
                         <Link
                             className=" text-primary-PAROT underline "
-                            href={learnMore}
+                            onPress={()=>router.push(learnMore)}
                         >
                             View More
                         </Link>

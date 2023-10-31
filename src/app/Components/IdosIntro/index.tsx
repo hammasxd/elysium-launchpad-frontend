@@ -4,16 +4,16 @@ import axios from "axios";
 import { Ido_ABI } from "../../constants/info";
 
 import { useSDK, useWallet } from "@thirdweb-dev/react";
-import Link from "next/link";
 
-import {  Image,Spinner} from "@nextui-org/react";
+import {  Image,Spinner,Link} from "@nextui-org/react";
 import { utils } from "ethers";
 import IdoCard from "../Cards/IdoCard";
+import { useRouter } from "next/navigation";
 let IDO_ABI: any = Ido_ABI();
 
 
 const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,learnMore }: { apiUrl: string, apiUrlPaginated: string, IntroTitle: string, bgImageSrc: string,learnMore:any}) => {
- 
+ const router=useRouter()
 
     const sdk = useSDK()
     let IDO3;
@@ -138,7 +138,7 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,learnMore }:
                     <div  className="col-md-12 text-center">
                         <Link
                             className=" text-primary-PAROT underline "
-                            href={learnMore}
+                            onPress={()=>router.push(learnMore)}
                         >
                             View More
                         </Link>

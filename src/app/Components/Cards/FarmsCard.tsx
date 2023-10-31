@@ -1,20 +1,20 @@
  'use client'
-import { Card, CardHeader, Divider, CardBody, CardFooter,Image } from '@nextui-org/react'
+import { Card, CardHeader, Divider, CardBody, CardFooter,Image,Link } from '@nextui-org/react'
 import React from 'react'
 import pyrIcon from '../../assets/images/PYRicon.png'
 import ImagesURL from "../../constants/ImagesURL";
-import Link from 'next/link'
+import { useRouter } from 'next/navigation';
 
 
 
- async function FarmCard({poolname,count}:any) {
-
+function FarmCard({poolname,count}:any) {
+ const router=useRouter()
  
 
  
    return (
-<Link href={`/nftLaunchpad/lpTokens/${poolname}`}  className=' backdrop-blur bg-transparent'>
-<Card className=" p-5 backdrop-blur bg-transparent rounded-3xl hover:-translate-y-7  hover:backdrop-blur shadow-glow">
+
+<Card onPress={()=>router.push(`/nftLaunchpad/lpTokens/${poolname}`)} className=" p-5 backdrop-blur bg-transparent rounded-3xl hover:-translate-y-7  hover:backdrop-blur shadow-glow">
     <CardHeader className="flex flex-row justify-center">
     
       <Image
@@ -45,7 +45,7 @@ import Link from 'next/link'
     </CardBody>
    
   </Card>
-</Link>
+
    
    )
  }

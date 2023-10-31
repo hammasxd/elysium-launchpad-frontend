@@ -8,9 +8,11 @@ import { useAddress, useSDK } from '@thirdweb-dev/react'
 import React, { useEffect, useState } from 'react'
 import Cursors from '../../Cursor/Cursors'
 import Web3 from 'web3'
+import { useRouter } from 'next/navigation'
 
 function UserInprogressNftCard({ poolName, nft, index, isLoaded, isLoadedImage }: { poolName: string, nft: NFTObject, index: number, isLoaded: boolean, isLoadedImage: boolean }) {
     const [isOpenModal, setIsOpenModal] = useState(false)
+    const router=useRouter()
     const sdk = useSDK();
     const nftAbi = nftPool_ABI();
     const walletAddress = useAddress();
@@ -206,9 +208,9 @@ function UserInprogressNftCard({ poolName, nft, index, isLoaded, isLoadedImage }
 
 
                         <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
+                        onPress={()=>router.push(`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`)}
 
-
-                        ><Link href={`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`} className=' text-white'> LEARN MORE</Link></Button>
+                        >LEARN MORE</Button>
 
 
                     </div>

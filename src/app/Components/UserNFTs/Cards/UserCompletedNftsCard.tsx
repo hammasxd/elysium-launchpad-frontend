@@ -10,9 +10,11 @@ import Cursors from '../../Cursor/Cursors'
 import Web3 from 'web3'
 import { toast } from 'react-toastify'
 import { error } from 'console'
+import { useRouter } from 'next/navigation'
 
 function UserCompletedNftCard({ poolName, nft, index, isLoaded, isLoadedImage,setRevalidation ,revalidation}: { poolName: string, nft: NFTObject, index: number, isLoaded: boolean, isLoadedImage: boolean,setRevalidation:any ,revalidation:boolean}) {
     const [isOpenModal, setIsOpenModal] = useState(false)
+    const router=useRouter()
     const sdk = useSDK();
     const nftAbi = nftPool_ABI();
     const walletAddress = useAddress();
@@ -253,9 +255,9 @@ function UserCompletedNftCard({ poolName, nft, index, isLoaded, isLoadedImage,se
 
 
                         <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
+                        onPress={()=>router.push(`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`)}
 
-
-                        ><Link href={`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`} className=' text-white'> LEARN MORE</Link></Button>
+                        > LEARN MORE</Button>
 
 
 

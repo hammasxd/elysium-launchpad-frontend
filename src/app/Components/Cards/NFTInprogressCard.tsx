@@ -3,10 +3,12 @@ import { saleToken } from '@/app/constants/baseUrl'
 import { printCountdownOther} from '@/app/constants/helper'
 import { NFTObject } from '@/app/constants/types'
 import { Button, Card, CardBody, CardHeader, Link, Progress, Skeleton,Image } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 import { list } from 'postcss'
 import React from 'react'
 
 function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nft:NFTObject,index:number,isLoaded:boolean,isLoadedImage:boolean}) {
+    const router=useRouter()
   return (
 
     <div key={index}>
@@ -48,7 +50,7 @@ function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nf
             <p className="text-white w-full inline-flex mb-2">INO POOL</p>
             <div className="flex w-full justify-between">
                 <Skeleton
-                    className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+                    className=' rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
                     isLoaded={isLoaded}
                 >
                     <p className="text-white text-tiny flex-initial">
@@ -57,7 +59,7 @@ function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nf
 
                 </Skeleton>
                 <Skeleton
-                    className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+                    className=' rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
                     isLoaded={isLoaded}
                 >
                     <p className="text-white text-tiny flex-initial">
@@ -90,7 +92,7 @@ function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nf
                 <div className="col-span-1 flex-initial">
                     <small className="w-full inline-flex text-tiny text-white">Sale Price</small>
                     <Skeleton
-                        className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+                        className=' rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
                         isLoaded={isLoaded}
                     >
                         <small className="font-bold">
@@ -115,7 +117,7 @@ function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nf
                 <div className="col-span-1 flex-initial">
                     <small className="w-full inline-flex text-tiny text-white">NFT Remaining</small>
                     <Skeleton
-                        className='rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
+                        className='  rounded-lg bg-primary-400 before:opacity-100 before:bg-primary-500 after:bg-primary-500 after:opacity-0 before:animate-[shimmer_0.75s_infinite]'
                         isLoaded={isLoaded}
                     >
                         <small className="font-bold">
@@ -132,8 +134,8 @@ function NftCard({poolName,nft,index,isLoaded,isLoadedImage}:{poolName:string,nf
             >
                 <Button className="w-full bg-primary-PAROT text-slate-50 font-semibold text-[14px] border-[2px] border-primary-PAROT hover:bg-primary-btnHover"
                     // onPress={() => settingList(list)}
-
-><Link href={`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`}  className=' text-white'> LEARN MORE</Link></Button>
+                    onPress={()=>router.push(`/nftLaunchpad/lpTokens/${nft.NFTPoolType}/${nft.NFTPoolAddress}`)}
+>LEARN MORE</Button>
             </Skeleton>
         </CardHeader>
 
