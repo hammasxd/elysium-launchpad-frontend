@@ -51,285 +51,291 @@ function ProfileStakingInfoCard() {
     
     const withdraw = async (stakingContractAdress:any) => {
      const  stakingContractObj= await sdk?.getContractFromAbi(stakingContractAdress,StakingABI);
-      toast('Transaction in Progress',{ position:'top-right',type:'info' });
-     toast.info('Starting');
+      
       if (!account) {
+        toast.error('connect your account.');
         return;
       }
+      toast.loading('Transaction in progress.',{toastId:'loadingStakingCard'});
       try {
         const tx = await stakingContractObj?.call('withdraw',[],{ gasLimit:7000000})
         const receipt = tx.receipt;   
-        toast('Transaction Completed',{ position:'top-right',type:'info' });
+        setLoader(false);
+        toast.dismiss('loadingStakingCard')
+        toast('Transaction Completed',{ position:'top-right',type:'success' });
         
       } catch (error) {
+        setLoader(false);
+        toast.error('Transaction Failed');
         console.log('error in transaction : ' ,error)
        }
     };
     let userAllStakingsCnt :any;
 
-    
+    const [loader,setLoader]=useState(false)
+    const fetchAllStakingDurations = async () => {
+      let staking7=await sdk?.getContractFromAbi(StakingABIContractAdd7,StakingABI)
+      let staking14 = await sdk?.getContractFromAbi(StakingABIContractAdd14,StakingABI)
+      let staking30 =  await sdk?.getContractFromAbi(StakingABIContractAdd30,StakingABI)
+      let staking60 =  await sdk?.getContractFromAbi(StakingABIContractAdd60,StakingABI)
+
+      let staking90 =  await sdk?.getContractFromAbi(StakingABIContractAdd90,StakingABI)
+
+      let staking180 =  await sdk?.getContractFromAbi(StakingABIContractAdd180,StakingABI)
+      
+
+    if (account!=undefined) {
+      staking7?.call('deposits',[account])
+      .
+        then(async (result:any) => {
+          setStakeObject7({
+            StakingDespositTime: result.depositTime,
+            StakingEndTime: result.endTime,
+            StakingAmount: web3.utils.fromWei(
+              result.depositAmount.toString(),
+              "ether"
+            ),
+            StakingWithdrawl: result.paid,
+
+
+          });
+          if (result.paid == false) {
+            userAllStakingsCnt =
+              parseFloat(userAllStakingsCnt) +
+              parseFloat(
+                web3.utils.fromWei(result.depositAmount.toString(), "ether")
+              );
+            setUserDeposit(userAllStakingsCnt);
+
+
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      await staking14?.call('deposits',[account])
+      .
+        then(async (result:any) => {
+          setStakeObject14({
+            StakingDespositTime: result.depositTime,
+            StakingEndTime: result.endTime,
+            StakingAmount: web3.utils.fromWei(
+              result.depositAmount.toString(),
+              "ether"
+            ),
+            StakingWithdrawl: result.paid,
+          });
+          if (result.paid == false) {
+            userAllStakingsCnt =
+              parseFloat(userAllStakingsCnt) +
+              parseFloat(
+                web3.utils.fromWei(result.depositAmount.toString(), "ether")
+              );
+            setUserDeposit(userAllStakingsCnt);
+
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      await staking30?.call('deposits',[account])
+      .
+        then(async (result:any) => {
+          setStakeObject30({
+            StakingDespositTime: result.depositTime,
+            StakingEndTime: result.endTime,
+            StakingAmount: web3.utils.fromWei(
+              result.depositAmount.toString(),
+              "ether"
+            ),
+            StakingWithdrawl: result.paid,
+          });
+          if (result.paid == false) {
+            userAllStakingsCnt =
+              parseFloat(userAllStakingsCnt) +
+              parseFloat(
+                web3.utils.fromWei(result.depositAmount.toString(), "ether")
+              );
+            setUserDeposit(userAllStakingsCnt);
+
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      await staking60?.call('deposits',[account])
+      .
+        then(async (result:any) => {
+          setStakeObject60({
+            StakingDespositTime: result.depositTime,
+            StakingEndTime: result.endTime,
+            StakingAmount: web3.utils.fromWei(
+              result.depositAmount.toString(),
+              "ether"
+            ),
+            StakingWithdrawl: result.paid,
+          });
+          if (result.paid == false) {
+            userAllStakingsCnt =
+              parseFloat(userAllStakingsCnt) +
+              parseFloat(
+                web3.utils.fromWei(result.depositAmount.toString(), "ether")
+              );
+            setUserDeposit(userAllStakingsCnt);
+
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      await staking90?.call('deposits',[account])
+      .
+        then(async (result:any) => {
+          setStakeObject90({
+            StakingDespositTime: result.depositTime,
+            StakingEndTime: result.endTime,
+            StakingAmount: web3.utils.fromWei(
+              result.depositAmount.toString(),
+              "ether"
+            ),
+            StakingWithdrawl: result.paid,
+          });
+          if (result.paid == false) {
+            userAllStakingsCnt =
+              parseFloat(userAllStakingsCnt) +
+              parseFloat(
+                web3.utils.fromWei(result.depositAmount.toString(), "ether")
+              );
+            setUserDeposit(userAllStakingsCnt);
+
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      await staking180?.call('deposits',[account])
+      .
+        then(async (result:any) => {
+          setStakeObject180({
+            StakingDespositTime: result.depositTime,
+            StakingEndTime: result.endTime,
+            StakingAmount: web3.utils.fromWei(
+              result.depositAmount.toString(),
+              "ether"
+            ),
+            StakingWithdrawl: result.paid,
+          });
+          if (result.paid == false) {
+            userAllStakingsCnt =
+              parseFloat(userAllStakingsCnt) +
+              parseFloat(
+                web3.utils.fromWei(result.depositAmount.toString(), "ether")
+              );
+            setUserDeposit(userAllStakingsCnt);
+
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+ 
+
+
+  const fetchTotal_PYR_Staked = async () => {
+      const staking7 =await sdk?.getContractFromAbi(StakingABIContractAdd7,StakingABI)
+      let staking14 = await sdk?.getContractFromAbi(StakingABIContractAdd14,StakingABI)
+      let staking30 =  await sdk?.getContractFromAbi(StakingABIContractAdd30,StakingABI)
+      let staking60 =  await sdk?.getContractFromAbi(StakingABIContractAdd60,StakingABI)
+      let staking90 =  await sdk?.getContractFromAbi(StakingABIContractAdd90,StakingABI)
+      let staking180 =  await sdk?.getContractFromAbi(StakingABIContractAdd180,StakingABI)
+    let totalTiersAmt : any;
+    await staking7?.call('stakedBalance')
+      .then(async (balance) => {
+        totalTiersAmt =
+          TotalStakedAmount +
+          parseFloat(web3.utils.fromWei(balance.toString(), "ether"));
+        setTotalStakedAmount(totalTiersAmt);
+
+        await staking14?.call('stakedBalance')
+          .then(async (balance14) => {
+            totalTiersAmt += parseFloat(
+              web3.utils.fromWei(balance14.toString(), "ether")
+              
+            );
+            setTotalStakedAmount(totalTiersAmt);
+
+            await staking30?.call('stakedBalance')
+              .then(async (balance30) => {
+                totalTiersAmt += parseFloat(
+                  web3.utils.fromWei(balance30.toString(), "ether")
+                );
+                setTotalStakedAmount(totalTiersAmt);
+
+                await staking60?.call('stakedBalance')
+                  .then(async (balance60) => {
+                    totalTiersAmt += parseFloat(
+                      web3.utils.fromWei(balance60.toString(), "ether")
+                    );
+                    setTotalStakedAmount(totalTiersAmt);
+
+                    await staking90?.call('stakedBalance')
+                      .then(async (balance90) => {
+                        totalTiersAmt += parseFloat(
+                          web3.utils.fromWei(balance90.toString(), "ether")
+                        );
+                        setTotalStakedAmount(totalTiersAmt);
+
+                        await staking180?.call('stakedBalance')
+                          .then(async (balance180) => {
+                            totalTiersAmt += parseFloat(
+                              web3.utils.fromWei(
+                                balance180.toString(),
+                                "ether"
+                              )
+                            );
+                            // alert(totalTiersAmt)
+                            setTotalStakedAmount(totalTiersAmt);
+                                dispatch(setStakedAmount(totalTiersAmt));
+                                dispatch(setDeposits(totalTiersAmt));
+
+                            })
+                          .catch((err)=>{
+                              console.log('error : ',err)
+                          });
+                      })
+                      .catch((err)=>{
+                          console.log('error : ',err)
+                      });
+                  })
+                  .catch((err)=>{
+                      console.log('error : ',err)
+                  });
+              })
+              .catch((err)=>{
+                  console.log('error : ',err)
+              });
+          })
+          .catch((err)=>{
+              console.log('error : ',err)
+          });
+      })
+      .catch((err)=>{
+          console.log('error : ',err)
+      });
+  };
+
     useEffect(() => {
         
-        const fetchAllStakingDurations = async () => {
-            let staking7=await sdk?.getContractFromAbi(StakingABIContractAdd7,StakingABI)
-            let staking14 = await sdk?.getContractFromAbi(StakingABIContractAdd14,StakingABI)
-            let staking30 =  await sdk?.getContractFromAbi(StakingABIContractAdd30,StakingABI)
-            let staking60 =  await sdk?.getContractFromAbi(StakingABIContractAdd60,StakingABI)
-
-            let staking90 =  await sdk?.getContractFromAbi(StakingABIContractAdd90,StakingABI)
-
-            let staking180 =  await sdk?.getContractFromAbi(StakingABIContractAdd180,StakingABI)
-            
     
-          if (account!=undefined) {
-            staking7?.call('deposits',[account])
-            .
-              then(async (result:any) => {
-                setStakeObject7({
-                  StakingDespositTime: result.depositTime,
-                  StakingEndTime: result.endTime,
-                  StakingAmount: web3.utils.fromWei(
-                    result.depositAmount.toString(),
-                    "ether"
-                  ),
-                  StakingWithdrawl: result.paid,
-
-
-                });
-                if (result.paid == false) {
-                  userAllStakingsCnt =
-                    parseFloat(userAllStakingsCnt) +
-                    parseFloat(
-                      web3.utils.fromWei(result.depositAmount.toString(), "ether")
-                    );
-                  setUserDeposit(userAllStakingsCnt);
-
-
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-    
-            await staking14?.call('deposits',[account])
-            .
-              then(async (result:any) => {
-                setStakeObject14({
-                  StakingDespositTime: result.depositTime,
-                  StakingEndTime: result.endTime,
-                  StakingAmount: web3.utils.fromWei(
-                    result.depositAmount.toString(),
-                    "ether"
-                  ),
-                  StakingWithdrawl: result.paid,
-                });
-                if (result.paid == false) {
-                  userAllStakingsCnt =
-                    parseFloat(userAllStakingsCnt) +
-                    parseFloat(
-                      web3.utils.fromWei(result.depositAmount.toString(), "ether")
-                    );
-                  setUserDeposit(userAllStakingsCnt);
-
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-    
-            await staking30?.call('deposits',[account])
-            .
-              then(async (result:any) => {
-                setStakeObject30({
-                  StakingDespositTime: result.depositTime,
-                  StakingEndTime: result.endTime,
-                  StakingAmount: web3.utils.fromWei(
-                    result.depositAmount.toString(),
-                    "ether"
-                  ),
-                  StakingWithdrawl: result.paid,
-                });
-                if (result.paid == false) {
-                  userAllStakingsCnt =
-                    parseFloat(userAllStakingsCnt) +
-                    parseFloat(
-                      web3.utils.fromWei(result.depositAmount.toString(), "ether")
-                    );
-                  setUserDeposit(userAllStakingsCnt);
-
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-    
-            await staking60?.call('deposits',[account])
-            .
-              then(async (result:any) => {
-                setStakeObject60({
-                  StakingDespositTime: result.depositTime,
-                  StakingEndTime: result.endTime,
-                  StakingAmount: web3.utils.fromWei(
-                    result.depositAmount.toString(),
-                    "ether"
-                  ),
-                  StakingWithdrawl: result.paid,
-                });
-                if (result.paid == false) {
-                  userAllStakingsCnt =
-                    parseFloat(userAllStakingsCnt) +
-                    parseFloat(
-                      web3.utils.fromWei(result.depositAmount.toString(), "ether")
-                    );
-                  setUserDeposit(userAllStakingsCnt);
-
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-    
-            await staking90?.call('deposits',[account])
-            .
-              then(async (result:any) => {
-                setStakeObject90({
-                  StakingDespositTime: result.depositTime,
-                  StakingEndTime: result.endTime,
-                  StakingAmount: web3.utils.fromWei(
-                    result.depositAmount.toString(),
-                    "ether"
-                  ),
-                  StakingWithdrawl: result.paid,
-                });
-                if (result.paid == false) {
-                  userAllStakingsCnt =
-                    parseFloat(userAllStakingsCnt) +
-                    parseFloat(
-                      web3.utils.fromWei(result.depositAmount.toString(), "ether")
-                    );
-                  setUserDeposit(userAllStakingsCnt);
-
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-    
-            await staking180?.call('deposits',[account])
-            .
-              then(async (result:any) => {
-                setStakeObject180({
-                  StakingDespositTime: result.depositTime,
-                  StakingEndTime: result.endTime,
-                  StakingAmount: web3.utils.fromWei(
-                    result.depositAmount.toString(),
-                    "ether"
-                  ),
-                  StakingWithdrawl: result.paid,
-                });
-                if (result.paid == false) {
-                  userAllStakingsCnt =
-                    parseFloat(userAllStakingsCnt) +
-                    parseFloat(
-                      web3.utils.fromWei(result.depositAmount.toString(), "ether")
-                    );
-                  setUserDeposit(userAllStakingsCnt);
-
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        };
-       
-
-
-        const fetchTotal_PYR_Staked = async () => {
-            const staking7 =await sdk?.getContractFromAbi(StakingABIContractAdd7,StakingABI)
-            let staking14 = await sdk?.getContractFromAbi(StakingABIContractAdd14,StakingABI)
-            let staking30 =  await sdk?.getContractFromAbi(StakingABIContractAdd30,StakingABI)
-            let staking60 =  await sdk?.getContractFromAbi(StakingABIContractAdd60,StakingABI)
-            let staking90 =  await sdk?.getContractFromAbi(StakingABIContractAdd90,StakingABI)
-            let staking180 =  await sdk?.getContractFromAbi(StakingABIContractAdd180,StakingABI)
-          let totalTiersAmt : any;
-          await staking7?.call('stakedBalance')
-            .then(async (balance) => {
-              totalTiersAmt =
-                TotalStakedAmount +
-                parseFloat(web3.utils.fromWei(balance.toString(), "ether"));
-              setTotalStakedAmount(totalTiersAmt);
-    
-              await staking14?.call('stakedBalance')
-                .then(async (balance14) => {
-                  totalTiersAmt += parseFloat(
-                    web3.utils.fromWei(balance14.toString(), "ether")
-                    
-                  );
-                  setTotalStakedAmount(totalTiersAmt);
-    
-                  await staking30?.call('stakedBalance')
-                    .then(async (balance30) => {
-                      totalTiersAmt += parseFloat(
-                        web3.utils.fromWei(balance30.toString(), "ether")
-                      );
-                      setTotalStakedAmount(totalTiersAmt);
-    
-                      await staking60?.call('stakedBalance')
-                        .then(async (balance60) => {
-                          totalTiersAmt += parseFloat(
-                            web3.utils.fromWei(balance60.toString(), "ether")
-                          );
-                          setTotalStakedAmount(totalTiersAmt);
-    
-                          await staking90?.call('stakedBalance')
-                            .then(async (balance90) => {
-                              totalTiersAmt += parseFloat(
-                                web3.utils.fromWei(balance90.toString(), "ether")
-                              );
-                              setTotalStakedAmount(totalTiersAmt);
-    
-                              await staking180?.call('stakedBalance')
-                                .then(async (balance180) => {
-                                  totalTiersAmt += parseFloat(
-                                    web3.utils.fromWei(
-                                      balance180.toString(),
-                                      "ether"
-                                    )
-                                  );
-                                  // alert(totalTiersAmt)
-                                  setTotalStakedAmount(totalTiersAmt);
-                                      dispatch(setStakedAmount(totalTiersAmt));
-                                      dispatch(setDeposits(totalTiersAmt));
-
-                                  })
-                                .catch((err)=>{
-                                    console.log('error : ',err)
-                                });
-                            })
-                            .catch((err)=>{
-                                console.log('error : ',err)
-                            });
-                        })
-                        .catch((err)=>{
-                            console.log('error : ',err)
-                        });
-                    })
-                    .catch((err)=>{
-                        console.log('error : ',err)
-                    });
-                })
-                .catch((err)=>{
-                    console.log('error : ',err)
-                });
-            })
-            .catch((err)=>{
-                console.log('error : ',err)
-            });
-        };
-    
-        fetchAllStakingDurations().catch(console.error);
-        fetchTotal_PYR_Staked().catch(console.error);
+        fetchAllStakingDurations();
+        fetchTotal_PYR_Staked();
 
       }, [account]);
     
@@ -378,7 +384,8 @@ function ProfileStakingInfoCard() {
                   </>
               </div> :
 
-               <Button className='w-full' onPress={()=>{
+               <Button className='w-full'  isLoading={loader} onPress={()=>{
+                setLoader(true);
                 withdraw(StakingABIContractAdd7);
             }}>Claim</Button>
 
@@ -421,7 +428,8 @@ function ProfileStakingInfoCard() {
                   </>
               </div> :
 
-               <Button className='w-full' onPress={()=>{
+               <Button className='w-full' isLoading={loader} onPress={()=>{
+                setLoader(true);
                 withdraw(StakingABIContractAdd14);
             }}>Claim</Button>
 
@@ -463,8 +471,10 @@ function ProfileStakingInfoCard() {
                   </>
               </div> :
 
-               <Button className='w-full' onPress={()=>{
+               <Button className='w-full'  isLoading={loader} onPress={()=>{
+                setLoader(true)
                 withdraw(StakingABIContractAdd30);
+
             }}>Claim</Button>
 
                 }
@@ -505,7 +515,8 @@ function ProfileStakingInfoCard() {
                   </>
               </div> :
 
-               <Button className='w-full' onPress={()=>{
+               <Button className='w-full'  isLoading={loader} onPress={()=>{
+                setLoader(true);
                 withdraw(StakingABIContractAdd60);
             }}>Claim</Button>
 
@@ -547,7 +558,8 @@ function ProfileStakingInfoCard() {
                   </>
               </div> :
 
-               <Button className='w-full' onPress={()=>{
+               <Button className='w-full'  isLoading={loader} onPress={()=>{
+                setLoader(true);
                 withdraw(StakingABIContractAdd90);
             }}>Claim</Button>
 
@@ -589,8 +601,10 @@ function ProfileStakingInfoCard() {
                   </>
               </div> :
 
-               <Button className='w-full' onPress={()=>{
+               <Button className='w-full'  isLoading={loader} onPress={()=>{
+                setLoader(true);
                 withdraw(StakingABIContractAdd180);
+
             }}>Claim</Button>
 
                 }
