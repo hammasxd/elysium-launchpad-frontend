@@ -1,5 +1,5 @@
 'use client'
-import { Card, CardHeader, CardBody,Image, Divider } from '@nextui-org/react'
+import { Card, CardHeader, CardBody,Image, Divider, Skeleton } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import idos from "../../assets/images/icon-pyr.png";
 import axios from 'axios';
@@ -12,7 +12,7 @@ function PYRInfoCard() {
     const [currentPrice,setCurrentPrice]=useState('')
     const [marketRank,setMarketRank]=useState('')
     const [pyrImae,setPYRImage]=useState(idos.src)
-    
+    const [isLoaded,setIsLoaded]=useState(false);
    
 useEffect(() => {
  
@@ -26,6 +26,7 @@ useEffect(() => {
           setCurrentPrice(response.data.market_data.current_price.usd);
           setMarketRank(response.data.market_data.market_cap_rank);
           setPYRImage(response.data.image.small);
+          setIsLoaded(true);
         })
         .catch((error) => {});
 
@@ -39,7 +40,8 @@ useEffect(() => {
 
   return (
 <>
-        <Card className='p-10 bg-transparent backdrop-blur shadow-xl h-full backdrop-brightness-150'>
+<Skeleton isLoaded={isLoaded} className=' rounded-lg bg-primary-500 h-full ' >
+        <Card className='p-10 bg-transparent backdrop-blur shadow-xl h-[345px] backdrop-brightness-150'>
             <CardHeader className='flex justify-start'>
                 <Image
                 src={pyrImae}
@@ -77,6 +79,7 @@ useEffect(() => {
             
             </CardBody>
         </Card>
+        </Skeleton>
         </>
   )
 }

@@ -3,7 +3,7 @@ import { baseUrl } from '@/app/constants/baseUrl'
 import { partiIdo } from '@/app/constants/types'
 import { setParticipatedIdos } from '@/redux/features/participatedIDOsSlice'
 import { AppDispatch } from '@/redux/store'
-import { Card, CardBody, CardHeader, Progress } from '@nextui-org/react'
+import { Card, CardBody, CardHeader, Progress, Skeleton } from '@nextui-org/react'
 import { useAddress } from '@thirdweb-dev/react'
 import axios from 'axios'
 
@@ -18,6 +18,7 @@ function ProfileParticipatedCard() {
     participatedIDO:0,
     total:0
   })
+  const [isLoading,setIsLoading]=useState(true);
   const walletAddress=useAddress();
   let dataiNeed:partiIdo={
     participatedIDO:0,
@@ -25,20 +26,39 @@ function ProfileParticipatedCard() {
   }
 useEffect(() => {
   if(walletAddress!=undefined){
-    axios
-    .post(`${baseUrl}/getUserParticipatedIDOs`, { address: walletAddress })
-    .then(function (response) {
-      let toSet= response.data.data;
-      dispatch(setParticipatedIdos(toSet));
-      toSet=toSet[(toSet.length)-1];
-      setpartiIdo(toSet);
-      //Response Of IDOS
-    })}
+    fetch(`${baseUrl}/getUserParticipatedIDOs`, {
+      cache:'force-cache',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ address: walletAddress }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        let toSet = data.data;
+        dispatch(setParticipatedIdos(toSet));
+        toSet = toSet[toSet.length - 1];
+        setpartiIdo(toSet);
+        setIsLoading(false);
+        // Response Of IDOS
+      })
+      .catch(error => {
+        // Handle error here
+        console.error('Error:', error);
+      });
+    }
 }, [walletAddress])
 
   return (
 <>
-    <Card className='p-10 bg-transparent backdrop-blur shadow-xl backdrop-brightness-150'>
+<Skeleton isLoaded={!isLoading} className=' rounded-lg bg-primary-500 h-full '>
+    <Card className='p-10 bg-transparent backdrop-blur shadow-xl h-[345px] backdrop-brightness-150'>
     <CardHeader>
         <h1 className='text-left text-2xl w-full '> IDOs Participated </h1>
     </CardHeader>
@@ -48,7 +68,7 @@ useEffect(() => {
         <h1 className=' font-bold mt-20 text-right text-5xl '>{partiIdo?.participatedIDO}/{partiIdo?.total}</h1>
     </CardBody>
 </Card>
-
+</Skeleton>
       
       </>
 

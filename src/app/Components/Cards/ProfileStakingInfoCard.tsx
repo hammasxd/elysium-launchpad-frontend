@@ -1,5 +1,5 @@
 'use client'
-import { Button, Card, CardBody, CardHeader, Divider } from '@nextui-org/react'
+import { Button, Card, CardBody, CardHeader, Divider, Skeleton } from '@nextui-org/react'
 import { GasCostEstimator, SmartContract, getContractFromAbi, useAddress,useContract, useSDK } from '@thirdweb-dev/react';
 import React, { useEffect, useState } from 'react'
 import web3 from 'web3'
@@ -41,7 +41,7 @@ function ProfileStakingInfoCard() {
 
     const [UserDeposit, setUserDeposit] = useState(0);
     const dispatch = useDispatch<AppDispatch>()
-
+    const [isLoaded,setIsLoaded]=useState(false)
     const sdk=useSDK();
 
 
@@ -332,13 +332,17 @@ function ProfileStakingInfoCard() {
         
     
         fetchAllStakingDurations();
-        fetchTotal_PYR_Staked();
+        fetchTotal_PYR_Staked().then(()=>{
+          setIsLoaded(true);
+        });
 
       }, [account]);
     
     return (
         <>
-        <Card className='p-10 bg-transparent backdrop-blur shadow-xl h-full backdrop-brightness-150'>
+        <Skeleton isLoaded={isLoaded} className='rounded-lg bg-primary-500 h-full ' content='true'>
+        <Card className='p-10 bg-transparent backdrop-blur shadow-xl h-[345px] backdrop-brightness-150 overflow-visible'>
+        
             <CardHeader>
                 <h1 className='text-left text-2xl w-full'>Current Staking Pool</h1>
             </CardHeader>
@@ -608,7 +612,9 @@ function ProfileStakingInfoCard() {
                 </>
                 ) : ''}
             </CardBody>
+            
         </Card>
+        </Skeleton>
         </>
   )
 }

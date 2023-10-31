@@ -137,7 +137,7 @@ function Header() {
   ]
 
   return (
-    <Navbar isBlurred={false} height={'4em'} maxWidth='xl' className={`  z-50 py-5 bg-transparent capitalize  ${
+    <Navbar isBlurred={false} height={'4em'} maxWidth='xl' className={`z-50 py-5 bg-transparent capitalize  ${
       isScrolled ? 'backdrop-blur-md' : ''
     }`}>
       <NavbarContent className="sm:hidden" justify="start">
@@ -199,7 +199,7 @@ function Header() {
         </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat">
           <DropdownItem  key="Profile">
-            <Link href={`/profile`} >Profile</Link>
+            <Link onPress={()=>router.push('/profile')} >Profile</Link>
           </DropdownItem>
           <DropdownItem key="help_and_feedback">
             Help & Feedback

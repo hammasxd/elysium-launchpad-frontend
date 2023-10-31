@@ -58,11 +58,9 @@ theme="light"
         <AppProvider>
         
         <div className='wrapper' >
+          
         <Header/>
-        
-
-
-        {children}
+          {children}
         <Footer/>
         </div>
         </AppProvider>

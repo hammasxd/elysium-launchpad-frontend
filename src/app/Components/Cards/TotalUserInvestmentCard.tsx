@@ -1,11 +1,12 @@
 'use client'
-import { Card, CardHeader, CardBody,Image } from '@nextui-org/react'
+import { Card, CardHeader, CardBody,Image, Skeleton } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import pyrLogo from '../../assets/images/PYRicon.png'
 import busdIcon from '../../assets/images/busd-logo.png'
 import { baseUrl, saleToken, tokenName } from '@/app/constants/baseUrl'
 import { useAppSelector } from '@/redux/store'
 function TotalUserInvestmentCard() {
+    const [isLoaded,setIsLoaded]=useState(false)
     const [deposits,setDeposits]=useState<any>();
     const userDeposits= useAppSelector((state)=> state.depositsReduder.value)
     const userAddress= useAppSelector((state)=> state.addressReducer.value)
@@ -18,6 +19,7 @@ function TotalUserInvestmentCard() {
             body: JSON.stringify({ address: userAddress }),
         }).then((response)=>response.json()).then((data)=>{
             setDeposits(data?.data);
+            setIsLoaded(true);
         }
         )
     }
@@ -32,7 +34,9 @@ function TotalUserInvestmentCard() {
 
   return (
     <>
-        <Card className='p-10 bg-transparent backdrop-blur shadow-xl h-full backdrop-brightness-150'>
+            <Skeleton isLoaded={isLoaded} className='rounded-lg bg-primary-500 h-full ' content='true'>
+
+        <Card className='p-10 bg-transparent backdrop-blur shadow-xl h-[345px] backdrop-brightness-150'>
             <CardHeader className='flex justify-start'>
                 <h1 className='text-left text-2xl'>User Total Investment</h1>
             </CardHeader>
@@ -73,6 +77,7 @@ function TotalUserInvestmentCard() {
             
             </CardBody>
         </Card>
+        </Skeleton>
         </>
   )
 }

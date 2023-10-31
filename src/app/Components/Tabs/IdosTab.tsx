@@ -1,5 +1,5 @@
+'use client'
 import React, { useState } from 'react'
-
 import ProfileParticipatedCard from '../Cards/ProfileParticipatedCard'
 import ProfileStakingInfoCard from '../Cards/ProfileStakingInfoCard'
 import PYRInfoCard from '../Cards/PYRInfoCard'
@@ -13,22 +13,23 @@ function IdosTab() {
   return (
     <div className='flex flex-col gap-16'>
       <div className='manyCards grid grid-cols-3 grid-rows-2 gap-8'>
-        <div className=' ' >
+        <div className=' w-full ' >
        <ProfileParticipatedCard />
         </div >
-        <div className=''>
+        <div className=' w-full h-full '>
         <ProfileStakingInfoCard  />
+        
         </div>
-        <div className=''>
+        <div className=' w-full h-full'>
         <PYRInfoCard/>
         </div>
-        <div className=''>
+        <div className=' h-full w-full'>
         <TotalUserInvestmentCard/>
         </div>
-        <div className=''>
+        <div className=' h-full w-full'>
         <AllPoolStatsCard/>
         </div>
-        <div className=''>
+        <div className=' h-full w-full'>
         <UserTierCard/>
         </div>
 

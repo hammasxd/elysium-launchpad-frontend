@@ -12,6 +12,7 @@ import WelcomeTo from './Components/WelcomeTo'
 import { Router } from "next/router";
 
 import OurTeam from './Components/Team'
+import Loader from './Components/loader'
 export default function Home() {
 const IdosData:{apiUrl:any,apiUrlPaginated:any, IntroTitle:any, bgImageSrc:any,learnMore:any}[]=[
   {apiUrl:`${baseUrl.baseUrl}/getfirstActiveIDOs`,apiUrlPaginated:`${baseUrl.baseUrl}/getActiveIDOsPaginated`,IntroTitle:'Active Projects',bgImageSrc:activee.src,learnMore:'/ido/active'},
@@ -20,6 +21,7 @@ const IdosData:{apiUrl:any,apiUrlPaginated:any, IntroTitle:any, bgImageSrc:any,l
   ]
   return (
    <div className='w-full mt-10'> 
+   
     <Intro/>
     <Stats/>
     {IdosData.map((item, index) => (
