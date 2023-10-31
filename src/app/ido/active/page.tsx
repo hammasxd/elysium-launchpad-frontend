@@ -141,7 +141,7 @@ const Page = () => {
           })
         ) : completedIDOs.length === 0 && status === "In-progress" ? (
           <div className="w-full text-center items-center">
-            <Image src={completed.src} className="w-full" />
+            <Image src={completed.src} className="w-full" alt="bg completed" />
           </div>
         ) : (
           <Spinner />

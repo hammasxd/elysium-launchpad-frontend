@@ -349,7 +349,7 @@ const [buyValue,setBuyValue]=useState<string>('')
          
 const BusdLogo = ({ }:any) => (
     <>
-    <Image src={busd.src} width={30} height={30}/>     
+    <Image src={busd.src} width={30} height={30} alt='busd logo'/>     
     <span className=' text-yellow-400 font-extrabold'>BUSD</span>     
     </>  
       )

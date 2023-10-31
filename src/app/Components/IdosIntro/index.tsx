@@ -124,6 +124,7 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,learnMore }:
                 ) : ShowCompleted.length == 0 && Status == "In-progress" ? (
                     <div className="w-full text-center items-center">
                         <Image
+                        alt="bg image"
                             src={bgImageSrc}
                             className=" w-full"
                         />

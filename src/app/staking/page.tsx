@@ -24,7 +24,7 @@ async function getData() {
 async function Saking() {
     const apiData=await getData()
   return (
-    <div className='flex flex-row w-[1150px] mx-auto'>
+    <div className='flex flex-row w-[1150px] min-h-[100vh] my-auto mx-auto justify-center items-center align-middle'>
         <div className='infoDiv w-1/2 flex flex-col gap-40'>
             <div className='headings'>
                 <h1 className='text-5xl '><span className=' font-extrabold '>Stake</span> your <span className=' font-extrabold '>PYR</span> to join <span className=' font-extrabold '>IDOs</span>  and  <span className=' font-extrabold '>INOs</span></h1>

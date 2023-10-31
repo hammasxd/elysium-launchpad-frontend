@@ -198,6 +198,7 @@ function UserCompletedNftCard({ poolName, nft, index, isLoaded, isLoadedImage,se
                                                         <CardHeader className='flex flex-row gap-10'>
                                                             <div className='flex flex-row '>
                                                                 <Image
+                                                                alt='pool image'
                                                                     width={40}
                                                                     height={40}
                                                                     src={ImagesURL[`${nft.NFTPoolType}`]} />
@@ -205,7 +206,7 @@ function UserCompletedNftCard({ poolName, nft, index, isLoaded, isLoadedImage,se
                                                                     className='mt-[18px] -ml-[15px] bg-primary-50 rounded-full'
                                                                     width={40}
                                                                     height={40}
-
+                                                                    alt='pool fron image'
                                                                     src={ImagesURL['PYR']} />
                                                             </div>
                                                             <div className='-ml-[50px]'>

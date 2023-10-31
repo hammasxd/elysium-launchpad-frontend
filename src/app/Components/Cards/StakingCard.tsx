@@ -136,7 +136,7 @@ switch (selectedValue) {
 
       //pyr logo
       const PYRLogo=()=>{
-        return <Image src={PYRlogo.src} width={20} height={20} />
+        return <Image src={PYRlogo.src} width={20} height={20} alt='bg-image' />
       }
       //max button to set max amount
       const MaxButton = ({ stakingAmount, setStakingAmount }:any) => {

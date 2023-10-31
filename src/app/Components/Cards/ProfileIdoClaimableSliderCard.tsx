@@ -122,6 +122,7 @@ function ProfileIdoClaimableSliderCard({key,index,Ido}:any) {
             </> :
             <div className="w-full text-center items-center">
             <Image
+            alt='bg image'
                 src={bgImageSrc.src}
                 className=" w-full"
             />

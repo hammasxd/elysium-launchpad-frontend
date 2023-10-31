@@ -716,6 +716,7 @@ const pageCountClaimed = claimedOnly.length;
       </div> : 
      <div className="w-full text-center flex flex-col items-center">
      <Image
+     alt='bg image'
          src={bgImageSrc.src}
          className=" w-full max-h-[300px]"
      />
@@ -750,6 +751,7 @@ const pageCountClaimed = claimedOnly.length;
       </div> : 
      <div className="w-full text-center flex flex-col items-center">
      <Image
+     alt='bg image'
          src={bgImageSrc.src}
          className=" w-full max-h-[300px]"
      />
@@ -788,6 +790,7 @@ const pageCountClaimed = claimedOnly.length;
       </div> : 
      <div className="w-full flex flex-col justify-center text-center items-center">
      <Image
+     alt='bg image'
          src={bgImageSrc.src}
          className=" w-full max-h-[300px]"
      />

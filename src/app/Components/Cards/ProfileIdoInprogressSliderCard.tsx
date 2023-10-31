@@ -109,6 +109,7 @@ function ProfileIdoInprogressSliderCard({key,index,Ido}:any) {
             <div className="w-full text-center items-center">
             <Image
                 src={bgImageSrc.src}
+                alt='bg image'
                 className=" w-full"
             />
         </div>

@@ -106,6 +106,7 @@ const NftIntroCompleted = ({poolName,IntroTitle,learnMore,bgImageSrc}:any) => {
                 ) : completedNFTPool.length == 0 && status == "In-progress" ? (
                     <div className="w-full text-center items-center">
                         <Image
+                        alt='bg image'
                             src={bgImageSrc}
                             className=" w-full"
                         />

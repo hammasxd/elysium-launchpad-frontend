@@ -140,7 +140,7 @@ const UserLikedNfts = () => {
           
         <Image 
         src={bgCompleted.src}
-
+          alt='bg image'
         />
       
         </div>

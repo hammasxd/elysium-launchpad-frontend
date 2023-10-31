@@ -47,6 +47,7 @@ function TotalUserInvestmentCard() {
         <div className='flex flex-col justify-center h-full gap-6' >
                     <div className='flex flex-row'>
                         <Image
+                        alt='bg image'
                         src={busdIcon.src}
                         width={50}
                         height={50}
@@ -60,6 +61,7 @@ function TotalUserInvestmentCard() {
                     </div>
                     <div className='flex flex-row'>
                         <Image 
+                        alt='bg image'
                         src={pyrLogo.src}
                         width={50}
                         height={50}

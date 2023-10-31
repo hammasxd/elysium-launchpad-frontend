@@ -128,7 +128,7 @@ const Page = () => {
   let indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col w-full self-center items-center align-middle justify-center min-h-[95vh]">
       <div className="w-full mx-auto text-center">
         <h3 className="text-7xl font-bold">Completed Projects</h3>
       </div>
@@ -141,7 +141,7 @@ const Page = () => {
           })
         ) : completedIDOs.length === 0 && status === "In-progress" ? (
           <div className="w-full text-center items-center">
-            <Image src={completed.src} className="w-full" />
+            <Image src={completed.src} className="w-full" alt="bg complted" />
           </div>
         ) : (
           <Spinner />

@@ -159,12 +159,13 @@ function UserInprogressNftCard({ poolName, nft, index, isLoaded, isLoadedImage }
                                                                     <Image
                                                                         width={40}
                                                                         height={40}
+                                                                        alt='pool image'
                                                                         src={ImagesURL[`${nft.NFTPoolType}`]} />
                                                                     <Image
                                                                         className='mt-[18px] -ml-[15px] bg-primary-50 rounded-full'
                                                                         width={40}
                                                                         height={40}
-
+                                                                        alt='pool front image'
                                                                         src={ImagesURL['PYR']} />
                                                                 </div>
                                                                 <div className='-ml-[50px]'>

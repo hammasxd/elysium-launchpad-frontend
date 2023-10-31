@@ -142,7 +142,7 @@ const UserInprogressNfts = () => {
           
         <Image 
         src={bgCompleted.src}
-
+        alt='bg image'
         />
       
         </div>

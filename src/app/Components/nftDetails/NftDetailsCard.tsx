@@ -525,7 +525,7 @@ const likeNft=()=> {
       }
     const LAVALogo = () =>(
       <>
-      <Image src={ImagesURL[`${nftData.NFTPoolType}`]} width={30} height={30}/>     
+      <Image src={ImagesURL[`${nftData.NFTPoolType}`]} width={30} height={30} alt='nft pool image'/>     
       </>  
         )
      
