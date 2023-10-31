@@ -9,6 +9,8 @@ import baseUrl from './constants/baseUrl'
 import LaunchProject from './Components/LaunchProject'
 import ChooseUs from './Components/ChooseUs'
 import WelcomeTo from './Components/WelcomeTo'
+import { Router } from "next/router";
+
 import OurTeam from './Components/Team'
 export default function Home() {
 const IdosData:{apiUrl:any,apiUrlPaginated:any, IntroTitle:any, bgImageSrc:any,learnMore:any}[]=[

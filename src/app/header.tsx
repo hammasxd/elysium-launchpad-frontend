@@ -174,7 +174,7 @@ function Header() {
       <NavbarContent className="hidden sm:flex gap-7 capitalize" justify="start">
       {bigMenuItems.map((item, index) => (
           <NavbarItem key={`${item}-${index}`}>
-            <Link color={"foreground"} href={item.hrf} size="sm">
+            <Link className=' cursor-pointer' color={"foreground"} onPress={()=>{router.push(`${item.hrf}`)}} size="sm">
               {item.name}
             </Link>
           </NavbarItem>
