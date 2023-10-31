@@ -14,7 +14,7 @@ function FarmCard({poolname,count}:any) {
  
    return (
 
-<Card onPress={()=>router.push(`/nftLaunchpad/lpTokens/${poolname}`)} className=" p-5 backdrop-blur bg-transparent rounded-3xl hover:-translate-y-7  hover:backdrop-blur shadow-glow">
+<Card isPressable onPress={()=>router.push(`/nftLaunchpad/lpTokens/${poolname}`)} className=" p-5 backdrop-blur bg-transparent rounded-3xl hover:-translate-y-7  hover:backdrop-blur shadow-glow">
     <CardHeader className="flex flex-row justify-center">
     
       <Image
