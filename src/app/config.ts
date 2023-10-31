@@ -21,13 +21,8 @@ async function connectToMongo() {
   try {
     await client.connect();
     const db = client.db(DB_NAME);
-    console.log("Connected to MongoDB");
     
-    // Now you can use the 'db' object to perform CRUD operations
-    // For example:
-    // const collection = db.collection('your_collection_name');
-    // const result = await collection.insertOne({ /* document data */ });
-    // console.log(result);
+  
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   } finally {

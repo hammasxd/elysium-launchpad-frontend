@@ -5,6 +5,7 @@ import { saleToken } from '@/app/constants/baseUrl'
 import { useSDK, useWallet } from '@thirdweb-dev/react'
 import { Ido_ABI } from '@/app/constants/info'
 import bgImageSrc from '../../assets/images/No-Participations.png'
+import { toast } from 'react-toastify'
 
 
 function ProfileIdoClaimableSliderCard({key,index,Ido}:any) {
@@ -20,8 +21,8 @@ function ProfileIdoClaimableSliderCard({key,index,Ido}:any) {
             const receipt= tx.receipt;
 
         }catch(error){
-            console.log('error in transaction : ' ,error)
-        }
+            toast.error('Error in transaction.');
+            }
 
 
     }

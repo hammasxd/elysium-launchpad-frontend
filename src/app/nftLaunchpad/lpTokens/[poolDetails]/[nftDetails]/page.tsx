@@ -23,7 +23,6 @@ async function getNFTData(nftAdress:any) {
         })
     })
     if(!response.ok){
-        console.log('error in response', response.status);
     }
     const data=await response.json();
     return data.data;

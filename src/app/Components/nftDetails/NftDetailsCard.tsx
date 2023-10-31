@@ -188,7 +188,7 @@ const likeNft=()=> {
         }
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   }
 
@@ -481,7 +481,6 @@ const likeNft=()=> {
                 let inInt=parseInt(result._hex,16)
                 setPurchased(inInt);
               }).catch((err)=>{
-                console.log('err in getting total sold nft : ',err)
               })
               onClose();
 
@@ -519,11 +518,9 @@ const likeNft=()=> {
             })
             }
             
-            console.log('err in locking tokens : ',err)
             onClose();
           })
         }).catch((err)=>{
-          console.log('error invoking the contract : ' , err)
         });
       }
     const LAVALogo = () =>(

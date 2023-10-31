@@ -173,7 +173,7 @@ useEffect(
                                                                           )
                                                                           .catch(
                                                                             (err)=>{
-                                                                              console.log(err)
+                                                                              
                                                                             }
                                                                             
                                                                           );
@@ -182,7 +182,7 @@ useEffect(
                                                                   )
                                                                   .catch(
                                                                    (err)=>{
-                                                                    console.log(err)
+                                                                    
                                                                    }
                                                                   );
                                                               } else {
@@ -250,14 +250,14 @@ useEffect(
                                                                   )
                                                                   .catch(
                                                                    (err)=>{
-                                                                    console.log(err)
+                                                                    
                                                                    }
                                                                   );
                                                               }
                                                             })
                                                             .catch(
                                                              (err)=>{
-                                                              console.log(err)
+                                                              
                                                              }
                                                             );
                                                         } else {
@@ -316,14 +316,14 @@ useEffect(
                                                             })
                                                             .catch(
                                                             (err)=>{
-                                                              console.log(err)
+                                                              
                                                             }
                                                             );
                                                         }
                                                       })
                                                       .catch(
                                                         (err)=>{
-                                                          console.log(err)
+                                                          
                                                         }
                                                       );
                                                   } else {
@@ -381,14 +381,14 @@ useEffect(
                                                       })
                                                       .catch(
                                                        (err)=>{
-                                                        console.log(err)
+                                                        
                                                        }
                                                       );
                                                   }
                                                 })
                                                 .catch(
                                                   (err)=>{
-                                                   console.log(err)
+                                                   
                                                   }
                                                 );
                                             } else {
@@ -442,14 +442,14 @@ useEffect(
                                                 })
                                                 .catch(
                                                   (err)=>{
-                                                   console.log(err)
+                                                   
                                                   }
                                                 );
                                             }
                                           })
                                           .catch(
                                             (err)=>{
-                                             console.log(err)
+                                             
                                             });
                                       } else {
                                         invest.push(
@@ -494,13 +494,13 @@ useEffect(
                                           })
                                           .catch(
                                             (err)=>{
-                                             console.log(err)
+                                             
                                             });
                                       }
                                     })
                                     .catch(
                                       (err)=>{
-                                       console.log(err)
+                                       
                                       });
                                 } else {
                                   invest.push(
@@ -538,13 +538,13 @@ useEffect(
                                     })
                                     .catch(
                                       (err)=>{
-                                       console.log(err)
+                                       
                                       });
                                 }
                               })
                               .catch(
                                 (err)=>{
-                                 console.log(err)
+                                 
                                 });
                           } else {
                             invest.push(
@@ -581,13 +581,13 @@ useEffect(
                               })
                               .catch(
                                 (err)=>{
-                                 console.log(err)
+                                 
                                 });
                           }
                         })
                         .catch(
                           (err)=>{
-                           console.log(err)
+                           
                           });
                     } else {
                       invest.push(
@@ -624,13 +624,13 @@ useEffect(
                         })
                         .catch(
                           (err)=>{
-                           console.log(err)
+                           
                           });
                     }
                   })
                   .catch(
                     (err)=>{
-                     console.log(err)
+                     
                     });
                     setInvested(invest);
 

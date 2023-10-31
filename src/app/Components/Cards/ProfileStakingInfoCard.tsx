@@ -67,7 +67,6 @@ function ProfileStakingInfoCard() {
       } catch (error) {
         setLoader(false);
         toast.error('Transaction Failed');
-        console.log('error in transaction : ' ,error)
        }
     };
     let userAllStakingsCnt :any;
@@ -111,7 +110,6 @@ function ProfileStakingInfoCard() {
           }
         })
         .catch((err) => {
-          console.log(err);
         });
 
       await staking14?.call('deposits',[account])
@@ -137,7 +135,6 @@ function ProfileStakingInfoCard() {
           }
         })
         .catch((err) => {
-          console.log(err);
         });
 
       await staking30?.call('deposits',[account])
@@ -163,7 +160,7 @@ function ProfileStakingInfoCard() {
           }
         })
         .catch((err) => {
-          console.log(err);
+          
         });
 
       await staking60?.call('deposits',[account])
@@ -189,7 +186,7 @@ function ProfileStakingInfoCard() {
           }
         })
         .catch((err) => {
-          console.log(err);
+          
         });
 
       await staking90?.call('deposits',[account])
@@ -215,7 +212,7 @@ function ProfileStakingInfoCard() {
           }
         })
         .catch((err) => {
-          console.log(err);
+          
         });
 
       await staking180?.call('deposits',[account])
@@ -241,7 +238,7 @@ function ProfileStakingInfoCard() {
           }
         })
         .catch((err) => {
-          console.log(err);
+          
         });
     }
   };
@@ -307,27 +304,27 @@ function ProfileStakingInfoCard() {
 
                             })
                           .catch((err)=>{
-                              console.log('error : ',err)
+                              
                           });
                       })
                       .catch((err)=>{
-                          console.log('error : ',err)
+                          
                       });
                   })
                   .catch((err)=>{
-                      console.log('error : ',err)
+                      
                   });
               })
               .catch((err)=>{
-                  console.log('error : ',err)
+                  
               });
           })
           .catch((err)=>{
-              console.log('error : ',err)
+              
           });
       })
       .catch((err)=>{
-          console.log('error : ',err)
+          
       });
   };
 

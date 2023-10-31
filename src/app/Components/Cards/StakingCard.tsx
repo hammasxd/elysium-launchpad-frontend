@@ -184,7 +184,6 @@ switch (selectedValue) {
                         })
                     }
                 ).catch((err)=>{
-                    console.log(err)
                     toast.dismiss('buyProgress');
                     toast.error('transaction failed');
                 });

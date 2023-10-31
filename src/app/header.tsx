@@ -84,7 +84,6 @@ function Header() {
       })
         .then((response) => response.json())
         .then((data) => {
-          // console.log("hello User", data);
           if (data.response) {
             setImage(
               btoa(

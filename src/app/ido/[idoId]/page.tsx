@@ -63,7 +63,6 @@ const [buyValue,setBuyValue]=useState<string>('')
                             try {
                                 IDO3 =await sdk?.getContractFromAbi(address, IDO_ABI)
                             } catch (err) {
-                                console.log('failed : ',err)
                             }
 
                             if (resData.project_File != null) {
@@ -277,7 +276,6 @@ const [buyValue,setBuyValue]=useState<string>('')
             progress: undefined,
             toastId: "existtier",
           })
-          console.log(error);
     });
 
    
@@ -344,7 +342,6 @@ const [buyValue,setBuyValue]=useState<string>('')
             toastId: "existtier",
           })
         }
-          console.log(err);
     })
 }
 
