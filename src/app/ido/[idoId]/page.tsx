@@ -674,7 +674,7 @@ fill="#fff"
                                            
                                             
                                                  <p className="text-white text-tiny flex-initial">
-                                                     {CompletedIDOs.filledPercentage} %
+                                                     {parseFloat(CompletedIDOs.filledPercentage).toFixed(2)}%
                                                  </p>
                                              
 

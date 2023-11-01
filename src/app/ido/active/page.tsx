@@ -132,7 +132,7 @@ const Page = () => {
       <div className="w-full m-auto text-center">
         <h3 className="text-7xl font-bold">Active Projects</h3>
       </div>
-      <div className="flex flex-wrap gap-10 z-40 mt-20 mx-auto h-auto items-center justify-center top-0 inset-x-0 mb-20 bg-transparent capitalize">
+      <div className="flex flex-wrap gap-10 z-40 mt-20 mx-auto h-auto items-center min-h[50vh] justify-center top-0 inset-x-0 mb-20 bg-transparent capitalize">
         {completedIDOs.length > 0 ? (
           completedIDOs.map((list: any, index) => {
             return (
@@ -144,7 +144,8 @@ const Page = () => {
             <Image src={completed.src} className="w-full" alt="bg completed" />
           </div>
         ) : (
-          <Spinner />
+          <div className="min-h-[50vh]"><Spinner /></div>
+          
         )}
       </div>
       <div className="pagination-container">

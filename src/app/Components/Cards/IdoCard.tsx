@@ -60,7 +60,7 @@ function IdoCard({list,isLoadedImage,isLoaded,index}:any) {
                                                 isLoaded={isLoaded}
                                             >
                                                 <p className="text-white text-tiny flex-initial">
-                                                    {list.filledPercentage}%
+                                                    {parseFloat(list.filledPercentage).toFixed(2)}%
                                                 </p>
                                             </Skeleton>
                                         </div>

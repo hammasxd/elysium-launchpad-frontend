@@ -138,7 +138,7 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,learnMore }:
                 {ShowCompleted.length > 0 ? (
                     <div  className="col-md-12 text-center">
                         <Link
-                            className=" text-primary-PAROT underline "
+                            className=" text-primary-PAROT underline cursor-pointer "
                             onPress={()=>router.push(learnMore)}
                         >
                             View More

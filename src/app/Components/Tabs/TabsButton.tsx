@@ -21,9 +21,9 @@ function TabsButton() {
 
       </div>
       <div className='ActiveTab'>
-        {
-          currentTab == 'IDOs' ? <IdosTab /> : <NftsTab />
-        }
+      <div className={`  ${currentTab == 'IDOs' ? 'block' : 'hidden'}`}><IdosTab /></div> 
+      <div className={`  ${currentTab == 'NFTs' ? 'block' : 'hidden'}`}><NftsTab /></div> 
+       
       </div>
     </div>
   )
