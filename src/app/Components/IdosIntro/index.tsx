@@ -50,10 +50,10 @@ const IdoIntro = ({ apiUrl, apiUrlPaginated, IntroTitle, bgImageSrc,learnMore }:
                                         continue;
                                     }
 
-                                    if (array[iteration].project_File != null) {
+                                    if (array[iteration].Thumbnail_File!= null) {
                                         array[iteration].base64 = btoa(
                                             new Uint8Array(
-                                                array[iteration].project_File.data.data
+                                                array[iteration].Thumbnail_File.data.data
                                             ).reduce(function (data, byte) {
                                                 return data + String.fromCharCode(byte);
                                             }, "")
