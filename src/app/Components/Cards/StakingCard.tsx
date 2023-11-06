@@ -126,7 +126,7 @@ switch (selectedValue) {
           },
           body: JSON.stringify({ address: walletAddress }),
       }).then((response)=>response.json()).then((data)=>{
-          setAlreadyStaking(data?.data?.amount)
+          setAlreadyStaking(data?.data?.amount);
           setCurretDays(data?.data?.days);
         })
         
@@ -180,6 +180,7 @@ switch (selectedValue) {
                         await a.call('approve',[stakeDurationContract,_amountWei]).then((a)=>{
 
                             toast.dismiss('buyProgress');
+                            getAllowanceAmount(stakeDurationContract);
                             
                         })
                     }
@@ -223,7 +224,7 @@ const stake=async ()=>{
     })
     return;
   }
-  if(curretnDays!=0 || curretnDays){
+  if(alreadyStaking!=0){
     toast.error(`already Staked for ${curretnDays} days`);
     return;
 } 
@@ -249,7 +250,10 @@ toast.loading('Transaction in Progress', {
 
       }
       
+      
       )
+      getUserStakingInfo();
+
 
 
 
@@ -264,7 +268,7 @@ toast.loading('Transaction in Progress', {
        useEffect(() => {
         if(walletAddress!=undefined){
 
-          getUserStakingInfo();
+            getUserStakingInfo();
             getBalance()
             getAllowanceAmount(stakeDurationContract);
 
@@ -361,7 +365,6 @@ toast.loading('Transaction in Progress', {
                                                             }
                                                             onChange={(e) => {
                                                                 setStakingAmount(e.target.value as unknown as number);
-
                                                                 setBuyAmount(e.target.value);
                                                               }}
                                                               inputMode='decimal'
@@ -371,7 +374,7 @@ toast.loading('Transaction in Progress', {
 
                                                           />
                     </div>
-                    { stakingAmount>=currentAllowance ?                     <Button className='bg-primary hover:bg-opacity-50 '  onPress={approveAmount}>Approve</Button>
+                    { stakingAmount>currentAllowance ?                     <Button className='bg-primary hover:bg-opacity-50 '  onPress={approveAmount}>Approve</Button>
                   :
                   <Button className='bg-primary hover:bg-opacity-50 '  onPress={stake}>Stake</Button>
 

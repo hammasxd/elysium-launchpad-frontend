@@ -8,10 +8,12 @@ async function getPoolData() {
       cache:'no-cache'
     });
     const data: any= response.json();
+   
     return data;
 }
 async function nftLaunchpad() {
     const poolData= await getPoolData();
+    
   return (
     <div className='  w-full mb-28'>
     <div className="container h-full m-auto">
@@ -40,11 +42,16 @@ async function nftLaunchpad() {
     </div>
     <div className='Farms flex flex-wrap mx-auto justify-center gap-4 mt-14 '>
     
-    {poolData.data.map((item:any, index:any) => (
+    { poolData.data!=null ? poolData.data.map((item:any, index:any) => (
 
         <FarmCard key={index} poolname={item.poolName} count={item.count} />
         
-      ))}
+      )) 
+    :
+    
+    <h1>No pools yet</h1>
+    }
+
 
    
     </div>

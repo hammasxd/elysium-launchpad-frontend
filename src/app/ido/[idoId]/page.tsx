@@ -36,6 +36,7 @@ let TokenABI = token_ABI();
   let TokenContractAddr = TokenContract_Add();
 const [isBuyModalOpen,setIsBuyModalOpen]=useState(false);
 const [approvalValue,setApprovalValue]=useState<string>('')
+const [refresh,setRefresh]=useState(true);
 const [buyValue,setBuyValue]=useState<string>('')
  
   
@@ -102,6 +103,7 @@ const [buyValue,setBuyValue]=useState<string>('')
                                       IDO3?.call('maxAllocaPerUserTierOne').then((a:any)=>{
                                         resData.maxAlloc = utils.formatEther(a);
                                         setMaxAlloc(resData.maxAlloc)
+                                        setApprovalValue(resData.maxAlloc)
                                       })
                                     }
                             })
@@ -113,6 +115,8 @@ const [buyValue,setBuyValue]=useState<string>('')
                                     IDO3?.call('maxAllocaPerUserTierTwo').then((a:any)=>{
                                         resData.maxAlloc = utils.formatEther(a);
                                         setMaxAlloc(resData.maxAlloc)
+                                        setApprovalValue(resData.maxAlloc)
+
                                       })
                                 }
                                 })
@@ -125,6 +129,8 @@ const [buyValue,setBuyValue]=useState<string>('')
                                         IDO3?.call('maxAllocaPerUserTierThree').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
+                                            setApprovalValue(resData.maxAlloc)
+
                                           })
                                     }
                                     })
@@ -136,6 +142,8 @@ const [buyValue,setBuyValue]=useState<string>('')
                                         IDO3?.call('maxAllocaPerUserTierFour').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
+                                            setApprovalValue(resData.maxAlloc)
+
                                           })
                                     }
                                 })
@@ -147,6 +155,8 @@ const [buyValue,setBuyValue]=useState<string>('')
                                         IDO3?.call('maxAllocaPerUserTierFive').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
+                                            setApprovalValue(resData.maxAlloc)
+
                                           })
                                     }
                                 })
@@ -158,6 +168,8 @@ const [buyValue,setBuyValue]=useState<string>('')
                                         IDO3?.call('maxAllocaPerUserTierSix').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
+                                            setApprovalValue(resData.maxAlloc)
+
                                           })
                                     }
                                 })
@@ -169,6 +181,8 @@ const [buyValue,setBuyValue]=useState<string>('')
                                         IDO3?.call('maxAllocaPerUserTierSeven').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
+                                            setApprovalValue(resData.maxAlloc)
+
                                           })
                                     }
                                 })
@@ -180,6 +194,8 @@ const [buyValue,setBuyValue]=useState<string>('')
                                         IDO3?.call('maxAllocaPerUserTierEight').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
+                                            setApprovalValue(resData.maxAlloc)
+
                                           })
                                     }
                                 })
@@ -191,6 +207,8 @@ const [buyValue,setBuyValue]=useState<string>('')
                                         IDO3?.call('maxAllocaPerUserTierNine').then((a:any)=>{
                                             resData.maxAlloc = utils.formatEther(a);
                                             setMaxAlloc(resData.maxAlloc)
+                                            setApprovalValue(resData.maxAlloc)
+
                                           })
                                     }
                                 })
@@ -222,7 +240,7 @@ const [buyValue,setBuyValue]=useState<string>('')
 
 
     
-  }, [acountAddress])
+  }, [acountAddress,refresh])
   
   
   const approve=async (e:string)=>{
@@ -307,7 +325,8 @@ const [buyValue,setBuyValue]=useState<string>('')
           })
           setIsBuyModalOpen(false)
         },5000);
-        
+        setShowApprovalButton(true);
+        setRefresh(!refresh);
 
     }).catch((err)=>{
         toast.dismiss('buyProgress');
@@ -800,6 +819,7 @@ fill="#fff"
                                                             Close
                                                           </Button>
                                                           <Button  color="primary" onPress={()=>{
+
                                                                 approve(approvalValue)
                                                           }}>
                                                             Approve
@@ -814,7 +834,7 @@ fill="#fff"
                                             }
                                             {
 
-                                                !showApprovalButton &&
+                                                !showApprovalButton && 
                                                 <>
                                                 <Button onPress={()=>setIsBuyModalOpen(true)}  color="primary" className='w-1/2 hover:bg-opacity-50 '>Buy Token</Button>
                                                 <Modal 
